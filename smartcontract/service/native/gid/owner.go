@@ -23,12 +23,12 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/mileschao/ZeepinChain/common/log"
-	"github.com/mileschao/ZeepinChain/common/serialization"
-	"github.com/mileschao/ZeepinChain/core/states"
-	"github.com/mileschao/ZeepinChain/core/store/common"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native/utils"
+	"github.com/imZhuFei/zeepin/common/log"
+	"github.com/imZhuFei/zeepin/common/serialization"
+	"github.com/imZhuFei/zeepin/core/states"
+	"github.com/imZhuFei/zeepin/core/store/common"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
 )
 
 type owner struct {

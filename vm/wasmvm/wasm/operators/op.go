@@ -27,7 +27,7 @@ package operators
 import (
 	"fmt"
 
-	"github.com/mileschao/ZeepinChain/vm/wasmvm/wasm"
+	"github.com/imZhuFei/zeepin/vm/wasmvm/wasm"
 )
 
 var (

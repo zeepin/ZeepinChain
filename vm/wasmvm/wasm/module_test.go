@@ -28,7 +28,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/mileschao/ZeepinChain/vm/wasmvm/wasm"
+	"github.com/imZhuFei/zeepin/vm/wasmvm/wasm"
 )
 
 func TestReadModule(t *testing.T) {

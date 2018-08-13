@@ -22,7 +22,7 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/mileschao/ZeepinChain/common/constants"
+	"github.com/imZhuFei/zeepin/common/constants"
 	"github.com/stretchr/testify/assert"
 )
 

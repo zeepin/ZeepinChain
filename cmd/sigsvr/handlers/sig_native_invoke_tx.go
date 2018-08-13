@@ -22,11 +22,11 @@ import (
 	"bytes"
 	"encoding/hex"
 	"encoding/json"
-	"github.com/mileschao/ZeepinChain/cmd/abi"
-	clisvrcom "github.com/mileschao/ZeepinChain/cmd/sigsvr/common"
-	cliutil "github.com/mileschao/ZeepinChain/cmd/utils"
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/common/log"
+	"github.com/imZhuFei/zeepin/cmd/abi"
+	clisvrcom "github.com/imZhuFei/zeepin/cmd/sigsvr/common"
+	cliutil "github.com/imZhuFei/zeepin/cmd/utils"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/common/log"
 )
 
 type SigNativeInvokeTxReq struct {

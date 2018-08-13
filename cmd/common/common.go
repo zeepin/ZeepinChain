@@ -20,11 +20,11 @@ package common
 
 import (
 	"fmt"
-	"github.com/mileschao/ZeepinChain/account"
-	"github.com/mileschao/ZeepinChain/cmd/utils"
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/common/config"
-	"github.com/mileschao/ZeepinChain/common/password"
+	"github.com/imZhuFei/zeepin/account"
+	"github.com/imZhuFei/zeepin/cmd/utils"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/common/config"
+	"github.com/imZhuFei/zeepin/common/password"
 	"github.com/urfave/cli"
 	"strconv"
 )

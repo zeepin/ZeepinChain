@@ -20,7 +20,7 @@ package types
 import (
 	"testing"
 
-	cm "github.com/mileschao/ZeepinChain/common"
+	cm "github.com/imZhuFei/zeepin/common"
 )
 
 func TestBlkHdrReqSerializationDeserialization(t *testing.T) {

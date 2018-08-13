@@ -21,8 +21,8 @@ package neovm
 import (
 	"math/big"
 
-	"github.com/mileschao/ZeepinChain/errors"
-	"github.com/mileschao/ZeepinChain/vm/neovm/types"
+	"github.com/imZhuFei/zeepin/errors"
+	"github.com/imZhuFei/zeepin/vm/neovm/types"
 )
 
 func opArraySize(e *ExecutionEngine) (VMState, error) {

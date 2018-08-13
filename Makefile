@@ -1,7 +1,7 @@
 GOFMT=gofmt
 GC=go build
 VERSION := $(shell git describe --abbrev=4 --always --tags)
-BUILD_NODE_PAR = -ldflags "-X github.com/mileschao/ZeepinChain/common/config.Version=$(VERSION)" #-race
+BUILD_NODE_PAR = -ldflags "-X github.com/imZhuFei/zeepin/common/config.Version=$(VERSION)" #-race
 
 ARCH=$(shell uname -m)
 DBUILD=docker build

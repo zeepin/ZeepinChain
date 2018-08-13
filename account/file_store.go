@@ -26,7 +26,7 @@ import (
 	"os"
 
 	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/mileschao/ZeepinChain/common"
+	"github.com/imZhuFei/zeepin/common"
 )
 
 /** AccountData - for wallet read and save, no crypto object included **/

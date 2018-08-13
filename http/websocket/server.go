@@ -21,17 +21,17 @@ package websocket
 
 import (
 	"bytes"
-	"github.com/mileschao/ZeepinChain/common"
-	cfg "github.com/mileschao/ZeepinChain/common/config"
-	"github.com/mileschao/ZeepinChain/common/log"
-	"github.com/mileschao/ZeepinChain/core/types"
-	"github.com/mileschao/ZeepinChain/events/message"
-	bactor "github.com/mileschao/ZeepinChain/http/base/actor"
-	bcomn "github.com/mileschao/ZeepinChain/http/base/common"
-	Err "github.com/mileschao/ZeepinChain/http/base/error"
-	"github.com/mileschao/ZeepinChain/http/base/rest"
-	"github.com/mileschao/ZeepinChain/http/websocket/websocket"
-	"github.com/mileschao/ZeepinChain/smartcontract/event"
+	"github.com/imZhuFei/zeepin/common"
+	cfg "github.com/imZhuFei/zeepin/common/config"
+	"github.com/imZhuFei/zeepin/common/log"
+	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/events/message"
+	bactor "github.com/imZhuFei/zeepin/http/base/actor"
+	bcomn "github.com/imZhuFei/zeepin/http/base/common"
+	Err "github.com/imZhuFei/zeepin/http/base/error"
+	"github.com/imZhuFei/zeepin/http/base/rest"
+	"github.com/imZhuFei/zeepin/http/websocket/websocket"
+	"github.com/imZhuFei/zeepin/smartcontract/event"
 )
 
 var ws *websocket.WsServer

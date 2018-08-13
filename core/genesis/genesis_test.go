@@ -19,9 +19,9 @@ package genesis
 
 import (
 	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/common/config"
-	"github.com/mileschao/ZeepinChain/common/log"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/common/config"
+	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"

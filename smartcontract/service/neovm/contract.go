@@ -21,12 +21,12 @@ package neovm
 import (
 	"fmt"
 
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/core/payload"
-	scommon "github.com/mileschao/ZeepinChain/core/store/common"
-	"github.com/mileschao/ZeepinChain/core/types"
-	"github.com/mileschao/ZeepinChain/errors"
-	vm "github.com/mileschao/ZeepinChain/vm/neovm"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/core/payload"
+	scommon "github.com/imZhuFei/zeepin/core/store/common"
+	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/errors"
+	vm "github.com/imZhuFei/zeepin/vm/neovm"
 )
 
 // ContractCreate create a new smart contract on blockchain, and put it to vm stack

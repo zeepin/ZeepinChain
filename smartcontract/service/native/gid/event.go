@@ -20,9 +20,9 @@ package gid
 import (
 	"encoding/hex"
 
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/smartcontract/event"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/smartcontract/event"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native"
 )
 
 func newEvent(srvc *native.NativeService, st interface{}) {

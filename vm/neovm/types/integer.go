@@ -23,8 +23,8 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/vm/neovm/interfaces"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/vm/neovm/interfaces"
 )
 
 type Integer struct {

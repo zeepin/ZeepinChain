@@ -24,7 +24,7 @@ import (
 	"bytes"
 	"math/big"
 
-	vtypes "github.com/mileschao/ZeepinChain/vm/neovm/types"
+	vtypes "github.com/imZhuFei/zeepin/vm/neovm/types"
 )
 
 func TestOpArraySize(t *testing.T) {

@@ -25,12 +25,12 @@ import (
 	"os"
 	"testing"
 
-	"github.com/mileschao/ZeepinChain/common/log"
-	"github.com/mileschao/ZeepinChain/common/serialization"
-	"github.com/mileschao/ZeepinChain/core/types"
-	. "github.com/mileschao/ZeepinChain/smartcontract"
-	neovm2 "github.com/mileschao/ZeepinChain/smartcontract/service/neovm"
-	"github.com/mileschao/ZeepinChain/vm/neovm"
+	"github.com/imZhuFei/zeepin/common/log"
+	"github.com/imZhuFei/zeepin/common/serialization"
+	"github.com/imZhuFei/zeepin/core/types"
+	. "github.com/imZhuFei/zeepin/smartcontract"
+	neovm2 "github.com/imZhuFei/zeepin/smartcontract/service/neovm"
+	"github.com/imZhuFei/zeepin/vm/neovm"
 	"github.com/stretchr/testify/assert"
 )
 

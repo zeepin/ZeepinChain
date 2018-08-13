@@ -24,12 +24,12 @@ import (
 	"io/ioutil"
 	"strings"
 
-	cmdcom "github.com/mileschao/ZeepinChain/cmd/common"
-	"github.com/mileschao/ZeepinChain/cmd/utils"
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/common/config"
-	"github.com/mileschao/ZeepinChain/core/types"
-	httpcom "github.com/mileschao/ZeepinChain/http/base/common"
+	cmdcom "github.com/imZhuFei/zeepin/cmd/common"
+	"github.com/imZhuFei/zeepin/cmd/utils"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/common/config"
+	"github.com/imZhuFei/zeepin/core/types"
+	httpcom "github.com/imZhuFei/zeepin/http/base/common"
 	"github.com/urfave/cli"
 )
 

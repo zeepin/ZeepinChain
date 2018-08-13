@@ -19,8 +19,8 @@
 package message
 
 import (
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/core/types"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/core/types"
 )
 
 const (

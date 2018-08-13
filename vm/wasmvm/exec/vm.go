@@ -29,12 +29,12 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/vm/wasmvm/disasm"
-	"github.com/mileschao/ZeepinChain/vm/wasmvm/exec/internal/compile"
-	"github.com/mileschao/ZeepinChain/vm/wasmvm/memory"
-	"github.com/mileschao/ZeepinChain/vm/wasmvm/wasm"
-	ops "github.com/mileschao/ZeepinChain/vm/wasmvm/wasm/operators"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/vm/wasmvm/disasm"
+	"github.com/imZhuFei/zeepin/vm/wasmvm/exec/internal/compile"
+	"github.com/imZhuFei/zeepin/vm/wasmvm/memory"
+	"github.com/imZhuFei/zeepin/vm/wasmvm/wasm"
+	ops "github.com/imZhuFei/zeepin/vm/wasmvm/wasm/operators"
 )
 
 var (

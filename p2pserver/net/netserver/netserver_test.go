@@ -26,10 +26,10 @@ import (
 	"time"
 
 	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/mileschao/ZeepinChain/account"
-	"github.com/mileschao/ZeepinChain/common/log"
-	"github.com/mileschao/ZeepinChain/p2pserver/common"
-	"github.com/mileschao/ZeepinChain/p2pserver/peer"
+	"github.com/imZhuFei/zeepin/account"
+	"github.com/imZhuFei/zeepin/common/log"
+	"github.com/imZhuFei/zeepin/p2pserver/common"
+	"github.com/imZhuFei/zeepin/p2pserver/peer"
 )
 
 var key keypair.PublicKey

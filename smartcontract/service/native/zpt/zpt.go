@@ -23,15 +23,15 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/common/constants"
-	"github.com/mileschao/ZeepinChain/common/log"
-	"github.com/mileschao/ZeepinChain/common/serialization"
-	scommon "github.com/mileschao/ZeepinChain/core/store/common"
-	"github.com/mileschao/ZeepinChain/errors"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native/utils"
-	"github.com/mileschao/ZeepinChain/vm/neovm/types"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/common/constants"
+	"github.com/imZhuFei/zeepin/common/log"
+	"github.com/imZhuFei/zeepin/common/serialization"
+	scommon "github.com/imZhuFei/zeepin/core/store/common"
+	"github.com/imZhuFei/zeepin/errors"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
+	"github.com/imZhuFei/zeepin/vm/neovm/types"
 )
 
 const (

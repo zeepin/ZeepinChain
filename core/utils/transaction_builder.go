@@ -22,11 +22,11 @@ import (
 	"bytes"
 	"math/big"
 
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/core/payload"
-	"github.com/mileschao/ZeepinChain/core/types"
-	neovm "github.com/mileschao/ZeepinChain/smartcontract/service/neovm"
-	vm "github.com/mileschao/ZeepinChain/vm/neovm"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/core/payload"
+	"github.com/imZhuFei/zeepin/core/types"
+	neovm "github.com/imZhuFei/zeepin/smartcontract/service/neovm"
+	vm "github.com/imZhuFei/zeepin/vm/neovm"
 	"math"
 )
 

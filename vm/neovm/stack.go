@@ -19,7 +19,7 @@
 package neovm
 
 import (
-	"github.com/mileschao/ZeepinChain/vm/neovm/types"
+	"github.com/imZhuFei/zeepin/vm/neovm/types"
 )
 
 type RandomAccessStack struct {

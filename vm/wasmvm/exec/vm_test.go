@@ -19,8 +19,8 @@ package exec
 
 import (
 	"bytes"
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/vm/wasmvm/wasm"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/vm/wasmvm/wasm"
 	"testing"
 )
 

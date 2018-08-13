@@ -28,9 +28,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/common/config"
-	"github.com/mileschao/ZeepinChain/common/log"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/common/config"
+	"github.com/imZhuFei/zeepin/common/log"
 )
 
 func shuffle_hash(txid common.Uint256, height uint32, id string, idx int) (uint64, error) {

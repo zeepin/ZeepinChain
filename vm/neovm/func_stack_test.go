@@ -22,7 +22,7 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/mileschao/ZeepinChain/vm/neovm/types"
+	"github.com/imZhuFei/zeepin/vm/neovm/types"
 )
 
 func TestOpToDupFromAltStack(t *testing.T) {

@@ -21,7 +21,7 @@ package types
 import (
 	"testing"
 
-	cm "github.com/mileschao/ZeepinChain/common"
+	cm "github.com/imZhuFei/zeepin/common"
 )
 
 func Uint256ParseFromBytes(f []byte) cm.Uint256 {

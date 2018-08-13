@@ -23,7 +23,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/mileschao/ZeepinChain/common"
+	"github.com/imZhuFei/zeepin/common"
 )
 
 // HashStore is an interface for persist hash

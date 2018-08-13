@@ -19,9 +19,9 @@
 package common
 
 import (
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/common/log"
-	"github.com/mileschao/ZeepinChain/vm/neovm/types"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/common/log"
+	"github.com/imZhuFei/zeepin/vm/neovm/types"
 )
 
 // ConvertReturnTypes return neovm stack element value

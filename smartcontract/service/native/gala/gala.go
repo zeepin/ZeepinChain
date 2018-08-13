@@ -24,13 +24,13 @@ import (
 
 	"fmt"
 
-	"github.com/mileschao/ZeepinChain/common/constants"
-	scommon "github.com/mileschao/ZeepinChain/core/store/common"
-	"github.com/mileschao/ZeepinChain/errors"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native/utils"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native/zpt"
-	"github.com/mileschao/ZeepinChain/vm/neovm/types"
+	"github.com/imZhuFei/zeepin/common/constants"
+	scommon "github.com/imZhuFei/zeepin/core/store/common"
+	"github.com/imZhuFei/zeepin/errors"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/zpt"
+	"github.com/imZhuFei/zeepin/vm/neovm/types"
 )
 
 func InitGala() {

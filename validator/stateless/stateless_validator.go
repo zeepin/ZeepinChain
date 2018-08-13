@@ -22,9 +22,9 @@ import (
 	"reflect"
 
 	"github.com/ontio/ontology-eventbus/actor"
-	"github.com/mileschao/ZeepinChain/common/log"
-	"github.com/mileschao/ZeepinChain/core/validation"
-	vatypes "github.com/mileschao/ZeepinChain/validator/types"
+	"github.com/imZhuFei/zeepin/common/log"
+	"github.com/imZhuFei/zeepin/core/validation"
+	vatypes "github.com/imZhuFei/zeepin/validator/types"
 )
 
 // Validator wraps validator actor's pid

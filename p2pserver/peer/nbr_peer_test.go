@@ -23,7 +23,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/mileschao/ZeepinChain/common/log"
+	"github.com/imZhuFei/zeepin/common/log"
 )
 
 var nm *NbrPeers

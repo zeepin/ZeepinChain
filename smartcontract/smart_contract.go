@@ -20,15 +20,15 @@ package smartcontract
 import (
 	"fmt"
 
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/core/store"
-	ctypes "github.com/mileschao/ZeepinChain/core/types"
-	"github.com/mileschao/ZeepinChain/smartcontract/context"
-	"github.com/mileschao/ZeepinChain/smartcontract/event"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/neovm"
-	"github.com/mileschao/ZeepinChain/smartcontract/storage"
-	vm "github.com/mileschao/ZeepinChain/vm/neovm"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/core/store"
+	ctypes "github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/smartcontract/context"
+	"github.com/imZhuFei/zeepin/smartcontract/event"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native"
+	"github.com/imZhuFei/zeepin/smartcontract/service/neovm"
+	"github.com/imZhuFei/zeepin/smartcontract/storage"
+	vm "github.com/imZhuFei/zeepin/vm/neovm"
 )
 
 const (

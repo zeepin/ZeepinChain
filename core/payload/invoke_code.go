@@ -22,7 +22,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/mileschao/ZeepinChain/common/serialization"
+	"github.com/imZhuFei/zeepin/common/serialization"
 )
 
 // InvokeCode is an implementation of transaction payload for invoke smartcontract

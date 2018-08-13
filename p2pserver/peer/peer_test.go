@@ -23,8 +23,8 @@ import (
 	"time"
 
 	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/mileschao/ZeepinChain/account"
-	"github.com/mileschao/ZeepinChain/common/log"
+	"github.com/imZhuFei/zeepin/account"
+	"github.com/imZhuFei/zeepin/common/log"
 )
 
 var p *Peer

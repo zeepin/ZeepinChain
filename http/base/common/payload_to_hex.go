@@ -19,9 +19,9 @@ package common
 
 import (
 	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/core/payload"
-	"github.com/mileschao/ZeepinChain/core/types"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/core/payload"
+	"github.com/imZhuFei/zeepin/core/types"
 )
 
 type PayloadInfo interface{}

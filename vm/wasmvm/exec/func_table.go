@@ -23,7 +23,7 @@
 package exec
 
 import (
-	ops "github.com/mileschao/ZeepinChain/vm/wasmvm/wasm/operators"
+	ops "github.com/imZhuFei/zeepin/vm/wasmvm/wasm/operators"
 )
 
 func (vm *VM) newFuncTable() {

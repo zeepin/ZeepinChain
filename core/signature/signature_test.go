@@ -21,7 +21,7 @@ import (
 	"testing"
 
 	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/mileschao/ZeepinChain/account"
+	"github.com/imZhuFei/zeepin/account"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -19,9 +19,9 @@ package wasmvm
 
 import (
 	"bytes"
-	"github.com/mileschao/ZeepinChain/core/types"
-	"github.com/mileschao/ZeepinChain/errors"
-	"github.com/mileschao/ZeepinChain/vm/wasmvm/exec"
+	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/errors"
+	"github.com/imZhuFei/zeepin/vm/wasmvm/exec"
 )
 
 func (this *WasmVmService) headerGetHash(engine *exec.ExecutionEngine) (bool, error) {

@@ -22,9 +22,9 @@ import (
 	"reflect"
 
 	"github.com/ontio/ontology-eventbus/actor"
-	"github.com/mileschao/ZeepinChain/common/log"
-	"github.com/mileschao/ZeepinChain/p2pserver"
-	"github.com/mileschao/ZeepinChain/p2pserver/common"
+	"github.com/imZhuFei/zeepin/common/log"
+	"github.com/imZhuFei/zeepin/p2pserver"
+	"github.com/imZhuFei/zeepin/p2pserver/common"
 )
 
 type P2PActor struct {

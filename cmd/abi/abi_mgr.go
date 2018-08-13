@@ -21,7 +21,7 @@ package abi
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/mileschao/ZeepinChain/common/log"
+	"github.com/imZhuFei/zeepin/common/log"
 	"io/ioutil"
 	"strings"
 )

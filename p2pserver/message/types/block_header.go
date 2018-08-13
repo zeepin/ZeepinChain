@@ -23,10 +23,10 @@ import (
 	"encoding/binary"
 	"fmt"
 
-	"github.com/mileschao/ZeepinChain/common/serialization"
-	ct "github.com/mileschao/ZeepinChain/core/types"
-	"github.com/mileschao/ZeepinChain/errors"
-	"github.com/mileschao/ZeepinChain/p2pserver/common"
+	"github.com/imZhuFei/zeepin/common/serialization"
+	ct "github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/errors"
+	"github.com/imZhuFei/zeepin/p2pserver/common"
 )
 
 type BlkHeader struct {

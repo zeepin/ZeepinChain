@@ -22,14 +22,14 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/core/types"
-	"github.com/mileschao/ZeepinChain/errors"
-	"github.com/mileschao/ZeepinChain/smartcontract/context"
-	"github.com/mileschao/ZeepinChain/smartcontract/event"
-	"github.com/mileschao/ZeepinChain/smartcontract/states"
-	sstates "github.com/mileschao/ZeepinChain/smartcontract/states"
-	"github.com/mileschao/ZeepinChain/smartcontract/storage"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/errors"
+	"github.com/imZhuFei/zeepin/smartcontract/context"
+	"github.com/imZhuFei/zeepin/smartcontract/event"
+	"github.com/imZhuFei/zeepin/smartcontract/states"
+	sstates "github.com/imZhuFei/zeepin/smartcontract/states"
+	"github.com/imZhuFei/zeepin/smartcontract/storage"
 )
 
 type (

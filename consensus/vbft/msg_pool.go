@@ -22,8 +22,8 @@ import (
 	"errors"
 	"sync"
 
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/common/log"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/common/log"
 )
 
 var errDropFarFutureMsg = errors.New("msg pool dropped msg for far future")

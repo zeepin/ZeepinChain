@@ -21,11 +21,11 @@ package utils
 import (
 	"bytes"
 
-	"github.com/mileschao/ZeepinChain/common/serialization"
-	cstates "github.com/mileschao/ZeepinChain/core/states"
-	scommon "github.com/mileschao/ZeepinChain/core/store/common"
-	"github.com/mileschao/ZeepinChain/errors"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native"
+	"github.com/imZhuFei/zeepin/common/serialization"
+	cstates "github.com/imZhuFei/zeepin/core/states"
+	scommon "github.com/imZhuFei/zeepin/core/store/common"
+	"github.com/imZhuFei/zeepin/errors"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native"
 )
 
 func GetStorageItem(native *native.NativeService, key []byte) (*cstates.StorageItem, error) {

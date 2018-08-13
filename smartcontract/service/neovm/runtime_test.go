@@ -21,7 +21,7 @@ package neovm
 import (
 	"testing"
 
-	"github.com/mileschao/ZeepinChain/vm/neovm/types"
+	"github.com/imZhuFei/zeepin/vm/neovm/types"
 	"github.com/stretchr/testify/assert"
 )
 

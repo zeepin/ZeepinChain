@@ -21,7 +21,7 @@ package utils
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/mileschao/ZeepinChain/common/config"
+	"github.com/imZhuFei/zeepin/common/config"
 	"io/ioutil"
 	"net/http"
 	"strings"

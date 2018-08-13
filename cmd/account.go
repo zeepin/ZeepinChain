@@ -23,9 +23,9 @@ import (
 	"fmt"
 	"github.com/ontio/ontology-crypto/keypair"
 	s "github.com/ontio/ontology-crypto/signature"
-	"github.com/mileschao/ZeepinChain/cmd/common"
-	"github.com/mileschao/ZeepinChain/cmd/utils"
-	"github.com/mileschao/ZeepinChain/common/config"
+	"github.com/imZhuFei/zeepin/cmd/common"
+	"github.com/imZhuFei/zeepin/cmd/utils"
+	"github.com/imZhuFei/zeepin/common/config"
 	"github.com/urfave/cli"
 	"strings"
 )

@@ -20,7 +20,7 @@
 package restful
 
 import (
-	"github.com/mileschao/ZeepinChain/http/restful/restful"
+	"github.com/imZhuFei/zeepin/http/restful/restful"
 )
 
 //start restful

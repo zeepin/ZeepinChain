@@ -23,8 +23,8 @@ import (
 	"encoding/binary"
 	"fmt"
 
-	"github.com/mileschao/ZeepinChain/errors"
-	comm "github.com/mileschao/ZeepinChain/p2pserver/common"
+	"github.com/imZhuFei/zeepin/errors"
+	comm "github.com/imZhuFei/zeepin/p2pserver/common"
 )
 
 type Addr struct {

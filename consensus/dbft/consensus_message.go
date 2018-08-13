@@ -23,8 +23,8 @@ import (
 	"errors"
 	"io"
 
-	"github.com/mileschao/ZeepinChain/common/log"
-	ser "github.com/mileschao/ZeepinChain/common/serialization"
+	"github.com/imZhuFei/zeepin/common/log"
+	ser "github.com/imZhuFei/zeepin/common/serialization"
 )
 
 type ConsensusMessage interface {

@@ -24,8 +24,8 @@ import (
 	"hash"
 	"math/big"
 
-	"github.com/mileschao/ZeepinChain/vm/neovm/interfaces"
-	"github.com/mileschao/ZeepinChain/vm/neovm/types"
+	"github.com/imZhuFei/zeepin/vm/neovm/interfaces"
+	"github.com/imZhuFei/zeepin/vm/neovm/types"
 )
 
 type BigIntSorter []big.Int

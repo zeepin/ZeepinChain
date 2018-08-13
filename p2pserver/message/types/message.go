@@ -26,8 +26,8 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/mileschao/ZeepinChain/common/config"
-	"github.com/mileschao/ZeepinChain/p2pserver/common"
+	"github.com/imZhuFei/zeepin/common/config"
+	"github.com/imZhuFei/zeepin/p2pserver/common"
 )
 
 type Message interface {

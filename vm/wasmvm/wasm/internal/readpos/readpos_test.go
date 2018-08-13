@@ -27,7 +27,7 @@ import (
 	"io"
 	"testing"
 
-	"github.com/mileschao/ZeepinChain/vm/wasmvm/wasm/internal/readpos"
+	"github.com/imZhuFei/zeepin/vm/wasmvm/wasm/internal/readpos"
 )
 
 func TestRead(t *testing.T) {

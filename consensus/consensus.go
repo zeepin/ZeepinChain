@@ -19,11 +19,11 @@
 package consensus
 
 import (
-	"github.com/mileschao/ZeepinChain/account"
-	"github.com/mileschao/ZeepinChain/common/log"
-	"github.com/mileschao/ZeepinChain/consensus/dbft"
-	"github.com/mileschao/ZeepinChain/consensus/solo"
-	"github.com/mileschao/ZeepinChain/consensus/vbft"
+	"github.com/imZhuFei/zeepin/account"
+	"github.com/imZhuFei/zeepin/common/log"
+	"github.com/imZhuFei/zeepin/consensus/dbft"
+	"github.com/imZhuFei/zeepin/consensus/solo"
+	"github.com/imZhuFei/zeepin/consensus/vbft"
 	"github.com/ontio/ontology-eventbus/actor"
 )
 

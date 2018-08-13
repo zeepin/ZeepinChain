@@ -24,11 +24,11 @@ import (
 	"io"
 
 	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/common/log"
-	"github.com/mileschao/ZeepinChain/common/serialization"
-	"github.com/mileschao/ZeepinChain/core/signature"
-	"github.com/mileschao/ZeepinChain/errors"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/common/log"
+	"github.com/imZhuFei/zeepin/common/serialization"
+	"github.com/imZhuFei/zeepin/core/signature"
+	"github.com/imZhuFei/zeepin/errors"
 )
 
 type ConsensusPayload struct {

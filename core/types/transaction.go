@@ -24,12 +24,12 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/common/constants"
-	"github.com/mileschao/ZeepinChain/common/serialization"
-	"github.com/mileschao/ZeepinChain/core/payload"
-	"github.com/mileschao/ZeepinChain/core/program"
-	"github.com/mileschao/ZeepinChain/errors"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/common/constants"
+	"github.com/imZhuFei/zeepin/common/serialization"
+	"github.com/imZhuFei/zeepin/core/payload"
+	"github.com/imZhuFei/zeepin/core/program"
+	"github.com/imZhuFei/zeepin/errors"
 	"github.com/ontio/ontology-crypto/keypair"
 )
 

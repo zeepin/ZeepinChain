@@ -20,9 +20,9 @@ package test
 
 import (
 	"fmt"
-	"github.com/mileschao/ZeepinChain/core/types"
-	"github.com/mileschao/ZeepinChain/smartcontract"
-	"github.com/mileschao/ZeepinChain/vm/neovm"
+	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/smartcontract"
+	"github.com/imZhuFei/zeepin/vm/neovm"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )

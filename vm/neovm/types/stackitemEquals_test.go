@@ -19,7 +19,7 @@
 package types
 
 import (
-	"github.com/mileschao/ZeepinChain/common"
+	"github.com/imZhuFei/zeepin/common"
 	"github.com/stretchr/testify/assert"
 	"math/big"
 	"testing"

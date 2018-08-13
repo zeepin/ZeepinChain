@@ -22,8 +22,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/mileschao/ZeepinChain/common"
-	vconfig "github.com/mileschao/ZeepinChain/consensus/vbft/config"
+	"github.com/imZhuFei/zeepin/common"
+	vconfig "github.com/imZhuFei/zeepin/consensus/vbft/config"
 )
 
 func constructPeerPool(connect bool) *PeerPool {

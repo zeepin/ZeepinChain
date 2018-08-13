@@ -23,17 +23,17 @@ import (
 	"math"
 	"math/big"
 
-	"github.com/mileschao/ZeepinChain/common"
-	invoke "github.com/mileschao/ZeepinChain/core/utils"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native/auth"
-	params "github.com/mileschao/ZeepinChain/smartcontract/service/native/global_params"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native/governance"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native/gala"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native/zpt"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native/gid"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native/utils"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/neovm"
-	vm "github.com/mileschao/ZeepinChain/vm/neovm"
+	"github.com/imZhuFei/zeepin/common"
+	invoke "github.com/imZhuFei/zeepin/core/utils"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/auth"
+	params "github.com/imZhuFei/zeepin/smartcontract/service/native/global_params"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/governance"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/gala"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/zpt"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/gid"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
+	"github.com/imZhuFei/zeepin/smartcontract/service/neovm"
+	vm "github.com/imZhuFei/zeepin/vm/neovm"
 )
 
 var (

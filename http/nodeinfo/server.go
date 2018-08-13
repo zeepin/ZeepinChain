@@ -26,9 +26,9 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/mileschao/ZeepinChain/common/config"
-	"github.com/mileschao/ZeepinChain/core/ledger"
-	p2p "github.com/mileschao/ZeepinChain/p2pserver/net/protocol"
+	"github.com/imZhuFei/zeepin/common/config"
+	"github.com/imZhuFei/zeepin/core/ledger"
+	p2p "github.com/imZhuFei/zeepin/p2pserver/net/protocol"
 )
 
 type Info struct {

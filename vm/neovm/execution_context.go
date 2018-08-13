@@ -21,7 +21,7 @@ package neovm
 import (
 	"io"
 
-	"github.com/mileschao/ZeepinChain/vm/neovm/utils"
+	"github.com/imZhuFei/zeepin/vm/neovm/utils"
 )
 
 type ExecutionContext struct {

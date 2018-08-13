@@ -24,11 +24,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/core/types"
-	"github.com/mileschao/ZeepinChain/errors"
-	tc "github.com/mileschao/ZeepinChain/txnpool/common"
-	vt "github.com/mileschao/ZeepinChain/validator/types"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/errors"
+	tc "github.com/imZhuFei/zeepin/txnpool/common"
+	vt "github.com/imZhuFei/zeepin/validator/types"
 	"github.com/stretchr/testify/assert"
 )
 

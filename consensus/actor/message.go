@@ -18,7 +18,7 @@
 
 package actor
 
-import "github.com/mileschao/ZeepinChain/core/types"
+import "github.com/imZhuFei/zeepin/core/types"
 
 type StartConsensus struct{}
 type StopConsensus struct{}

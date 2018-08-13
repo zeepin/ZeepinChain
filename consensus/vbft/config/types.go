@@ -24,7 +24,7 @@ import (
 	"fmt"
 
 	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/mileschao/ZeepinChain/core/types"
+	"github.com/imZhuFei/zeepin/core/types"
 )
 
 // PubkeyID returns a marshaled representation of the given public key.

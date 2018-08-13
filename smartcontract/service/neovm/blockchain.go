@@ -19,11 +19,11 @@
 package neovm
 
 import (
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/core/types"
-	"github.com/mileschao/ZeepinChain/errors"
-	vm "github.com/mileschao/ZeepinChain/vm/neovm"
-	vmtypes "github.com/mileschao/ZeepinChain/vm/neovm/types"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/errors"
+	vm "github.com/imZhuFei/zeepin/vm/neovm"
+	vmtypes "github.com/imZhuFei/zeepin/vm/neovm/types"
 )
 
 // BlockChainGetHeight put blockchain's height to vm stack

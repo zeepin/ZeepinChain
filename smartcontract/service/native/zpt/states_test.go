@@ -23,7 +23,7 @@ import (
 	"testing"
 
 	"github.com/magiconair/properties/assert"
-	"github.com/mileschao/ZeepinChain/core/types"
+	"github.com/imZhuFei/zeepin/core/types"
 )
 
 func TestState_Serialize(t *testing.T) {

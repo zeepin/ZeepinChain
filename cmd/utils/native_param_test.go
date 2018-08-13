@@ -21,9 +21,9 @@ package utils
 import (
 	"bytes"
 	"encoding/hex"
-	"github.com/mileschao/ZeepinChain/cmd/abi"
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/vm/neovm"
+	"github.com/imZhuFei/zeepin/cmd/abi"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/vm/neovm"
 	"testing"
 )
 

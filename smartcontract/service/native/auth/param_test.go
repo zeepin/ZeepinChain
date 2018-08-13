@@ -24,7 +24,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native/utils"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
 )
 
 var (

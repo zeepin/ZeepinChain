@@ -23,9 +23,9 @@ import (
 	"time"
 
 	"github.com/ontio/ontology-eventbus/actor"
-	"github.com/mileschao/ZeepinChain/common/log"
-	ac "github.com/mileschao/ZeepinChain/p2pserver/actor/server"
-	"github.com/mileschao/ZeepinChain/p2pserver/common"
+	"github.com/imZhuFei/zeepin/common/log"
+	ac "github.com/imZhuFei/zeepin/p2pserver/actor/server"
+	"github.com/imZhuFei/zeepin/p2pserver/common"
 )
 
 var netServerPid *actor.PID

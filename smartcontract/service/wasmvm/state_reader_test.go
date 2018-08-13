@@ -18,7 +18,7 @@
 package wasmvm
 
 import (
-	"github.com/mileschao/ZeepinChain/vm/wasmvm/exec"
+	"github.com/imZhuFei/zeepin/vm/wasmvm/exec"
 	"testing"
 )
 

@@ -22,12 +22,12 @@ import (
 	"testing"
 
 	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/mileschao/ZeepinChain/account"
-	"github.com/mileschao/ZeepinChain/core/payload"
-	"github.com/mileschao/ZeepinChain/core/states"
-	scommon "github.com/mileschao/ZeepinChain/core/store/common"
-	"github.com/mileschao/ZeepinChain/core/store/statestore"
-	"github.com/mileschao/ZeepinChain/core/types"
+	"github.com/imZhuFei/zeepin/account"
+	"github.com/imZhuFei/zeepin/core/payload"
+	"github.com/imZhuFei/zeepin/core/states"
+	scommon "github.com/imZhuFei/zeepin/core/store/common"
+	"github.com/imZhuFei/zeepin/core/store/statestore"
+	"github.com/imZhuFei/zeepin/core/types"
 )
 
 func TestContractState(t *testing.T) {

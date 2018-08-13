@@ -27,15 +27,15 @@ import (
 
 	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/ontio/ontology-crypto/vrf"
-	"github.com/mileschao/ZeepinChain/account"
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/common/config"
-	"github.com/mileschao/ZeepinChain/consensus/vbft/config"
-	"github.com/mileschao/ZeepinChain/core/ledger"
-	"github.com/mileschao/ZeepinChain/core/signature"
-	"github.com/mileschao/ZeepinChain/core/states"
-	gov "github.com/mileschao/ZeepinChain/smartcontract/service/native/governance"
-	nutils "github.com/mileschao/ZeepinChain/smartcontract/service/native/utils"
+	"github.com/imZhuFei/zeepin/account"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/common/config"
+	"github.com/imZhuFei/zeepin/consensus/vbft/config"
+	"github.com/imZhuFei/zeepin/core/ledger"
+	"github.com/imZhuFei/zeepin/core/signature"
+	"github.com/imZhuFei/zeepin/core/states"
+	gov "github.com/imZhuFei/zeepin/smartcontract/service/native/governance"
+	nutils "github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
 )
 
 func SignMsg(account *account.Account, msg ConsensusMsg) ([]byte, error) {

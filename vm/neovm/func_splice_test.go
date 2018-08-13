@@ -23,7 +23,7 @@ import (
 	"math/big"
 	"testing"
 
-	vtypes "github.com/mileschao/ZeepinChain/vm/neovm/types"
+	vtypes "github.com/imZhuFei/zeepin/vm/neovm/types"
 )
 
 func TestOpCat(t *testing.T) {

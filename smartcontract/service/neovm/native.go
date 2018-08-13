@@ -23,12 +23,12 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/common/serialization"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native"
-	"github.com/mileschao/ZeepinChain/smartcontract/states"
-	vm "github.com/mileschao/ZeepinChain/vm/neovm"
-	"github.com/mileschao/ZeepinChain/vm/neovm/types"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/common/serialization"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native"
+	"github.com/imZhuFei/zeepin/smartcontract/states"
+	vm "github.com/imZhuFei/zeepin/vm/neovm"
+	"github.com/imZhuFei/zeepin/vm/neovm/types"
 	"math/big"
 )
 

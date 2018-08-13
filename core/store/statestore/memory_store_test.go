@@ -18,8 +18,8 @@
 package statestore
 
 import (
-	"github.com/mileschao/ZeepinChain/core/states"
-	com "github.com/mileschao/ZeepinChain/core/store/common"
+	"github.com/imZhuFei/zeepin/core/states"
+	com "github.com/imZhuFei/zeepin/core/store/common"
 	"testing"
 )
 

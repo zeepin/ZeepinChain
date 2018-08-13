@@ -23,7 +23,7 @@ import (
 	"bytes"
 	"crypto/rand"
 
-	"github.com/mileschao/ZeepinChain/common"
+	"github.com/imZhuFei/zeepin/common"
 	"github.com/stretchr/testify/assert"
 )
 

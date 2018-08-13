@@ -20,9 +20,9 @@
 package p2p
 
 import (
-	"github.com/mileschao/ZeepinChain/p2pserver/common"
-	"github.com/mileschao/ZeepinChain/p2pserver/message/types"
-	"github.com/mileschao/ZeepinChain/p2pserver/peer"
+	"github.com/imZhuFei/zeepin/p2pserver/common"
+	"github.com/imZhuFei/zeepin/p2pserver/message/types"
+	"github.com/imZhuFei/zeepin/p2pserver/peer"
 )
 
 //P2P represent the net interface of p2p package

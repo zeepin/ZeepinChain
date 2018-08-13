@@ -19,8 +19,8 @@
 package test
 
 import (
-	"github.com/mileschao/ZeepinChain/core/types"
-	. "github.com/mileschao/ZeepinChain/smartcontract"
+	"github.com/imZhuFei/zeepin/core/types"
+	. "github.com/imZhuFei/zeepin/smartcontract"
 	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"

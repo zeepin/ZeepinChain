@@ -23,10 +23,10 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/common/serialization"
-	vconfig "github.com/mileschao/ZeepinChain/consensus/vbft/config"
-	"github.com/mileschao/ZeepinChain/core/types"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/common/serialization"
+	vconfig "github.com/imZhuFei/zeepin/consensus/vbft/config"
+	"github.com/imZhuFei/zeepin/core/types"
 )
 
 type Block struct {

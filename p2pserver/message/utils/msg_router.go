@@ -20,10 +20,10 @@ package utils
 
 import (
 	"github.com/ontio/ontology-eventbus/actor"
-	"github.com/mileschao/ZeepinChain/common/log"
-	msgCommon "github.com/mileschao/ZeepinChain/p2pserver/common"
-	"github.com/mileschao/ZeepinChain/p2pserver/message/types"
-	"github.com/mileschao/ZeepinChain/p2pserver/net/protocol"
+	"github.com/imZhuFei/zeepin/common/log"
+	msgCommon "github.com/imZhuFei/zeepin/p2pserver/common"
+	"github.com/imZhuFei/zeepin/p2pserver/message/types"
+	"github.com/imZhuFei/zeepin/p2pserver/net/protocol"
 )
 
 // MessageHandler defines the unified api for each net message

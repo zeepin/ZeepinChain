@@ -22,10 +22,10 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/mileschao/ZeepinChain/account"
-	clisvrcom "github.com/mileschao/ZeepinChain/cmd/sigsvr/common"
-	"github.com/mileschao/ZeepinChain/cmd/utils"
-	"github.com/mileschao/ZeepinChain/core/types"
+	"github.com/imZhuFei/zeepin/account"
+	clisvrcom "github.com/imZhuFei/zeepin/cmd/sigsvr/common"
+	"github.com/imZhuFei/zeepin/cmd/utils"
+	"github.com/imZhuFei/zeepin/core/types"
 	"testing"
 )
 

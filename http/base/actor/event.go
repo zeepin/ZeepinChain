@@ -20,8 +20,8 @@ package actor
 
 import (
 	"github.com/ontio/ontology-eventbus/actor"
-	"github.com/mileschao/ZeepinChain/events"
-	"github.com/mileschao/ZeepinChain/events/message"
+	"github.com/imZhuFei/zeepin/events"
+	"github.com/imZhuFei/zeepin/events/message"
 )
 
 type EventActor struct {

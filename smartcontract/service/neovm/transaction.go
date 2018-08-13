@@ -19,9 +19,9 @@
 package neovm
 
 import (
-	"github.com/mileschao/ZeepinChain/core/types"
-	vm "github.com/mileschao/ZeepinChain/vm/neovm"
-	vmtypes "github.com/mileschao/ZeepinChain/vm/neovm/types"
+	"github.com/imZhuFei/zeepin/core/types"
+	vm "github.com/imZhuFei/zeepin/vm/neovm"
+	vmtypes "github.com/imZhuFei/zeepin/vm/neovm/types"
 )
 
 // GetExecutingAddress push transaction's hash to vm stack

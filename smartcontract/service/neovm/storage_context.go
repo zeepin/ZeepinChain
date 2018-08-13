@@ -20,8 +20,8 @@ package neovm
 
 import (
 	"fmt"
-	"github.com/mileschao/ZeepinChain/common"
-	vm "github.com/mileschao/ZeepinChain/vm/neovm"
+	"github.com/imZhuFei/zeepin/common"
+	vm "github.com/imZhuFei/zeepin/vm/neovm"
 )
 
 // StorageContext store smart contract address

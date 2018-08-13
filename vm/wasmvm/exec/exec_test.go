@@ -35,9 +35,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/mileschao/ZeepinChain/vm/wasmvm/exec"
-	"github.com/mileschao/ZeepinChain/vm/wasmvm/validate"
-	"github.com/mileschao/ZeepinChain/vm/wasmvm/wasm"
+	"github.com/imZhuFei/zeepin/vm/wasmvm/exec"
+	"github.com/imZhuFei/zeepin/vm/wasmvm/validate"
+	"github.com/imZhuFei/zeepin/vm/wasmvm/wasm"
 )
 
 const (

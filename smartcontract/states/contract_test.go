@@ -19,7 +19,7 @@ package states
 
 import (
 	"bytes"
-	"github.com/mileschao/ZeepinChain/core/types"
+	"github.com/imZhuFei/zeepin/core/types"
 	"testing"
 )
 

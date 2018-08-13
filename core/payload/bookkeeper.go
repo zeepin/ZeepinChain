@@ -23,7 +23,7 @@ import (
 	"io"
 
 	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/mileschao/ZeepinChain/common/serialization"
+	"github.com/imZhuFei/zeepin/common/serialization"
 )
 
 const BookkeeperPayloadVersion byte = 0x00

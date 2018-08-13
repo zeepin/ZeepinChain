@@ -21,7 +21,7 @@ package dbft
 import (
 	"io"
 
-	ser "github.com/mileschao/ZeepinChain/common/serialization"
+	ser "github.com/imZhuFei/zeepin/common/serialization"
 )
 
 type PrepareResponse struct {

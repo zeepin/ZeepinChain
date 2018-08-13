@@ -23,7 +23,7 @@ import (
 	"errors"
 	"reflect"
 
-	"github.com/mileschao/ZeepinChain/vm/wasmvm/util"
+	"github.com/imZhuFei/zeepin/vm/wasmvm/util"
 )
 
 type PType int

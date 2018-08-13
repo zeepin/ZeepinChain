@@ -23,9 +23,9 @@ import (
 	"errors"
 	"math"
 
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/common/constants"
-	"github.com/mileschao/ZeepinChain/core/program"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/common/constants"
+	"github.com/imZhuFei/zeepin/core/program"
 	"github.com/ontio/ontology-crypto/keypair"
 	"golang.org/x/crypto/ripemd160"
 )

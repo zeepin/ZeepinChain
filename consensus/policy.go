@@ -19,7 +19,7 @@
 package consensus
 
 import (
-	"github.com/mileschao/ZeepinChain/common"
+	"github.com/imZhuFei/zeepin/common"
 )
 
 type Policy struct {

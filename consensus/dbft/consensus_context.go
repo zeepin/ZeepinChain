@@ -22,14 +22,14 @@ import (
 	"fmt"
 
 	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/mileschao/ZeepinChain/account"
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/common/log"
-	ser "github.com/mileschao/ZeepinChain/common/serialization"
-	"github.com/mileschao/ZeepinChain/core/ledger"
-	"github.com/mileschao/ZeepinChain/core/types"
-	"github.com/mileschao/ZeepinChain/core/vote"
-	msg "github.com/mileschao/ZeepinChain/p2pserver/message/types"
+	"github.com/imZhuFei/zeepin/account"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/common/log"
+	ser "github.com/imZhuFei/zeepin/common/serialization"
+	"github.com/imZhuFei/zeepin/core/ledger"
+	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/core/vote"
+	msg "github.com/imZhuFei/zeepin/p2pserver/message/types"
 )
 
 const ContextVersion uint32 = 0

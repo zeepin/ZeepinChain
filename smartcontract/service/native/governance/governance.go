@@ -27,16 +27,16 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/common/config"
-	"github.com/mileschao/ZeepinChain/common/constants"
-	"github.com/mileschao/ZeepinChain/common/serialization"
-	cstates "github.com/mileschao/ZeepinChain/core/states"
-	scommon "github.com/mileschao/ZeepinChain/core/store/common"
-	"github.com/mileschao/ZeepinChain/errors"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native/global_params"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native/utils"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/common/config"
+	"github.com/imZhuFei/zeepin/common/constants"
+	"github.com/imZhuFei/zeepin/common/serialization"
+	cstates "github.com/imZhuFei/zeepin/core/states"
+	scommon "github.com/imZhuFei/zeepin/core/store/common"
+	"github.com/imZhuFei/zeepin/errors"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/global_params"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
 )
 
 const (

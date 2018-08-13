@@ -21,7 +21,7 @@ package auth
 import (
 	"io"
 
-	"github.com/mileschao/ZeepinChain/common/serialization"
+	"github.com/imZhuFei/zeepin/common/serialization"
 )
 
 /*

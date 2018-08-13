@@ -19,7 +19,7 @@
 package event
 
 import (
-	"github.com/mileschao/ZeepinChain/common"
+	"github.com/imZhuFei/zeepin/common"
 )
 
 // LogEventArgs describe smart contract event log struct

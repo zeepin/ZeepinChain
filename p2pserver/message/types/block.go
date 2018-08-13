@@ -22,9 +22,9 @@ import (
 	"bytes"
 	"fmt"
 
-	ct "github.com/mileschao/ZeepinChain/core/types"
-	"github.com/mileschao/ZeepinChain/errors"
-	"github.com/mileschao/ZeepinChain/p2pserver/common"
+	ct "github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/errors"
+	"github.com/imZhuFei/zeepin/p2pserver/common"
 )
 
 type Block struct {

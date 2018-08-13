@@ -18,7 +18,7 @@
 package account
 
 import (
-	"github.com/mileschao/ZeepinChain/core/types"
+	"github.com/imZhuFei/zeepin/core/types"
 	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"

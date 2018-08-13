@@ -19,9 +19,9 @@ package statestore
 
 import (
 	"fmt"
-	"github.com/mileschao/ZeepinChain/core/states"
-	com "github.com/mileschao/ZeepinChain/core/store/common"
-	"github.com/mileschao/ZeepinChain/core/store/leveldbstore"
+	"github.com/imZhuFei/zeepin/core/states"
+	com "github.com/imZhuFei/zeepin/core/store/common"
+	"github.com/imZhuFei/zeepin/core/store/leveldbstore"
 	"os"
 	"testing"
 )

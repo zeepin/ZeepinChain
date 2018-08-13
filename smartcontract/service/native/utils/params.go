@@ -17,7 +17,7 @@
  */
 package utils
 
-import "github.com/mileschao/ZeepinChain/common"
+import "github.com/imZhuFei/zeepin/common"
 
 var (
 	BYTE_FALSE = []byte{0}

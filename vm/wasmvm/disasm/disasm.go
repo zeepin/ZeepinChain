@@ -30,10 +30,10 @@ import (
 	"io"
 	"math"
 
-	"github.com/mileschao/ZeepinChain/vm/wasmvm/internal/stack"
-	"github.com/mileschao/ZeepinChain/vm/wasmvm/wasm"
-	"github.com/mileschao/ZeepinChain/vm/wasmvm/wasm/leb128"
-	ops "github.com/mileschao/ZeepinChain/vm/wasmvm/wasm/operators"
+	"github.com/imZhuFei/zeepin/vm/wasmvm/internal/stack"
+	"github.com/imZhuFei/zeepin/vm/wasmvm/wasm"
+	"github.com/imZhuFei/zeepin/vm/wasmvm/wasm/leb128"
+	ops "github.com/imZhuFei/zeepin/vm/wasmvm/wasm/operators"
 )
 
 // Instr describes an instruction, consisting of an operator, with its

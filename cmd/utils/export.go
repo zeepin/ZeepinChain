@@ -22,7 +22,7 @@ import (
 	"bytes"
 	"compress/zlib"
 	"fmt"
-	"github.com/mileschao/ZeepinChain/common/serialization"
+	"github.com/imZhuFei/zeepin/common/serialization"
 	"io"
 	"io/ioutil"
 )

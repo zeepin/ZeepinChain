@@ -22,7 +22,7 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/mileschao/ZeepinChain/vm/neovm/interfaces"
+	"github.com/imZhuFei/zeepin/vm/neovm/interfaces"
 )
 
 type Map struct {

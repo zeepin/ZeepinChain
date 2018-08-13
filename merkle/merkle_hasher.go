@@ -21,7 +21,7 @@ package merkle
 import (
 	"crypto/sha256"
 
-	"github.com/mileschao/ZeepinChain/common"
+	"github.com/imZhuFei/zeepin/common"
 )
 
 type TreeHasher struct {

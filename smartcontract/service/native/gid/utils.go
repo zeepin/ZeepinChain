@@ -22,12 +22,12 @@ import (
 	"errors"
 
 	"github.com/ontio/ontology-crypto/keypair"
-	com "github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/core/states"
-	"github.com/mileschao/ZeepinChain/core/store/common"
-	"github.com/mileschao/ZeepinChain/core/types"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/native/utils"
+	com "github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/core/states"
+	"github.com/imZhuFei/zeepin/core/store/common"
+	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
 )
 
 const flag_exist = 0x01

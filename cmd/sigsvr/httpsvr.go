@@ -21,8 +21,8 @@ package sigsvr
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/mileschao/ZeepinChain/cmd/sigsvr/common"
-	"github.com/mileschao/ZeepinChain/common/log"
+	"github.com/imZhuFei/zeepin/cmd/sigsvr/common"
+	"github.com/imZhuFei/zeepin/common/log"
 	"io/ioutil"
 	"net/http"
 )

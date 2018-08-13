@@ -24,9 +24,9 @@ import (
 	"math/big"
 
 	"fmt"
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/vm/neovm/errors"
-	"github.com/mileschao/ZeepinChain/vm/neovm/types"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/vm/neovm/errors"
+	"github.com/imZhuFei/zeepin/vm/neovm/types"
 )
 
 func validateCount1(e *ExecutionEngine) error {

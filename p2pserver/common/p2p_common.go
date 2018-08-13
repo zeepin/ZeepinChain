@@ -22,7 +22,7 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/mileschao/ZeepinChain/core/types"
+	"github.com/imZhuFei/zeepin/core/types"
 )
 
 //peer capability

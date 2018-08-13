@@ -19,8 +19,8 @@
 package storage
 
 import (
-	"github.com/mileschao/ZeepinChain/core/states"
-	"github.com/mileschao/ZeepinChain/core/store/common"
+	"github.com/imZhuFei/zeepin/core/states"
+	"github.com/imZhuFei/zeepin/core/store/common"
 )
 
 // StateItem describe smart contract cache item element

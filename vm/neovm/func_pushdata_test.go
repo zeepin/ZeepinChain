@@ -23,7 +23,7 @@ import (
 	"encoding/binary"
 	"testing"
 
-	"github.com/mileschao/ZeepinChain/vm/neovm/utils"
+	"github.com/imZhuFei/zeepin/vm/neovm/utils"
 )
 
 func TestGetPushData(t *testing.T) {

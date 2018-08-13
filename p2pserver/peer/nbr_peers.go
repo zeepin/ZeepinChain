@@ -22,8 +22,8 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/mileschao/ZeepinChain/p2pserver/common"
-	"github.com/mileschao/ZeepinChain/p2pserver/message/types"
+	"github.com/imZhuFei/zeepin/p2pserver/common"
+	"github.com/imZhuFei/zeepin/p2pserver/message/types"
 )
 
 //NbrPeers: The neigbor list

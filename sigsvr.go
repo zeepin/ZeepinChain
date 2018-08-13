@@ -24,14 +24,14 @@ import (
 	"runtime"
 	"syscall"
 
-	"github.com/mileschao/ZeepinChain/cmd/abi"
-	cmdcom "github.com/mileschao/ZeepinChain/cmd/common"
-	cmdsvr "github.com/mileschao/ZeepinChain/cmd/sigsvr"
-	cmdsvrcom "github.com/mileschao/ZeepinChain/cmd/sigsvr/common"
-	"github.com/mileschao/ZeepinChain/cmd/utils"
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/common/config"
-	"github.com/mileschao/ZeepinChain/common/log"
+	"github.com/imZhuFei/zeepin/cmd/abi"
+	cmdcom "github.com/imZhuFei/zeepin/cmd/common"
+	cmdsvr "github.com/imZhuFei/zeepin/cmd/sigsvr"
+	cmdsvrcom "github.com/imZhuFei/zeepin/cmd/sigsvr/common"
+	"github.com/imZhuFei/zeepin/cmd/utils"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/common/config"
+	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/urfave/cli"
 )
 

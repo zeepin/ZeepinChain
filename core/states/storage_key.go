@@ -22,8 +22,8 @@ import (
 	"bytes"
 	"io"
 
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/common/serialization"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/common/serialization"
 )
 
 type StorageKey struct {

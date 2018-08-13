@@ -20,12 +20,12 @@ package store
 
 import (
 	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/core/payload"
-	"github.com/mileschao/ZeepinChain/core/states"
-	"github.com/mileschao/ZeepinChain/core/types"
-	"github.com/mileschao/ZeepinChain/smartcontract/event"
-	cstates "github.com/mileschao/ZeepinChain/smartcontract/states"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/core/payload"
+	"github.com/imZhuFei/zeepin/core/states"
+	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/smartcontract/event"
+	cstates "github.com/imZhuFei/zeepin/smartcontract/states"
 )
 
 // LedgerStore provides func with store package.

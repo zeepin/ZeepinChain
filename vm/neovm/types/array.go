@@ -22,7 +22,7 @@ import (
 	"math/big"
 
 	"fmt"
-	"github.com/mileschao/ZeepinChain/vm/neovm/interfaces"
+	"github.com/imZhuFei/zeepin/vm/neovm/interfaces"
 )
 
 type Array struct {

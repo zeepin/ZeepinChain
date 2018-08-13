@@ -19,8 +19,8 @@
 package neovm
 
 import (
-	"github.com/mileschao/ZeepinChain/core/types"
-	vm "github.com/mileschao/ZeepinChain/vm/neovm"
+	"github.com/imZhuFei/zeepin/core/types"
+	vm "github.com/imZhuFei/zeepin/vm/neovm"
 )
 
 // AttributeGetUsage put attribute's usage to vm stack

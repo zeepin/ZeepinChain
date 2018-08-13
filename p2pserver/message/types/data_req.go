@@ -23,9 +23,9 @@ import (
 	"encoding/binary"
 	"fmt"
 
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/errors"
-	common2 "github.com/mileschao/ZeepinChain/p2pserver/common"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/errors"
+	common2 "github.com/imZhuFei/zeepin/p2pserver/common"
 )
 
 type DataReq struct {

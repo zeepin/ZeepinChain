@@ -19,7 +19,7 @@ package handlers
 
 import (
 	"encoding/json"
-	clisvrcom "github.com/mileschao/ZeepinChain/cmd/sigsvr/common"
+	clisvrcom "github.com/imZhuFei/zeepin/cmd/sigsvr/common"
 	"testing"
 )
 

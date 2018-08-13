@@ -19,8 +19,8 @@
 package statestore
 
 import (
-	"github.com/mileschao/ZeepinChain/core/states"
-	"github.com/mileschao/ZeepinChain/core/store/common"
+	"github.com/imZhuFei/zeepin/core/states"
+	"github.com/imZhuFei/zeepin/core/store/common"
 )
 
 type MemoryStore struct {

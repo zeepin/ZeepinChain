@@ -22,9 +22,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/mileschao/ZeepinChain/common/config"
-	"github.com/mileschao/ZeepinChain/common/constants"
-	"github.com/mileschao/ZeepinChain/smartcontract/service/neovm"
+	"github.com/imZhuFei/zeepin/common/config"
+	"github.com/imZhuFei/zeepin/common/constants"
+	"github.com/imZhuFei/zeepin/smartcontract/service/neovm"
 	"github.com/urfave/cli"
 )
 

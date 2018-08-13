@@ -23,7 +23,7 @@ import (
 
 	"math/big"
 
-	"github.com/mileschao/ZeepinChain/vm/neovm/types"
+	"github.com/imZhuFei/zeepin/vm/neovm/types"
 )
 
 func TestOpBigInt(t *testing.T) {

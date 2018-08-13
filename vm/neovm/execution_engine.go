@@ -19,7 +19,7 @@
 package neovm
 
 import (
-	"github.com/mileschao/ZeepinChain/vm/neovm/errors"
+	"github.com/imZhuFei/zeepin/vm/neovm/errors"
 )
 
 func NewExecutionEngine() *ExecutionEngine {

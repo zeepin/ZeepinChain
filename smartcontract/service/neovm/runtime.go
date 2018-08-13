@@ -26,14 +26,14 @@ import (
 	"sort"
 
 	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/common/serialization"
-	"github.com/mileschao/ZeepinChain/core/types"
-	"github.com/mileschao/ZeepinChain/errors"
-	scommon "github.com/mileschao/ZeepinChain/smartcontract/common"
-	"github.com/mileschao/ZeepinChain/smartcontract/event"
-	vm "github.com/mileschao/ZeepinChain/vm/neovm"
-	vmtypes "github.com/mileschao/ZeepinChain/vm/neovm/types"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/common/serialization"
+	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/errors"
+	scommon "github.com/imZhuFei/zeepin/smartcontract/common"
+	"github.com/imZhuFei/zeepin/smartcontract/event"
+	vm "github.com/imZhuFei/zeepin/vm/neovm"
+	vmtypes "github.com/imZhuFei/zeepin/vm/neovm/types"
 )
 
 // HeaderGetNextConsensus put current block time to vm stack

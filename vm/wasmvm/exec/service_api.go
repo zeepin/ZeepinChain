@@ -18,8 +18,8 @@
 package exec
 
 import (
-	"github.com/mileschao/ZeepinChain/errors"
-	"github.com/mileschao/ZeepinChain/vm/wasmvm/util"
+	"github.com/imZhuFei/zeepin/errors"
+	"github.com/imZhuFei/zeepin/vm/wasmvm/util"
 	"strconv"
 )
 

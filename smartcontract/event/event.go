@@ -19,10 +19,10 @@
 package event
 
 import (
-	"github.com/mileschao/ZeepinChain/common"
-	"github.com/mileschao/ZeepinChain/core/types"
-	"github.com/mileschao/ZeepinChain/events"
-	"github.com/mileschao/ZeepinChain/events/message"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/events"
+	"github.com/imZhuFei/zeepin/events/message"
 )
 
 const (

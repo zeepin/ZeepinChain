@@ -19,9 +19,9 @@
 package neovm
 
 import (
-	"github.com/mileschao/ZeepinChain/core/types"
-	"github.com/mileschao/ZeepinChain/errors"
-	vm "github.com/mileschao/ZeepinChain/vm/neovm"
+	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/errors"
+	vm "github.com/imZhuFei/zeepin/vm/neovm"
 )
 
 // HeaderGetHash put header's hash to vm stack

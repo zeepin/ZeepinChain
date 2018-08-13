@@ -26,7 +26,7 @@ import (
 	"errors"
 	"io"
 
-	"github.com/mileschao/ZeepinChain/vm/wasmvm/wasm/internal/readpos"
+	"github.com/imZhuFei/zeepin/vm/wasmvm/wasm/internal/readpos"
 )
 
 var ErrInvalidMagic = errors.New("wasm: Invalid magic number")

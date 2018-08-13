@@ -21,8 +21,8 @@ package vbft
 import (
 	"testing"
 
-	"github.com/mileschao/ZeepinChain/account"
-	"github.com/mileschao/ZeepinChain/common"
+	"github.com/imZhuFei/zeepin/account"
+	"github.com/imZhuFei/zeepin/common"
 )
 
 func HashBlock(blk *Block) (common.Uint256, error) {
