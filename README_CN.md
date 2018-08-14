@@ -60,11 +60,10 @@ zeepin的运行支持以下方式
 
 
 ### ZPT转账调用示例
-   - from: 转出地址； - to: 转入地址； - amount: 资产转移数量；
-      from参数可以不指定，如果不指定则使用默认账户。
+   - from: 转出地址； - to: 转入地址； - amount: 转出资产数量；
 
 ```shell
-  ./zeepin asset transfer --from ZC3Fmgr3oS56Rg9vxZeVo2mwMMcTzHMV8a --to ZJohWxMxiMWHczSCV5ZUybZEf5jh9VQE5G --amount 10
+  ./zeepin asset transfer --from ZC3Fmgr3oS56Rg9vxZeVo2mwMMcTzHMV8a --to ZJohWxMxiMWHczSCV5ZUybZEf5jh9VQE5G --amount 1000
 ```
 
 执行完后会输出：
@@ -73,7 +72,7 @@ zeepin的运行支持以下方式
 Transfer ZPT
 From:ZC3Fmgr3oS56Rg9vxZeVo2mwMMcTzHMV8a
 To:ZJohWxMxiMWHczSCV5ZUybZEf5jh9VQE5G
-Amount:10
+Amount:1000
 TxHash:210151362ff61fb7e51e2fefb1426fc71d13a391e88ab1822863de9509d8fd18
 ```
 其中TxHash是转账交易的交易HASH，可以通过这个HASH查询转账交易的直接结果。
@@ -90,7 +89,7 @@ TxHash:210151362ff61fb7e51e2fefb1426fc71d13a391e88ab1822863de9509d8fd18
 Transaction:transfer success
 From:ZC3Fmgr3oS56Rg9vxZeVo2mwMMcTzHMV8a
 To:ZJohWxMxiMWHczSCV5ZUybZEf5jh9VQE5G
-Amount:10
+Amount:1000
 ```
 
 ### 查询账户余额示例
@@ -103,8 +102,8 @@ Amount:10
 查询结果：
 ```shell
 BalanceOf:ZC3Fmgr3oS56Rg9vxZeVo2mwMMcTzHMV8a
-ZPT:10
-GALA:0
+ZPT:1000
+GALA:500
 GALAApprove:0
 ```
 
