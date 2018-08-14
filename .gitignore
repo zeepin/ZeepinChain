@@ -1,0 +1,6 @@
+vendor
+*.tar.gz
+zeepin-*
+debug
+*debug
+wallet
