@@ -2,11 +2,6 @@
 <h1 align="center">zeepin </h1>
 <h4 align="center">Version 1.0 </h4>
 
-[![GoDoc](https://godoc.org/github.com/zeepin/ZeepinChain?status.svg)](https://godoc.org/github.com/zeepin/ZeepinChain)
-[![Go Report Card](https://goreportcard.com/badge/github.com/zeepin/ZeepinChain)](https://goreportcard.com/report/github.com/zeepin/ZeepinChain)
-[![Travis](https://travis-ci.org/zeepin/ZeepinChain.svg?branch=master)](https://travis-ci.org/zeepin/ZeepinChain)
-[![Discord](https://img.shields.io/discord/102860784329052160.svg)](https://discord.gg/gDkuCAq)
-
 English | [中文](README_CN.md)
 
 Welcome to zeepin's source code repository!
@@ -366,7 +361,7 @@ Signed-off-by: Your Name [youremail@yourhost.com](mailto:youremail@yourhost.com)
 
 ### Developer Discord Group
 
-- <https://discord.gg/4TQujHj/>
+- <https://discord.gg/>
 
 ## License
 

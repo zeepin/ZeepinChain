@@ -2,11 +2,6 @@
 <h1 align="center">zeepin </h1>
 <h4 align="center">Version 1.0 </h4>
 
-[![GoDoc](https://godoc.org/github.com/zeepin/ZeepinChain?status.svg)](https://godoc.org/github.com/zeepin/ZeepinChain)
-[![Go Report Card](https://goreportcard.com/badge/github.com/zeepin/ZeepinChain)](https://goreportcard.com/report/github.com/zeepin/ZeepinChain)
-[![Travis](https://travis-ci.org/zeepin/ZeepinChain.svg?branch=master)](https://travis-ci.org/zeepin/ZeepinChain)
-[![Discord](https://img.shields.io/discord/102860784329052160.svg)](https://discord.gg/gDkuCAq)
-
 [English](README.md) | 中文
 
 欢迎来到zeepin的源码库！ 
@@ -354,7 +349,7 @@ GALAApprove:0
 
 ### Discord开发者社区
 
-- https://discord.gg/4TQujHj/
+- https://discord.gg/
 
 ## 许可证
 
