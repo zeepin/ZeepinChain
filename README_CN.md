@@ -64,17 +64,17 @@ zeepin的运行支持以下方式
       from参数可以不指定，如果不指定则使用默认账户。
 
 ```shell
-  ./zeepin asset transfer  --to=TA4Xe9j8VbU4m3T1zEa1uRiMTauiAT88op --amount=10
+  ./zeepin asset transfer --from ZC3Fmgr3oS56Rg9vxZeVo2mwMMcTzHMV8a --to ZJohWxMxiMWHczSCV5ZUybZEf5jh9VQE5G --amount 10
 ```
 
 执行完后会输出：
 
 ```
 Transfer ZPT
-From:TA6edvwgNy3c1nBHgmFj8KrgQ1JCJNhM3o
-To:TA4Xe9j8VbU4m3T1zEa1uRiMTauiAT88op
+From:ZC3Fmgr3oS56Rg9vxZeVo2mwMMcTzHMV8a
+To:ZJohWxMxiMWHczSCV5ZUybZEf5jh9VQE5G
 Amount:10
-TxHash:10dede8b57ce0b272b4d51ab282aaf0988a4005e980d25bd49685005cc76ba7f
+TxHash:210151362ff61fb7e51e2fefb1426fc71d13a391e88ab1822863de9509d8fd18
 ```
 其中TxHash是转账交易的交易HASH，可以通过这个HASH查询转账交易的直接结果。
 出于区块链出块时间的限制，提交的转账请求不会马上执行，需要等待至少一个区块时间，等待记账节点打包交易。
@@ -83,13 +83,13 @@ TxHash:10dede8b57ce0b272b4d51ab282aaf0988a4005e980d25bd49685005cc76ba7f
 
 --hash:指定查询的转账交易hash
 ```shell
-./zeepin asset status --hash=10dede8b57ce0b272b4d51ab282aaf0988a4005e980d25bd49685005cc76ba7f
+./zeepin asset status --hash=210151362ff61fb7e51e2fefb1426fc71d13a391e88ab1822863de9509d8fd18
 ```
 查询结果：
 ```shell
 Transaction:transfer success
-From:TA6edvwgNy3c1nBHgmFj8KrgQ1JCJNhM3o
-To:TA4Xe9j8VbU4m3T1zEa1uRiMTauiAT88op
+From:ZC3Fmgr3oS56Rg9vxZeVo2mwMMcTzHMV8a
+To:ZJohWxMxiMWHczSCV5ZUybZEf5jh9VQE5G
 Amount:10
 ```
 
@@ -98,11 +98,11 @@ Amount:10
 --address:账户地址
 
 ```shell
-./zeepin asset balance --address=TA4Xe9j8VbU4m3T1zEa1uRiMTauiAT88op
+./zeepin asset balance --address=ZC3Fmgr3oS56Rg9vxZeVo2mwMMcTzHMV8a
 ```
 查询结果：
 ```shell
-BalanceOf:TA4Xe9j8VbU4m3T1zEa1uRiMTauiAT88op
+BalanceOf:ZC3Fmgr3oS56Rg9vxZeVo2mwMMcTzHMV8a
 ZPT:10
 GALA:0
 GALAApprove:0
