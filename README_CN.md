@@ -63,49 +63,91 @@ zeepin的运行支持以下方式
    - from: 转出地址； - to: 转入地址； - amount: 转出资产数量；
 
 ```shell
-  ./zeepin asset transfer --from ZC3Fmgr3oS56Rg9vxZeVo2mwMMcTzHMV8a --to ZJohWxMxiMWHczSCV5ZUybZEf5jh9VQE5G --amount 1000
+  ./zeepin asset transfer --from ZJohWxMxiMWHczSCV5ZUybZEf5jh9VQE5G  --to ZTA8f5U8Zd1gELkje7fJmYmdmMMm1WxPyv --amount 5
 ```
 
-执行完后会输出：
+执行完输出：
 
 ```
 Transfer ZPT
-From:ZC3Fmgr3oS56Rg9vxZeVo2mwMMcTzHMV8a
-To:ZJohWxMxiMWHczSCV5ZUybZEf5jh9VQE5G
-Amount:1000
-TxHash:210151362ff61fb7e51e2fefb1426fc71d13a391e88ab1822863de9509d8fd18
+  From:ZJohWxMxiMWHczSCV5ZUybZEf5jh9VQE5G
+  To:ZTA8f5U8Zd1gELkje7fJmYmdmMMm1WxPyv
+  Amount:5
+  TxHash:78cd8097ed58cf06b8f7d7591f05657afb9f32686ef88956c246b3a4146f6ec2
+
+Tip:
+  Using './zeepin info status 78cd8097ed58cf06b8f7d7591f05657afb9f32686ef88956c246b3a4146f6ec2' to query transaction status
 ```
-其中TxHash是转账交易的交易HASH，可以通过这个HASH查询转账交易的直接结果。
-出于区块链出块时间的限制，提交的转账请求不会马上执行，需要等待至少一个区块时间，等待记账节点打包交易。
+可以通过这个TxHash查询转账交易的结果，等待至少一个区块时间即可。
+
 
 ### 查询转账结果示例
 
---hash:指定查询的转账交易hash
 ```shell
-./zeepin asset status --hash=210151362ff61fb7e51e2fefb1426fc71d13a391e88ab1822863de9509d8fd18
+./zeepin info status 78cd8097ed58cf06b8f7d7591f05657afb9f32686ef88956c246b3a4146f6ec2
 ```
 查询结果：
 ```shell
-Transaction:transfer success
-From:ZC3Fmgr3oS56Rg9vxZeVo2mwMMcTzHMV8a
-To:ZJohWxMxiMWHczSCV5ZUybZEf5jh9VQE5G
-Amount:1000
+Transaction states:
+{
+   "TxHash": "78cd8097ed58cf06b8f7d7591f05657afb9f32686ef88956c246b3a4146f6ec2",
+   "State": 1,
+   "GasConsumed": 10000000,
+   "Notify": [
+      {
+         "ContractAddress": "0100000000000000000000000000000000000000",
+         "States": [
+            "transfer",
+            "ZJohWxMxiMWHczSCV5ZUybZEf5jh9VQE5G",
+            "ZTA8f5U8Zd1gELkje7fJmYmdmMMm1WxPyv",
+            50000
+         ]
+      },
+      {
+         "ContractAddress": "0200000000000000000000000000000000000000",
+         "States": [
+            "transfer",
+            "ZJohWxMxiMWHczSCV5ZUybZEf5jh9VQE5G",
+            "ZC3Fmgr3oS56Rg9vxZeVo2mwMMcUiYGcPp",
+            10000000
+         ]
+      }
+   ]
+}
 ```
 
 ### 查询账户余额示例
 
---address:账户地址
-
 ```shell
-./zeepin asset balance --address=ZC3Fmgr3oS56Rg9vxZeVo2mwMMcTzHMV8a
+./zeepin asset balance ZJohWxMxiMWHczSCV5ZUybZEf5jh9VQE5G
 ```
 查询结果：
 ```shell
-BalanceOf:ZC3Fmgr3oS56Rg9vxZeVo2mwMMcTzHMV8a
-ZPT:1000
-GALA:500
-GALAApprove:0
+  BalanceOf:ZJohWxMxiMWHczSCV5ZUybZEf5jh9VQE5G
+  ZPT:100098945
+  GALA:100026953.517
 ```
+
+
+### 查询解绑的Gala示例
+
+```shell
+./zeepin asset unboundgala ZJohWxMxiMWHczSCV5ZUybZEf5jh9VQE5G
+```
+
+查询结果：
+```shell
+  Unbound GALA:
+  Account:ZJohWxMxiMWHczSCV5ZUybZEf5jh9VQE5G
+  GALA:10129.2123
+```
+
+### 提取解绑的Gala示例
+
+```shell
+./zeepin asset withdrawgala ZJohWxMxiMWHczSCV5ZUybZEf5jh9VQE5G
+```
+
 
 
 ## 官方社区
