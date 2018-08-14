@@ -45,17 +45,12 @@ zeepin致力于创建一个可自由配置、高性能、可扩展的区块链�
 ```shell
 $ git clone https://github.com/zeepin/ZeepinChain.git
 ```
+
 或者
 ```shell
 $ go get github.com/zeepin/ZeepinChain
 ```
 
-用第三方包管理工具glide拉取依赖库
-
-````shell
-$ cd $GOPATH/src/github.com/zeepin/ZeepinChain
-$ glide install
-````
 
 用make编译源码
 
