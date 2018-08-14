@@ -33,7 +33,7 @@ The public test network is described below. We sincerely welcome and hope more d
 - [Server deployment](#server-deployment)
     - [Select network](#select-network)
         - [Mainnet sync node deployment](#mainnet-sync-node-deployment)
-        - [Public test network Polaris sync node deployment](#public-test-network-polaris-sync-node-deployment)
+        - [Public test network  sync node deployment](#public-test-network--sync-node-deployment)
         - [Single-host deployment configuration](#single-host-deployment-configuration)
         - [Multi-hosts deployment configuration](#multi-hosts-deployment-configuration)
             - [GBFT Deployment](#gbft-deployment)
@@ -98,7 +98,7 @@ After building the source code sucessfully, you should see two executable progra
 To run zeepin successfully,  nodes can be deployed by three ways:
 
 - Mainnet sync node deployment
-- Public test network Polaris sync node deployment
+- Public test network  sync node deployment
 - Single-host deployment
 - Multi-hosts deployment
 
@@ -111,7 +111,7 @@ Run zeepin straightly
    ```
 
 
-#### Public test network Polaris sync node deployment
+#### Public test network  sync node deployment
 
 Run zeepin straightly
 
