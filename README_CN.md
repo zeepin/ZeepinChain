@@ -70,7 +70,7 @@ zeepin的运行支持以下方式
 
 #### MainNet竞选节点部署
 
-运行zeepin
+先[创建zeepin钱包](#创建zeepin钱包)后运行zeepin
 
    ```
 	./zeepin --enableconsensus --rest --restport=20334 --ws --wsport=20335 --rpcport=20336 --nodeport=20338 --loglevel=0
@@ -85,7 +85,6 @@ zeepin的运行支持以下方式
 
 #### 创建zeepin钱包
 
-创建zeepin钱包：
 
    ```
 	./zeepin account add -d
