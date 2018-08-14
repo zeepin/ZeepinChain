@@ -85,13 +85,30 @@ zeepin的运行支持以下方式
 
 #### 创建zeepin钱包
 
-创建zeepin钱包
+创建zeepin钱包：
 
    ```
 	./zeepin account add -d
    ```
-   接着输入密码即可创建钱包，请务必保存好钱包密码和私钥
-   
+接着输入密码，执行完输出：
+
+```
+Use default setting '-t ecdsa -b 256 -s SHA256withECDSA'
+	signature algorithm: ecdsa
+	curve: P-256
+	signature scheme: SHA256withECDSA
+Password:
+Re-enter Password:
+
+Index: 1
+Label:
+Address: ZT047K36grEi5H6BF7gLb2Z0JwBFMQRRCU
+Public key: 02c7fed64a315c664034bae1257f45c9fdf8c24033f0904ce7b47b0090232323
+Signature scheme: SHA256withECDSA
+
+```
+请务必保存好钱包密码和私钥,zeepin钱包统一为Z开头。
+
    
 ### ZPT转账调用示例
    - from: 转出地址； - to: 转入地址； - amount: 转出资产数量；
