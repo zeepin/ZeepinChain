@@ -4,24 +4,15 @@
 
 [English](README.md) | [中文](README_CN.md) | [한글](README_KO.md)
 
-欢迎来到zeepin的源码库！ 
 
-zeepin致力于创建一个组件化、可自由配置、跨链支持、高性能、横向可扩展的区块链底层基础设施。 让部署及调用去中心化应用变得更加非常简单。
+欢迎查看zeepin的源码库!
 
-目前代码还处于内部测试阶段，但处于快速的开发过程中，master代码可能是不稳定的，稳定的版本可以在releases中下载。
+Zeepin Chain是一条去中心化的文创及娱乐资产公链，通过区块链构建标准化基础设施，为创意人群提供高效工作的解决方案，帮助创意组织提高创新效率，促进文创产业开放透明、公平高效的价值流通。同时Zeepin Chain还将打造区块链数字娱乐资产发行平台，为全球文娱资产代币化提供区块链技术支持及落地场景的建设。Zeepin Chain公链作为一条行业基础链，拥有整合第三方娱乐资产和系统的能力，建立一个自由的交易市场和兑换平台。
 
-公开的测试网可以在下面找到，也非常欢迎及希望能有更多的开发者加入到zeepin中来。
+Zeepin Chain构建了完整的区块链技术框架，采用GBFT－POS共识机制（星际共识），提供具备图灵完备性的虚拟机作为智能合约的执行环境，为应用架构提供自定义脚步控制支持。支持Java、C#、Python、Javascript等编程语言开发的脚本，虚拟机都可以通过api与链进行集成交互。
 
-## 特性
+zeepin致力于创建一个可自由配置、高性能、可扩展的区块链底层基础设施，让部署及调用去中心化应用变得更加的简单。目前代码还处于内部测试阶段，但处于快速的迭代开发中，欢迎及希望更多的开发者加入到zeepin中来！
 
-* 可扩展的轻量级通用智能合约
-* 可扩展的WASM合约的支持
-* 跨链交互协议（进行中）
-* 多种加密算法支持 
-* 高度优化的交易处理速度
-* P2P连接链路加密(可选择模块)
-* 多种共识算法支持 (GBFT/DBFT/SBFT/PoW/SOLO...)
-* 快速的区块生成时间
 
 ## 目录
 
@@ -33,8 +24,6 @@ zeepin致力于创建一个组件化、可自由配置、跨链支持、高性�
     * [选择网络](#选择网络)
         * [主网同步节点部署](#主网同步节点部署)
         * [公开测试网同步节点部署](#公开测试网同步节点部署)
-        * [单机部署配置](#单机部署配置)
-        * [多机部署配置](#多机部署配置)
     * [运行](#运行)
     * [ZPT转账调用示例](#zpt转账调用示例)
 * [贡献代码](#贡献代码)
@@ -87,12 +76,10 @@ $ make all
 
 ## 服务器部署
 ### 选择网络
-zeepin的运行支持以下4种方式
+zeepin的运行支持以下方式
 
 * 主网同步节点部署
 * 公开测试网同步节点部署
-* 单机部署
-* 多机部署
 
 #### 主网同步节点部署
 
@@ -130,7 +117,7 @@ zeepin的运行支持以下4种方式
 
 #### 多机部署配置
 
-注意：当你想搭建一个私网去运行DBFT或者GBFT模式的zeepin时，你必须要使用 --config参数去指定一个具体的配置文件，并且要使用 --networkid去定义一个
+注意：当你想搭建一个私网去运行GBFT模式的zeepin时，你必须要使用 --config参数去指定一个具体的配置文件，并且要使用 --networkid去定义一个
 网络标识（不能等于1/2/3），否则，zeepin节点将会自动连接到主网上。
 
 ##### GBFT部署方法
@@ -173,64 +160,13 @@ zeepin的运行支持以下4种方式
 5. 种子节点配置
     - 在7个主机中选出至少一个做种子节点，并将种子节点地址分别填写到每个配置文件的`SeelList`中，格式为`种子节点IP地址 + 种子节点NodePort`
 
-##### DBFT部署方法
 
-多机环境下，最少需要4个节点（共识节点）完成部署。
-我们可以通过修改默认的配置文件[`config-dbft.json`](./docs/specifications/config-dbft.json)进行快速部署，配置文件的说明请点击[这里](./docs/specifications/config_CN.md)。
-
-1. 将相关文件复制到目标主机，包括：
-    - 配置文件`config-dbft.json`
-    - 节点程序`zeepin`
-
-2. 设置每个节点网络连接的端口号（推荐不做修改，使用默认端口配置）
-    - `NodePort`为的P2P连接端口号（默认20338）
-    - `HttpJsonPort`和`HttpLocalPort`为RPC端口号（默认为20336，20337）
-
-3. 种子节点配置
-    - 在4个主机中选出至少一个做种子节点，并将种子节点地址分别填写到每个配置文件的`SeelList`中，格式为`种子节点IP地址 + 种子节点NodePort`
-
-4. 创建钱包文件
-    - 通过命令行程序，在每个主机上分别创建节点运行所需的钱包文件wallet.dat 
-        ```
-        $ ./zeepin account add -d
-        Use default setting '-t ecdsa -b 256 -s SHA256withECDSA' 
-		signature algorithm: ecdsa 
-		curve: P-256 
-		signature scheme: SHA256withECDSA 
-		Password:
-		Re-enter Password:
-
-		Index: 1
-		Label: 
-		Address: AXkDGfr9thEqWmCKpTtQYaazJRwQzH48eC
-		Public key: 03d7d8c0c4ca2d2bc88209db018dc0c6db28380d8674aff86011b2a6ca32b512f9
-		Signature scheme: SHA256withECDSA
-
-		Create account successfully.
-        ```
-
-5. 记账人配置
-    - 为每个节点创建钱包时会显示钱包的公钥信息，将所有节点的公钥信息分别填写到每个节点的配置文件的`Bookkeepers`项中
-    
-        注：每个节点的钱包公钥信息也可以通过命令行程序查看：
-    
-        ```
-        1	AYiToLDT2yZuNs3PZieXcdTpyC5VWQmfaN (default)
-        	Label: 
-        	Signature algorithm: ECDSA
-        	Curve: P-256
-        	Key length: 384 bits
-        	Public key: 030e5d50bf585ff5c73464114244b93f04b231862d6bbdfd846be890093b2c1c17
-        	Signature scheme: SHA256withECDSA
-        ```
-	
-#### 部署完成
 
 多机部署配置完成，每个节点目录结构如下:
 
    ```shell
 	$ ls
-	config.json zeepin wallet.dat
+	config.json  zeepin  wallet.dat
    ```
 ### 运行
 
@@ -245,26 +181,8 @@ zeepin的运行支持以下4种方式
     $ - Input your wallet password
    ```
 
-了解更多请运行 `./zeepin --help`，你也可以参考[zeepin CLI 用户指引](./docs/specifications/cli_user_guide_CN.md)获得更多信息。
+了解更多请运行 `./zeepin --help`
 
-#### 使用docker运行
-
-请确保机器上已安装有docker环境。
-
-1. 编译docker镜像
-
-    - 在下载好的源码根目录下，运行`make docker`命令，这将编译好zeepin的docker镜像
-
-2. 运行zeepin镜像
-
-    - 使用命令`docker run zeepin/zeepin`运行zeepin；
-
-    - 如果需要使镜像运行时接受交互式键盘输入，则使用`docker -ti run zeepin/zeepin`命令启动镜像即可；
-
-    - 如果需要保留镜像每次运行时的数据，可以参考docker的数据持久化功能（例如 valume）；
-
-    - 如果需要使用zeepin参数，则在`docker run zeepin/zeepin`后面直接加参数即可，例如`docker run zeepin/zeepin --networkid 2`，具体的zeepin命令
-    行参数可以参考[这里](./docs/specifications/cli_user_guide_CN.md)。
 
 ### ZPT转账调用示例
    - from: 转出地址； - to: 转入地址； - amount: 资产转移数量；
@@ -315,31 +233,6 @@ GALA:0
 GALAApprove:0
 ```
 
-## 贡献代码
-
-请您以签过名的commit发送pull request请求，我们期待您的加入！
-您也可以通过邮件的方式发送你的代码到开发者邮件列表，欢迎加入zeepin邮件列表和开发者论坛。
-
-另外，在您想为本项目贡献代码时请提供详细的提交信息，格式参考如下：
-
-  Header line: explain the commit in one line (use the imperative)
-
-  Body of commit message is a few lines of text, explaining things
-  in more detail, possibly giving some background about the issue
-  being fixed, etc etc.
-
-  The body of the commit message can be several paragraphs, and
-  please do proper word-wrap and keep columns shorter than about
-  74 characters or so. That way "git log" will show things
-  nicely even when it's indented.
-
-  Make sure you explain your solution and why you're doing what you're
-  doing, as opposed to describing what you're doing. Reviewers and your
-  future self can read the patch, but might not understand why a
-  particular solution was implemented.
-
-  Reported-by: whoever-reported-it
-  Signed-off-by: Your Name <youremail@yourhost.com>
 
 ## 开源社区
 
