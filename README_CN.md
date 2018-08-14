@@ -16,41 +16,31 @@ zeepin致力于创建一个可自由配置、高性能、可扩展的区块链�
 
 ## 目录
 
-* [构建开发环境](#构建开发环境)
 * [获取zeepin](#获取zeepin)
     * [从release获取](#从release获取)
 * [服务器部署](#服务器部署)
     * [选择网络](#选择网络)
-        * [主网同步节点部署](#主网同步节点部署)
-        * [公开测试网同步节点部署](#公开测试网同步节点部署)
+        * [MainNet同步节点部署](#MainNet同步节点部署)
+        * [TestNet同步节点部署](#TestNet同步节点部署)
     * [运行](#运行)
     * [ZPT转账调用示例](#zpt转账调用示例)
-* [开源社区](#开源社区)
-    * [网站](#网站)
-    * [Discord开发者社区](#discord开发者社区)
+* [官方社区](#官方社区)
+    * [官方网站](#官方网站)
 * [许可证](#许可证)
 
-## 构建开发环境
-成功编译zeepin需要以下准备：
-
-* Golang版本在1.9及以上
-* 安装第三方包管理工具glide
-* 正确的Go语言开发环境
-* Golang所支持的操作系统
 
 ## 获取zeepin
 ### 从release获取
-- 你可以通过命令 ` curl https://dev.zeepin.io/ZeepinChain_install | sh ` 获取最新的zeepin版本
-- 你也可以从[下载页面](https://github.com/zeepin/zeepin/releases)获取.
+- 从[下载页面](https://github.com/zeepin/zeepin/releases)获取
 
 ## 服务器部署
 ### 选择网络
 zeepin的运行支持以下方式
 
-* 主网同步节点部署
-* 公开测试网同步节点部署
+* MainNet同步节点部署
+* TestNet同步节点部署
 
-#### 主网同步节点部署
+#### MainNet同步节点部署
 
 直接启动zeepin
 
@@ -58,31 +48,13 @@ zeepin的运行支持以下方式
 	./zeepin --networkid 1
    ```
 
-#### 公开测试网同步节点部署
+#### TestNet同步节点部署
 
 直接启动zeepin
 
    ```
 	./zeepin --networkid 2
    ```
-
-#### 单机部署配置
-
-在单机上创建一个目录，在目录下存放以下文件：
-- 节点程序 + 节点控制程序 `zeepin`
-- 钱包文件`wallet.dat`
-
-使用命令 `$ ./zeepin --testmode --networkid 3` 即可启动单机版的测试网络。
-
-单机配置的例子如下：
-- 目录结构
-
-    ```shell
-    $ tree
-    └── node
-        ├── zeepin
-        └── wallet.dat
-    ```
 
 了解更多请运行 `./zeepin --help`
 
@@ -137,15 +109,13 @@ GALAApprove:0
 ```
 
 
-## 开源社区
+## 官方社区
 
-### 网站
+### 官方网站
 
 - https://zeepin.io/
 
-### Discord开发者社区
 
-- https://discord.gg/
 
 ## 许可证
 
