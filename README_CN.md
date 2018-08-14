@@ -39,30 +39,6 @@ zeepin致力于创建一个可自由配置、高性能、可扩展的区块链�
 * Golang所支持的操作系统
 
 ## 获取zeepin
-### 从源码获取
-克隆zeepin仓库到 **$GOPATH/src/github.com/zeepin** 目录
-
-```shell
-$ git clone https://github.com/zeepin/ZeepinChain.git
-```
-
-或者
-```shell
-$ go get github.com/zeepin/ZeepinChain
-```
-
-
-用make编译源码
-
-```shell
-$ make all
-```
-
-成功编译后会生成两个可以执行程序
-
-* `zeepin`: 节点程序/以命令行方式提供的节点控制程序
-* `tools/sigsvr`: (可选)签名服务 - sigsvr是一个签名服务的server以满足一些特殊的需求。详细的文档可以在[这里](./docs/specifications/sigsvr_CN.md)参考
-
 ### 从release获取
 - 你可以通过命令 ` curl https://dev.zeepin.io/ZeepinChain_install | sh ` 获取最新的zeepin版本
 - 你也可以从[下载页面](https://github.com/zeepin/zeepin/releases)获取.
