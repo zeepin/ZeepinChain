@@ -115,7 +115,7 @@ Tip:
 可以通过这个TxHash查询转账交易的结果，等待至少一个区块时间即可。
 
 
-### 查询转账结果TxHash示
+### 查询转账结果TxHash
 
 ```shell
 ./zeepin info status 78cd8097ed58cf06b8f7d7591f05657afb9f32686ef88956c246b3a4146f6ec2
