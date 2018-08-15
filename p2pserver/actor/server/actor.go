@@ -21,10 +21,10 @@ package server
 import (
 	"reflect"
 
-	"github.com/ontio/ontology-eventbus/actor"
 	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/imZhuFei/zeepin/p2pserver"
 	"github.com/imZhuFei/zeepin/p2pserver/common"
+	"github.com/ontio/ontology-eventbus/actor"
 )
 
 type P2PActor struct {
@@ -91,9 +91,9 @@ func (this *P2PActor) Receive(ctx actor.Context) {
 	case *common.RemovePeerID:
 		this.server.OnDelNode(msg.ID)
 	case *common.AppendHeaders:
-		this.server.OnHeaderReceive(msg.Headers)
+		this.server.OnHeaderReceive(msg.FromID, msg.Headers)
 	case *common.AppendBlock:
-		this.server.OnBlockReceive(msg.Block)
+		this.server.OnBlockReceive(msg.FromID, msg.BlockSize, msg.Block)
 	default:
 		err := this.server.Xmit(ctx.Message())
 		if nil != err {
