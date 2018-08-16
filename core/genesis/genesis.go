@@ -69,8 +69,8 @@ func BuildGenesisBlock(defaultBookkeeper []keypair.PublicKey, genesisConfig *con
 		return nil, fmt.Errorf("[Block],BuildGenesisBlock err with GetBookkeeperAddress: %s", err)
 	}
 	conf := bytes.NewBuffer(nil)
-	if genesisConfig.GBFT != nil {
-		genesisConfig.GBFT.Serialize(conf)
+	if genesisConfig.VBFT != nil {
+		genesisConfig.VBFT.Serialize(conf)
 	}
 	govConfig := newGoverConfigInit(conf.Bytes())
 	consensusPayload, err := vconfig.GenesisConsensusPayload(govConfig.Hash(), 0)
@@ -188,7 +188,34 @@ func newGoverningInit() *types.Transaction {
 }
 
 func newUtilityInit() *types.Transaction {
-	return utils.BuildNativeTransaction(nutils.GalaContractAddress, zpt.INIT_NAME, []byte{})
+	bookkeepers, _ := config.DefConfig.GetBookkeepers()
+
+	var addr common.Address
+	if len(bookkeepers) == 1 {
+		addr = types.AddressFromPubKey(bookkeepers[0])
+	} else {
+		//m := (5*len(bookkeepers) + 6) / 7
+		m := int(math.Ceil(float64(len(bookkeepers)) * 2.0 / 3.0))
+		temp, err := types.AddressFromMultiPubKeys(bookkeepers, m)
+		if err != nil {
+			panic(fmt.Sprint("wrong bookkeeper config, caused by", err))
+		}
+		addr = temp
+	}
+
+	distribute := []struct {
+		addr  common.Address
+		value uint64
+	}{{addr, constants.GALA_TOTAL_SUPPLY - constants.GALA_UNBOUND_SUPPLY}}
+
+	args := bytes.NewBuffer(nil)
+	nutils.WriteVarUint(args, uint64(len(distribute)))
+	for _, part := range distribute {
+		nutils.WriteAddress(args, part.addr)
+		nutils.WriteVarUint(args, part.value)
+	}
+
+	return utils.BuildNativeTransaction(nutils.GalaContractAddress, zpt.INIT_NAME, args.Bytes())
 }
 
 func newParamInit() *types.Transaction {

@@ -442,8 +442,8 @@ func main() {
 			return
 		}
 		tx = NewInvokeTransaction(gasPrice, gasLimit, code)
-		for i := 0; i < 5; i++ {
-			if err := MultiSignToTransaction(tx, 5, pubKeys, users[i]); err != nil {
+		for i := 0; i < len(config.Configuration.Wallets); i++ {
+			if err := MultiSignToTransaction(tx, uint16(math.Ceil(float64(len(config.Configuration.Wallets))*2.0/3.0)), pubKeys, users[i]); err != nil {
 				fmt.Println("sign transaction error!")
 				return
 			}
@@ -462,7 +462,7 @@ func main() {
 			}
 		}
 	case "getPeerpoolInfo":
-		preresult, err := utils.PrepareInvokeNativeContract(nutils.GovernanceContractAddress, 0, "getPeerPoolInfo", []interface{}{false})
+		preresult, err := PrepareInvokeNativeContract(nutils.GovernanceContractAddress, 0, "getPeerPoolInfo", []interface{}{false})
 		if err != nil {
 			fmt.Println("get PeerpoolInfo fail:", err)
 			return
@@ -471,12 +471,14 @@ func main() {
 		peerPoolMap := &governance.PeerPoolMap{
 			PeerPoolMap: make(map[string]*governance.PeerPoolItem),
 		}
-		peerPoolMapbytes := []byte(preresult.Result.(string))
+
+		peerPoolMapbytes, _ := common.HexToBytes(preresult.Result.(string))
+		fmt.Println(preresult.Result)
 		if err := peerPoolMap.Deserialize(bytes.NewBuffer(peerPoolMapbytes)); err != nil {
 			fmt.Println("deserialize, deserialize peerPoolMap error!", err)
 		}
 		for _, v := range peerPoolMap.PeerPoolMap {
-			fmt.Println("peerInfo Index: %d, InitPos:%v\n", v.Index, v.InitPos)
+			fmt.Printf("peerInfo Index: %d, InitPos:%d \n", v.Index, v.InitPos)
 		}
 		return
 	case "peersInfo":
@@ -524,7 +526,7 @@ func main() {
 			}
 			blk, err := initVbftBlock(cfgBlock)
 			if err != nil {
-				fmt.Println("init Gbft Block fail")
+				fmt.Println("init Vbft Block fail")
 				return
 			}
 			if blk.Info.NewChainConfig == nil {
@@ -532,7 +534,7 @@ func main() {
 			}
 			cfg = *blk.Info.NewChainConfig
 		}
-		fmt.Printf("block gbft chainConfig, View:%d, N:%d, C:%d, BlockMsgDelay:%v, HashMsgDelay:%v, PeerHandshakeTimeout:%v, MaxBlockChangeView:%d, PosTable:%v\n",
+		fmt.Printf("block vbft chainConfig, View:%d, N:%d, C:%d, BlockMsgDelay:%v, HashMsgDelay:%v, PeerHandshakeTimeout:%v, MaxBlockChangeView:%d, PosTable:%v\n",
 			cfg.View, cfg.N, cfg.C, cfg.BlockMsgDelay, cfg.HashMsgDelay, cfg.PeerHandshakeTimeout, cfg.MaxBlockChangeView, cfg.PosTable)
 		for _, p := range cfg.Peers {
 			fmt.Printf("peerInfo Index: %d, ID:%v\n", p.Index, p.ID)
@@ -611,6 +613,33 @@ type JsonRpcResponse struct {
 	Result json.RawMessage `json:"result"`
 }
 
+func PrepareInvokeNativeContract(
+	contractAddress common.Address,
+	version byte,
+	method string,
+	params []interface{}) (*cstates.PreExecResult, error) {
+	tx, err := httpcom.NewNativeInvokeTransaction(0, 0, contractAddress, version, method, params)
+	if err != nil {
+		return nil, err
+	}
+	var buffer bytes.Buffer
+	err = tx.Serialize(&buffer)
+	if err != nil {
+		return nil, fmt.Errorf("Serialize error:%s", err)
+	}
+	txData := hex.EncodeToString(buffer.Bytes())
+	data, err := sendRpcRequest("sendrawtransaction", []interface{}{txData, 1})
+
+	if err != nil {
+		return nil, err
+	}
+	preResult := &cstates.PreExecResult{}
+	err = json.Unmarshal(data, &preResult)
+	if err != nil {
+		return nil, fmt.Errorf("json.Unmarshal PreExecResult:%s error:%s", data, err)
+	}
+	return preResult, nil
+}
 func sendRpcRequest(method string, params []interface{}) ([]byte, error) {
 	rpcReq := &JsonRpcRequest{
 		Version: "1.0",
