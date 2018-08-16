@@ -504,7 +504,7 @@ func main() {
 		}
 		block, err := initVbftBlock(blk)
 		if err != nil {
-			fmt.Println("init Vbft Block fail:", err)
+			fmt.Println("init Gbft Block fail:", err)
 			return
 		}
 		var cfg vconfig.ChainConfig
@@ -526,7 +526,7 @@ func main() {
 			}
 			blk, err := initVbftBlock(cfgBlock)
 			if err != nil {
-				fmt.Println("init Vbft Block fail")
+				fmt.Println("init Gbft Block fail")
 				return
 			}
 			if blk.Info.NewChainConfig == nil {
@@ -534,7 +534,7 @@ func main() {
 			}
 			cfg = *blk.Info.NewChainConfig
 		}
-		fmt.Printf("block vbft chainConfig, View:%d, N:%d, C:%d, BlockMsgDelay:%v, HashMsgDelay:%v, PeerHandshakeTimeout:%v, MaxBlockChangeView:%d, PosTable:%v\n",
+		fmt.Printf("block gbft chainConfig, View:%d, N:%d, C:%d, BlockMsgDelay:%v, HashMsgDelay:%v, PeerHandshakeTimeout:%v, MaxBlockChangeView:%d, PosTable:%v\n",
 			cfg.View, cfg.N, cfg.C, cfg.BlockMsgDelay, cfg.HashMsgDelay, cfg.PeerHandshakeTimeout, cfg.MaxBlockChangeView, cfg.PosTable)
 		for _, p := range cfg.Peers {
 			fmt.Printf("peerInfo Index: %d, ID:%v\n", p.Index, p.ID)
