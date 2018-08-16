@@ -1,8 +1,0 @@
-{
-  "Configuration": {
-    "Wallets":  ["/Users/ZhuFei/node/n1/wallet.dat", "/Users/ZhuFei/node/n2/wallet.dat", "/Users/ZhuFei/node/n3/wallet.dat", "/Users/ZhuFei/node/n4/wallet.dat", "/Users/ZhuFei/node/n5/wallet.dat", "/Users/ZhuFei/node/n6/wallet.dat", "/Users/ZhuFei/node/n7/wallet.dat", "/Users/ZhuFei/node/n8/wallet.dat", "/Users/ZhuFei/node/n9/wallet.dat"],
-    "Passwords": ["1", "1", "1", "1", "1", "1", "1", "1", "1"],
-    "RpcUrl": "http://127.0.0.1:20336",
-    "OntIds": ["did:ont:ARgjiPNeCm2BrmuMm5vyhR4tBRaJrMmVs5"]
-  }
-}
