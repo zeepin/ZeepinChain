@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"flag"
 	"fmt"
+	"math"
 	"math/big"
 	"reflect"
 	"sort"
@@ -14,7 +15,6 @@ import (
 
 	"encoding/json"
 	"io/ioutil"
-	"math"
 	"net/http"
 
 	"github.com/imZhuFei/zeepin/account"

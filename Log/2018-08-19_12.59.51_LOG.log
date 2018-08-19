@@ -1,0 +1,2 @@
+2018/08/19 12:59:51.694466 [0;36m[INFO ][m GID 1, Config init success
+2018/08/19 13:00:24.041933 [0;31m[ERROR][m GID 1, initWallet error:get account error:decrypt PrivateKey error:decrypt private key error: cipher: message authentication failed
