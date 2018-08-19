@@ -206,7 +206,7 @@ var MainNetConfig = &GenesisConfig{
 		BlockMsgDelay:        10000,
 		HashMsgDelay:         10000,
 		PeerHandshakeTimeout: 10,
-		MaxBlockChangeView:   3000,
+		MaxBlockChangeView:   120000,
 		AdminGID:             "GID:ZPT:ZRqrcCbuqL4mijFq9vtf1GorkFsdvSWzGq",
 		MinInitStake:         10000000000,
 		VrfValue:             "1c9810aa9822e511d5804a9c4db9dd08497c31087b0daafa34d768a3253441fa20515e2f30f81741102af0ca3cefc4818fef16adb825fbaa8cad78647f3afb590e",
