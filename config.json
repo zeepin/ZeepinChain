@@ -1,0 +1,8 @@
+{
+  "Configuration": {
+    "Wallets":  ["./1.dat","./2.dat","./3.dat","./4.dat","./5.dat","./6.dat","./7.dat","./8.dat","./9.dat"],
+    "Passwords": ["1","1","1","1","1","1","1","1","1"],
+    "RpcUrl": "http://127.0.0.1:20336",
+    "GIds": ["GID:ZPT:ZZc2Nx6aTeqvJcGjCAEYFBqpppP6MhaWYx"]
+  }
+}
