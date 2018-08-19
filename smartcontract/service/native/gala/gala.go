@@ -61,11 +61,50 @@ func GalaInit(native *native.NativeService) ([]byte, error) {
 		return utils.BYTE_FALSE, errors.NewErr("Init gala has been completed!")
 	}
 
+	distribute := make(map[common.Address]uint64)
+	buf, err := serialization.ReadVarBytes(bytes.NewBuffer(native.Input))
+	if err != nil {
+		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "serialization.ReadVarBytes, contract params deserialize error!")
+	}
+	input := bytes.NewBuffer(buf)
+	num, err := utils.ReadVarUint(input)
+	if err != nil {
+		return utils.BYTE_FALSE, fmt.Errorf("read number error:%v", err)
+	}
+	sum := uint64(0)
+	overflow := false
+	for i := uint64(0); i < num; i++ {
+		addr, err := utils.ReadAddress(input)
+		if err != nil {
+			return utils.BYTE_FALSE, fmt.Errorf("read address error:%v", err)
+		}
+		value, err := utils.ReadVarUint(input)
+		if err != nil {
+			return utils.BYTE_FALSE, fmt.Errorf("read value error:%v", err)
+		}
+		sum, overflow = common.SafeAdd(sum, value)
+		if overflow {
+			return utils.BYTE_FALSE, errors.NewErr("wrong config. overflow detected")
+		}
+		distribute[addr] += value
+	}
+	if sum != constants.GALA_TOTAL_SUPPLY-constants.GALA_UNBOUND_SUPPLY {
+		return utils.BYTE_FALSE, fmt.Errorf("wrong config. total supply %d != %d", sum, constants.GALA_TOTAL_SUPPLY-constants.GALA_UNBOUND_SUPPLY)
+	}
+
+	for addr, val := range distribute {
+		balanceKey := zpt.GenBalanceKey(contract, addr)
+		item := utils.GenUInt64StorageItem(val)
+		native.CloneCache.Add(scommon.ST_STORAGE, balanceKey, item)
+		zpt.AddNotifications(native, contract, &zpt.State{To: addr, Value: val})
+	}
 	item := utils.GenUInt64StorageItem(constants.GALA_TOTAL_SUPPLY)
+	unboundItem := utils.GenUInt64StorageItem(constants.GALA_UNBOUND_SUPPLY)
 	native.CloneCache.Add(scommon.ST_STORAGE, zpt.GenTotalSupplyKey(contract), item)
-	native.CloneCache.Add(scommon.ST_STORAGE, append(contract[:], utils.ZptContractAddress[:]...), item)
-	zpt.AddNotifications(native, contract, &zpt.State{To: utils.ZptContractAddress, Value: constants.GALA_TOTAL_SUPPLY})
+	native.CloneCache.Add(scommon.ST_STORAGE, append(contract[:], utils.ZptContractAddress[:]...), unboundItem)
+	zpt.AddNotifications(native, contract, &zpt.State{To: utils.ZptContractAddress, Value: constants.GALA_UNBOUND_SUPPLY})
 	return utils.BYTE_TRUE, nil
+
 }
 
 func GalaTransfer(native *native.NativeService) ([]byte, error) {
