@@ -71,7 +71,7 @@ func main() {
 	flag.IntVar(&accountNum, "account_num", 1, "wallet account number")
 	flag.Parse()
 
-	if len(config.Configuration.Wallets) == 1 && len(config.Configuration.Passwords) == 1 {
+	/*if len(config.Configuration.Wallets) == 1 && len(config.Configuration.Passwords) == 1 {
 		wallet, err := account.Open(config.Configuration.Wallets[0])
 		if err != nil {
 			fmt.Println("open wallet " + config.Configuration.Wallets[0] + " fail.")
@@ -87,22 +87,23 @@ func main() {
 			users = append(users, user)
 			pubKeys = append(pubKeys, user.PublicKey)
 		}
-	} else {
-		for i := 0; i < len(config.Configuration.Wallets); i++ {
-			wallet, err := account.Open(config.Configuration.Wallets[i])
-			if err != nil {
-				fmt.Println("open wallet " + config.Configuration.Wallets[i] + " fail.")
-				return
-			}
-			user, err := wallet.GetDefaultAccount([]byte(config.Configuration.Passwords[i]))
-			if err != nil {
-				fmt.Println("open wallet " + config.Configuration.Wallets[i] + " password error.")
-				return
-			}
-			users = append(users, user)
-			pubKeys = append(pubKeys, user.PublicKey)
+	} else {*/
+	for i := 0; i < len(config.Configuration.Wallets); i++ {
+		wallet, err := account.Open(config.Configuration.Wallets[i])
+		if err != nil {
+			fmt.Println("open wallet " + config.Configuration.Wallets[i] + " fail.")
+			return
 		}
+		user, err := wallet.GetDefaultAccount([]byte(config.Configuration.Passwords[i]))
+		if err != nil {
+			fmt.Println("open wallet " + config.Configuration.Wallets[i] + " password error. " + err.Error())
+			return
+		}
+		fmt.Println("open wallet " + config.Configuration.Wallets[i])
+		users = append(users, user)
+		pubKeys = append(pubKeys, user.PublicKey)
 	}
+	//}
 
 	switch branch {
 	case "multiAddr":
