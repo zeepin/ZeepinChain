@@ -55,6 +55,7 @@ func main() {
 		users        []*account.Account
 		contractAddr common.Address
 		index        int
+		accountNum   int
 	)
 	config.Init()
 	flag.StringVar(&branch, "branch", "", "branch")
@@ -67,21 +68,40 @@ func main() {
 	flag.Uint64Var(&gasPrice, "gasPrice", 0, "gas price")
 	flag.Uint64Var(&gasLimit, "gasLimit", 20000, "gas limit")
 	flag.IntVar(&index, "index", 1, "account index")
+	flag.IntVar(&accountNum, "account_num", 1, "wallet account number")
 	flag.Parse()
 
-	for i := 0; i < len(config.Configuration.Wallets); i++ {
-		wallet, err := account.Open(config.Configuration.Wallets[i])
+	if len(config.Configuration.Wallets) == 1 && len(config.Configuration.Passwords) == 1 {
+		wallet, err := account.Open(config.Configuration.Wallets[0])
 		if err != nil {
-			fmt.Println("open wallet " + config.Configuration.Wallets[i] + " fail.")
+			fmt.Println("open wallet " + config.Configuration.Wallets[0] + " fail.")
 			return
 		}
-		user, err := wallet.GetDefaultAccount([]byte(config.Configuration.Passwords[i]))
-		if err != nil {
-			fmt.Println("open wallet " + config.Configuration.Wallets[i] + " password error.")
-			return
+		for i := 1; i <= accountNum; i++ {
+			user, err := wallet.GetAccountByIndex(i, []byte(config.Configuration.Passwords[0]))
+			//user, err := wallet.GetDefaultAccount([]byte(config.Configuration.Passwords[i]))
+			if err != nil {
+				fmt.Println("open wallet " + config.Configuration.Wallets[i] + " password error." + err.Error())
+				return
+			}
+			users = append(users, user)
+			pubKeys = append(pubKeys, user.PublicKey)
 		}
-		users = append(users, user)
-		pubKeys = append(pubKeys, user.PublicKey)
+	} else {
+		for i := 0; i < len(config.Configuration.Wallets); i++ {
+			wallet, err := account.Open(config.Configuration.Wallets[i])
+			if err != nil {
+				fmt.Println("open wallet " + config.Configuration.Wallets[i] + " fail.")
+				return
+			}
+			user, err := wallet.GetDefaultAccount([]byte(config.Configuration.Passwords[i]))
+			if err != nil {
+				fmt.Println("open wallet " + config.Configuration.Wallets[i] + " password error.")
+				return
+			}
+			users = append(users, user)
+			pubKeys = append(pubKeys, user.PublicKey)
+		}
 	}
 
 	switch branch {
