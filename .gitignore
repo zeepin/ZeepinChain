@@ -1,6 +1,7 @@
 vendor
 *.tar.gz
 zeepin-*
+ztest-*
 debug
 *debug
-wallet
+wallet*
