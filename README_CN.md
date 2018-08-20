@@ -75,13 +75,13 @@ zeepin的运行支持以下方式
 先[创建zeepin钱包](#创建zeepin钱包)后运行zeepin
 
    ```
-	./zeepin --enableconsensus --rest --restport=20334 --ws --wsport=20335 --rpcport=20336 --nodeport=20338 --loglevel=0
+	./zeepin --enableconsensus --rest --restport=20334 --ws --wsport=20335 --rpcport=20336 --nodeport=20338
    ```
 
 查看更多命令参数：
 
    ```
-   	--loglevel=0 日志参数
+	--loglevel=0 日志参数
 	--password=xxx 钱包密码
 	./zeepin --help
    ```
