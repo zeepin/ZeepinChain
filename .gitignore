@@ -1,8 +1,7 @@
-vendor
 *.tar.gz
-zeepin-*
-ztest-*
 debug
 *debug
 wallet*
 *.dat
+*/.DS_Store
+*/.gitignore
