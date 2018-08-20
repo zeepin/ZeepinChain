@@ -52,6 +52,7 @@ zeepin的运行支持以下方式
 * MainNet同步节点部署
 * MainNet竞选节点部署
 
+参数：--networkid：1为默认主网；2为测网；3为单机运行；
 
 #### TestNet同步节点部署
 
@@ -66,7 +67,7 @@ zeepin的运行支持以下方式
 运行zeepin
 
    ```
-	./zeepin --networkid 1
+	./zeepin
    ```
 
 #### MainNet竞选节点部署
