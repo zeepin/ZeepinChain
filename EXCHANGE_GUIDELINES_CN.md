@@ -17,52 +17,73 @@ ZEEPIN区块链资产分为：
 交易所和ZEEPIN区块链对接时，主要是处理这两种类型资产的：充值、提现、交易查询、账户创建等操作。
 
 
-# ZEEPIN同步节点的部署
 
-## 获取zeepin
-### 从release获取
+## ZEEPIN同步节点的部署
+
+### 获取zeepin
+#### 从release获取
 - 从[下载页面](https://github.com/zeepin/zeepinChain/releases)获取
 
 ## 服务器部署
-### 选择网络
-zeepin的运行支持以下方式
-
-* TestNet同步节点部署
-* MainNet同步节点部署
-* MainNet竞选节点部署
-
-参数：--networkid：1为默认主网；2为测网；3为单机运行；
-
-#### TestNet同步节点部署
-
-运行zeepin
-
-   ```
-	./zeepin --networkid 2
-   ```
-
 #### MainNet同步节点部署
 
-运行zeepin
+目录结构如下
+
+   ```
+	$ tree -L 1
+	.
+	├── zeepin
+	└── wallet.dat
+   ```
+
+
+1、创建zeepin钱包
+
+
+   ```
+	./zeepin account add -d
+   ```
+接着输入密码，执行完输出：
+
+```
+Use default setting '-t ecdsa -b 256 -s SHA256withECDSA'
+	signature algorithm: ecdsa
+	curve: P-256
+	signature scheme: SHA256withECDSA
+Password:
+Re-enter Password:
+
+Index: 1
+Label:
+Address: ZT047K36grEi5H6BF7gLb2Z0JwBFMQRRCU
+Public key: 02c7fed64a315c664034bae1257f45c9fdf8c24033f0904ce7b47b0090232323
+Signature scheme: SHA256withECDSA
+
+```
+请务必保存好钱包密码和私钥,zeepin钱包统一为Z开头。
+
+
+2、运行zeepin节点
 
    ```
 	./zeepin
    ```
 
-#### MainNet竞选节点部署
+默认关闭websocket和rest端口，可以配置以下参数启动端口：
 
-先通过zeepin cli [创建zeepin钱包](#创建zeepin钱包)后运行zeepin
+RESTFUL OPTIONS:
+  --rest            Enable restful api server
+  --restport value  Restful server listening port (default: 20334)
 
-   ```
-	./zeepin --enableconsensus --rest --restport=20334 --ws --wsport=20335 --rpcport=20336 --nodeport=20338
-   ```
-
-查看更多命令参数：
+WEB SOCKET OPTIONS:
+  --ws            Enable websocket server
+  --wsport value  Ws server listening port (default: 20335)
+  
+  
+zeepin -h 查看更多命令，如参数：
 
    ```
 	--loglevel=0 日志参数
-	--password=xxx 钱包密码
-	./zeepin --help
    ```
 
 
