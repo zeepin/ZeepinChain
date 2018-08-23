@@ -1,5 +1,5 @@
 <h1 align="center">EXCHANGE_GUIDELINES_CN</h1>
-<h4 align="center">Version 0.1.0 </h4>
+<h4 align="center">Version 1.0 </h4>
 
 [English](EXCHANGE_GUIDELINES.md) | [中文](EXCHANGE_GUIDELINES_CN.md) | [한글](EXCHANGE_GUIDELINES_KO.md)
 
@@ -466,6 +466,485 @@ Signature scheme: SHA256withECDSA
  
 
 
+## Java SDK的使用
+
+### 账号管理
+
+#### 不使用钱包管理：
+
+##### 随机创建账号：
+
+```java
+com.github.zeepin.account.Account acct = new com.github.zeepin.account.Account(zeepinSdk.defaultSignScheme);
+acct.serializePrivateKey();//私钥
+acct.serializePublicKey();//公钥
+acct.getAddressU160().toBase58();//base58地址
+```
+
+
+##### 根据私钥创建账号
+
+```java
+com.github.zeepin.account.Account acct0 = new com.github.zeepin.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
+com.github.zeepin.account.Account acct1 = new com.github.zeepin.account.Account(Helper.hexToBytes(privatekey1), ontSdk.defaultSignScheme);
+com.github.zeepin.account.Account acct2 = new com.github.zeepin.account.Account(Helper.hexToBytes(privatekey2), ontSdk.defaultSignScheme);
+
+```
+
+#### 使用钱包管理：
+
+
+```java
+
+#### 在钱包中批量创建账号:
+zeepinSdk.getWalletMgr().createAccounts(10, "password");
+zeepinSdk.getWalletMgr().writeWallet();
+
+随机创建:
+AccountInfo info0 = zeepinSdk.getWalletMgr().createAccountInfo("password");
+
+通过私钥创建:
+AccountInfo info = zeepinSdk.getWalletMgr().createAccountInfoFromPriKey("password","00d9336a5e83754815fdd609f7ecce31135428d4fcc40469082658cf");
+
+获取账号
+com.github.zeepinio.account.Account acct0 = zeepinSdk.getWalletMgr().getAccount(info.addressBase58,"password");
+
+```
+
+
+
+
+### 创建地址
+
+```
+单签地址生成：
+String privatekey0 = "privatekey";
+String privatekey1 = "privatekey";
+String privatekey2 = "privatekey";
+
+//生成账号，获取地址
+com.github.zeepin.account.Account acct0 = new com.github.zeepin.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
+Address sender = acct0.getAddressU160();
+
+//base58地址解码
+sender = Address.decodeBase58("ZC3Fmgr3oS56Rg9vxZeVo2mwMMcUiYGcPp")；
+
+多签地址生成：
+Address recvAddr = Address.addressFromMultiPubKeys(2, acct1.serializePublicKey(), acct2.serializePublicKey());
+
+
+```
+
+| 方法名                  | 参数                      | 参数描述                       |
+| :---------------------- | :------------------------ | :----------------------------- |
+| addressFromMultiPubkeys | int m,byte\[\]... pubkeys | 最小验签个数(<=公钥个数)，公钥 |
+
+
+
+### ZPT和Gala转账
+
+**对于在主网转账，请将gaslimit 设为20000，gasprice设为1
+
+
+#### 1. 初始化
+
+```
+String ip = "http://test1.zeepin.net";
+String rpcUrl = ip + ":" + "20336";
+zeepinSdk zeepinSdk = zeepinSdk.getInstance();
+zeepinSdk.setRpc(rpcUrl);
+zeepinSdk.setDefaultConnect(zeepinSdk.getRpc());
+
+```
+
+#### 2. 查询
+
+##### 查询zeepin，ONG余额
+
+```
+zeepinSdk.getConnect().getBalance("ZC3Fmgr3oS56Rg9vxZeVo2mwMMcUiYGcPp");
+
+查zeepin信息：
+System.out.println(zeepinSdk.nativevm().zeepin().queryName());
+System.out.println(zeepinSdk.nativevm().zeepin().querySymbol());
+System.out.println(zeepinSdk.nativevm().zeepin().queryDecimals());
+System.out.println(zeepinSdk.nativevm().zeepin().queryTotalSupply());
+
+查ong信息：
+System.out.println(zeepinSdk.nativevm().ong().queryName());
+System.out.println(zeepinSdk.nativevm().ong().querySymbol());
+System.out.println(zeepinSdk.nativevm().ong().queryDecimals());
+System.out.println(zeepinSdk.nativevm().ong().queryTotalSupply());
+
+
+
+```
+
+##### 查询交易是否在交易池中
+
+```
+zeepinSdk.getConnect().getMemPoolTxState("00d9336a5e83754815fdd609f7ecce31135428d4fcc40469082658cfdb8b62c4")
+
+
+response 交易池存在此交易:
+
+{
+    "Action": "getmempooltxstate",
+    "Desc": "SUCCESS",
+    "Error": 0,
+    "Result": {
+        "State":[
+            {
+              "Type":1,
+              "Height":451,
+              "ErrCode":0
+            },
+            {
+              "Type":0,
+              "Height":0,
+              "ErrCode":0
+            }
+       ]
+    },
+    "Version": "0.1.0"
+}
+
+或 交易池不存在此交易
+
+{
+    "Action": "getmempooltxstate",
+    "Desc": "UNKNOWN TRANSACTION",
+    "Error": 44001,
+    "Result": "",
+    "Version": "0.1.0"
+}
+
+```
+
+##### 查询交易是否调用成功
+
+查询智能合约推送内容
+
+```
+zeepinSdk.getConnect().getSmartCodeEvent("00d9336a5e83754815fdd609f7ecce31135428d4fcc40469082658cfdb8b62c4")
+
+
+response:
+{
+    "Action": "getsmartcodeeventbyhash",
+    "Desc": "SUCCESS",
+    "Error": 0,
+    "Result": {
+        "TxHash": "00d9336a5e83754815fdd609f7ecce31135428d4fcc40469082658cfdb8b62c4",
+        "State": 1,
+        "GasConsumed": 0,
+        "Notify": [
+            {
+                "CzeepinractAddress": "0100000000000000000000000000000000000000",
+                "States": [
+                    "transfer",
+                    "ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz",
+                    "ZC3Fmgr3oS56Rg9vxZeVo2mwMMcUiYGcPp",
+                    300000
+                ]
+            }
+        ]
+    },
+    "Version": "0.1.0"
+}
+
+```
+
+根据块高查询智能合约事件，返回有事件的交易
+
+```
+zeepinSdk.getConnect().getSmartCodeEvent(10)
+
+response:
+{
+    "Action": "getsmartcodeeventbyhash",
+    "Desc": "SUCCESS",
+    "Error": 0,
+    "Result": {
+        "TxHash": "00d9336a5e83754815fdd609f7ecce31135428d4fcc40469082658cfdb8b62c4",
+        "State": 1,
+        "GasConsumed": 0,
+        "Notify": [
+            {
+                "CzeepinractAddress": "0100000000000000000000000000000000000000",
+                "States": [
+                    "transfer",
+                    "ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz",
+                    "ZC3Fmgr3oS56Rg9vxZeVo2mwMMcUiYGcPp",
+                    300000
+                ]
+            }
+        ]
+    },
+    "Version": "0.1.0"
+}
+
+```
+
+##### 其他与链交互接口列表：
+
+| No   |                    Main   Function                     |     Description      |
+| ---- | :----------------------------------------------------: | :------------------: |
+| 1    |       zeepinSdk.getConnect().getGenerateBlockTime()       |   查询VBFT出块时间   |
+| 2    |           zeepinSdk.getConnect().getNodeCount()           |     查询节点数量     |
+| 3    |            zeepinSdk.getConnect().getBlock(15)            |        查询块        |
+| 4    |          zeepinSdk.getConnect().getBlockJson(15)          |        查询块        |
+| 5    |       zeepinSdk.getConnect().getBlockJson("txhash")       |        查询块        |
+| 6    |         zeepinSdk.getConnect().getBlock("txhash")         |        查询块        |
+| 7    |          zeepinSdk.getConnect().getBlockHeight()          |     查询当前块高     |
+| 8    |      zeepinSdk.getConnect().getTransaction("txhash")      |       查询交易       |
+| 9    | zeepinSdk.getConnect().getStorage("czeepinractaddress", key) |   查询智能合约存储   |
+| 10   |       zeepinSdk.getConnect().getBalance("address")        |       查询余额       |
+| 11   | zeepinSdk.getConnect().getCzeepinractJson("czeepinractaddress") |     查询智能合约     |
+| 12   |       zeepinSdk.getConnect().getSmartCodeEvent(59)        |   查询智能合约事件   |
+| 13   |    zeepinSdk.getConnect().getSmartCodeEvent("txhash")     |   查询智能合约事件   |
+| 14   |  zeepinSdk.getConnect().getBlockHeightByTxHash("txhash")  |   查询交易所在高度   |
+| 15   |      zeepinSdk.getConnect().getMerkleProof("txhash")      |    获取merkle证明    |
+| 16   | zeepinSdk.getConnect().sendRawTransaction("txhexString")  |       发送交易       |
+| 17   |  zeepinSdk.getConnect().sendRawTransaction(Transaction)   |       发送交易       |
+| 18   |    zeepinSdk.getConnect().sendRawTransactionPreExec()     |    发送预执行交易    |
+| 19   |  zeepinSdk.getConnect().getAllowance("zeepin","from","to")   |    查询允许使用值    |
+| 20   |        zeepinSdk.getConnect().getMemPoolTxCount()         | 查询交易池中交易总量 |
+| 21   |        zeepinSdk.getConnect().getMemPoolTxState()         | 查询交易池中交易状态 |
+
+#### 3. zeepin转账
+
+##### 构造转账交易并发送
+
+```
+转出方与收款方地址：
+Address sender = acct0.getAddressU160();
+Address recvAddr = acct1;
+//多签地址生成
+//Address recvAddr = Address.addressFromMultiPubKeys(2, acct1.serializePublicKey(), acct2.serializePublicKey());
+
+构造转账交易：
+long amount = 1000;
+Transaction tx = zeepinSdk.nativevm().zeepin().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
+
+
+对交易做签名：
+zeepinSdk.signTx(tx, new com.github.zeepin.account.Account[][]{{acct0}});
+//多签地址的签名方法：
+zeepinSdk.signTx(tx, new com.github.zeepin.account.Account[][]{{acct1, acct2}});
+//如果转出方与网络费付款人不是同一个地址，需要添加网络费付款人的签名
+
+
+发送交易：
+zeepinSdk.getConnect().sendRawTransaction(tx.toHexString());
+
+
+```
+
+
+
+| 方法名       | 参数                                                         | 参数描述                                                     |
+| :----------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
+| makeTransfer | String sender，String recvAddr,long amount,String payer,long gaslimit,long gasprice | 发送方地址，接收方地址，金额，网络费付款人地址，gaslimit，gasprice |
+| makeTransfer | State\[\] states,String payer,long gaslimit,long gasprice    | 一笔交易包含多个转账。                                       |
+
+##### 多次签名
+
+如果转出方与网络费付款人不是同一个地址，需要添加网络费付款人的签名
+
+```
+1.添加单签签名
+zeepinSdk.addSign(tx,acct0);
+
+2.添加多签签名
+zeepinSdk.addMultiSign(tx,2,new com.github.zeepin.account.Account[]{acct0,acct1});
+
+```
+
+
+##### 一转多或多转多
+
+1. 构造多个state的交易
+2. 签名
+3. 一笔交易上限为1024笔转账
+
+```
+Address sender1 = acct0.getAddressU160();
+Address sender2 = Address.addressFromMultiPubKeys(2, acct1.serializePublicKey(), acct2.serializePublicKey());
+int amount = 10;
+int amount2 = 20;
+
+State state = new State(sender1, recvAddr, amount);
+State state2 = new State(sender2, recvAddr, amount2);
+Transaction tx = zeepinSdk.nativevm().zeepin().makeTransfer(new State[]{state1,state2},sender1.toBase58(),30000,0);
+
+//第一个转出方是单签地址，第二个转出方是多签地址：
+zeepinSdk.signTx(tx, new com.github.zeepin.account.Account[][]{{acct0}});
+zeepinSdk.addMultiSign(tx,2,new com.github.zeepin.account.Account[]{acct1, acct2});
+
+```
+
+
+
+
+#### 4. Gala转账
+
+##### Gala转账接口与ZPT类似：
+
+```
+zeepinSdk.nativevm().gala().makeTransfer...
+```
+
+##### 提取Gala
+
+- 查询是否有Gala可以提取
+- 构造交易和签名
+- 发送提取Gala交易
+
+```
+查询未提取Gala:
+String addr = acct0.getAddressU160().toBase58();
+String gala = sdk.nativevm().gala().unboundgala(addr);
+
+//提取Gala
+zeepinSdk.signatureScheme);
+String hash = sdk.nativevm().gala().withdrawgala(account,toAddr,64000L,payerAcct,20000,1);
+
+```
+
+| 方法名       | 参数                                                         | 参数描述                                                     |
+| :----------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
+| makeClaimGala | String claimer,String to,long amount,String payer,long gaslimit,long gasprice | claim提取者，提给谁，金额，网络付费人地址，gaslimit，gasprice |
+
+
+
+## 4. 给用户分发Gala
+
+交易所可以选择是否给用户分发Gala， Gala用于支付zeepin区块链的转账交易、合约部署、记账费用和网络等附加服务。
+
+
+### 什么是Gala
+
+在Zeepin经济模型中，ZPT总发行量恒定为10亿，Gala总量恒定为1000亿，800亿处于锁定状态，ZPT和Gala的精度都是4，对应分发的Gala总量为200亿，其中20亿已经空投至ZPT持有者，其余180亿将逐步解绑至ZPT持有者（最小解绑单位为1个ZPT）。
+当一笔ZPT交易在区块链网络中产生，该笔交易将触发Gala解绑，此部分Gala将由智能合约自动转账至发起人与接收人，此时ZPT持有者能获得的Gala奖励将与持有量成正比。
+如果特定地址的交易一直不被触发，该地址的Gala将持续累积；当下一笔交易触发时，一次性发放所有Gala，该Gala数量可以在Zeepin钱包应用ZeeWallet中通过Claim查询。
+
+
+### 计算可提取的Gala总量
+
+180亿Gala将通过时间段调整解绑总数量，时间段的单位为年（具体为31536000秒），解绑数量的规则遵从斐波那契数列。为了补偿网络节点与早期持有者，前两年解绑数量为最高值，之后呈递减状，具体数值为[89, 89, 55, 55, 55, 34, 34, 34, 21, 21, 21, 13, 13,13, 8, 8,5,5,]。经过约18年后，所有Gala将解绑完毕，此后不会有新的Gala产生。
+
+按照该解绑比例，第一年与第二年将会解绑31.18%的Gala，而前4年这一比例将增加至50.46%，大幅度增加了早期持有者的收益。
+假设一名用户持有10000个ZPT，在第一年他将获得76.9 Gala/天，2338.9 Gala/月，28067.0 Gala/年。
+
+「详细解绑规则请参照zeepin经济模型」
+
+
+### 给用户分发Gala
+
+通过CLI查看未解绑Gala余额：
+
+
+```
+$ ./zeepin asset unboundgala ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz
+Unbound GALA:
+  Account:ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz
+  GALA:144521.6129
+
+```
+
+通过CLI提取解绑的Gala：
+
+
+```
+$ ./zeepin asset withdrawgala ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz
+Password:
+Withdraw GALA:
+  Account:ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz
+  Amount:144521.6129
+  TxHash:3612d3cbb4a58956258f0aa7dce35da673aedf3af3f5271ce68bcfb1ed2755d4
+
+Tip:
+  Using './zeepin info status 3612d3cbb4a58956258f0aa7dce35da673aedf3af3f5271ce68bcfb1ed2755d4' to query transaction status
+```
+
+查询解绑状态
+
+```
+$ ./zeepin info status 3612d3cbb4a58956258f0aa7dce35da673aedf3af3f5271ce68bcfb1ed2755d4
+Transaction states:
+{
+   "TxHash": "3612d3cbb4a58956258f0aa7dce35da673aedf3af3f5271ce68bcfb1ed2755d4",
+   "State": 1,
+   "GasConsumed": 20000,
+   "Notify": [
+      {
+         "ContractAddress": "0200000000000000000000000000000000000000",
+         "States": [
+            "transfer",
+            "ZC3Fmgr3oS56Rg9vxZeVo2mwMMcTzHMV8a",
+            "ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz",
+            1445216129
+         ]
+      },
+      {
+         "ContractAddress": "0200000000000000000000000000000000000000",
+         "States": [
+            "transfer",
+            "ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz",
+            "ZC3Fmgr3oS56Rg9vxZeVo2mwMMcUiYGcPp",
+            20000
+         ]
+      }
+   ]
+}
+```
+
+查询balance可以看到Gala已经解绑到账户中：
+
+```
+$ ./zeepin asset balance ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz
+BalanceOf:ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz
+  ZPT:9989996.9989
+  GALA:10143405.6129
+```
+
+
+
+
+### 用户提现Gala
+
+用户提现Gala的流程和提现ZPT的流程一致，只需指定asset 参数为gala即可：
+
+```
+$ ./zeepin asset transfer --asset gala --from ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz --to ZTSPC1PEhXHZZDTFtvRDjoKSZrgYboBwDM --amount 10000
+Password:
+Transfer Gala
+  From:ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz
+  To:ZTSPC1PEhXHZZDTFtvRDjoKSZrgYboBwDM
+  Amount:10000
+  TxHash:3612d3cbb4a58956258f0aa7dce35da673aedf3af3f5271ce68bcfb1ed2755d4
+
+Tip:
+  Using './zeepin info status 3612d3cbb4a58956258f0aa7dce35da673aedf3af3f5271ce68bcfb1ed2755d4' to query transaction status
+
+```
+
+使用Java SDK 提现Gala，请参照[Java SDK:Gala转账]
+
+
+
+## 附 native 合约地址
+
+合约名称 | 合约地址 | Address
+---|---|---
+ZPT Token | 0100000000000000000000000000000000000000| Zxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Gala Token | 0200000000000000000000000000000000000000 | Zxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Zeepin Network GID(Galaxy ID) | 0300000000000000000000000000000000000000 | Zxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Global Environment | 0400000000000000000000000000000000000000 | Zxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Oracle Machine | 0500000000000000000000000000000000000000 | Zxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Authorization Contract | 0600000000000000000000000000000000000000 | Zxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Governance(Consensus) | 0700000000000000000000000000000000000000 | Zxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
 
@@ -473,8 +952,9 @@ Signature scheme: SHA256withECDSA
 
 
 
-todo：
-- 1、java sdk 动态钱包创建方案
-- 2、原NEP5地址如何转换为ZEEPIN钱包地址
+
+
+
+
 
 
