@@ -384,7 +384,7 @@ Signature scheme: SHA256withECDSA
    wallet指定转出账户钱包路径，默认为根目录下的"wallet.dat"
 
    --gasprice  
-   zeepin网络中gasprice最小为10000（4位精度，即1个Gala）；
+   zeepin网络中gasprice最小为1；
    gasprice * gaslimit 为账户实际支付的 Gala 燃料费用（每笔转账的最小燃料数值为2个Gala）；
    gasprice参数指定转账交易的gas price。交易的gas price不能小于接收节点交易池设置的最低gas price，否则交易会被拒绝。默认值为0。
    交易池会按照gas price由高到低排序，gas price高的交易会被优先处理。
@@ -594,6 +594,92 @@ Global Environment | 0400000000000000000000000000000000000000 | Zxxxxxxxxxxxxxxx
 Oracle Machine | 0500000000000000000000000000000000000000 | Zxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 Authorization Contract | 0600000000000000000000000000000000000000 | Zxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 Governance(Consensus) | 0700000000000000000000000000000000000000 | Zxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+
+
+
+## FAQ （持续更新）
+
+- 如何连接测试网？
+
+  运行zeepin测试节点：
+
+   ```
+	./zeepin --networkid 2
+   ```
+   可通过 ./zeepin -h 查询更多参数设置
+
+- zeepin官方由区块链浏览器吗？
+  [https://zeescan.io](https://zeescan.io)
+
+- ZPT和Gala的精度问题
+  ZPT和Gala的精度是4，如果输入超出4位小数，超出部分的数值会被丢弃
+
+- 转账手续费需要多少？
+  
+  ```
+  gasprice * gaslimit = gala cost
+  ```
+   --gasprice  
+   zeepin网络中gasprice最小为1；
+   gasprice * gaslimit 为账户实际支付的 Gala 燃料费用（每笔转账的最小燃料数值为2个Gala）；
+   gasprice参数指定转账交易的gas price。交易的gas price不能小于接收节点交易池设置的最低gas price，否则交易会被拒绝。默认值为0。
+   交易池会按照gas price由高到低排序，gas price高的交易会被优先处理。
+
+   --gaslimit  
+   zeepin网络中gaslimit最小值为20000（4位精度，即2个Gala）；
+   gaslimit参数指定最大的gas使用上限。但实际gas花费由VM执行的步数与API决定，假定以下2种情况:  
+   1. gaslimit>=实际花费，交易将执行成功，并退回未消费的gas；
+   2. gaslimt<实际所需花费，交易将执行失败，并消费掉VM已执行花费的gas;  
+   
+   zeepin网络中gaslimit最小值为20000（4位精度，即2个Gala），少于这个数量交易将无法被打包。
+
+- 转账交易发生时，如何区别转账的amount和gas？
+  识别方法如下：
+  交易手续费在 Transaction states 中直接标注在 GasConsumed 中，
+  在 Notify 中问最后一组
+  同时该手续费转向治理合约对应的唯一地址：ZC3Fmgr3oS56Rg9vxZeVo2mwMMcUiYGcPp（示例为testnet）
+
+	```
+	$ ./zeepin info status 00d9336a5e83754815fdd609f7ecce31135428d4fcc40469082658cfdb8b62c4
+	Transaction states:
+	{
+	   "TxHash": "00d9336a5e83754815fdd609f7ecce31135428d4fcc40469082658cfdb8b62c4",
+	   "State": 1,
+	   "GasConsumed": 20000,
+	   "Notify": [
+	      {
+		 "ContractAddress": "0200000000000000000000000000000000000000",
+		 "States": [
+		    "transfer",
+		    "ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz",
+		    "ZTSPC1PEhXHZZDTFtvRDjoKSZrgYboBwDM",
+		    1000000
+		 ]
+	      },
+	      {
+		 "ContractAddress": "0200000000000000000000000000000000000000",
+		 "States": [
+		    "transfer",
+		    "ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz",
+		    "ZC3Fmgr3oS56Rg9vxZeVo2mwMMcUiYGcPp",
+		    20000
+		 ]
+	      }
+	   ]
+	}
+	```
+
+- 
+- 
+- 
+- 
+- 
+
+
+
+
 
 
 
