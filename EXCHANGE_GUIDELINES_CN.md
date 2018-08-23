@@ -184,11 +184,11 @@ Signature scheme: SHA256withECDSA
 
 
 
-### 徐开发的对接程序包括
+### 需开发的对接程序包括
 
-1. 用CLI或API监控新区块
-2. 根据交易信息完成用户充值
-3. 存储交易所相关交易记录
+- 用CLI或API监控新区块
+- 根据交易信息完成用户充值
+- 存储相关交易记录
 
 
 ### 用户充值
@@ -352,107 +352,116 @@ Signature scheme: SHA256withECDSA
 
 ### 充值记录
 
-同用户充值，交易所需要写代码监控每个区块的每个交易，在数据库中记录下所有充值提现交易。如果有充值交易就要修改数据库中的用户余额。
+原理同用户充值相同，交易所需要写代码监控每个区块的每个交易，
+在数据库中记录下所有充值和提现交易，如果有充值交易就要修改数据库中的用户余额。
 
 
 
 ### 处理用户提现请求
 
-关于用户提现，交易所需要完成以下操作：
+当用户提现时，交易所需要完成以下操作：
 
-1. 记录用户提现，修改用户账户余额。
-
-2. 使用CLI命令对用户提现地址进行转账：
-
-   ```
-   $ ./ontology asset transfer --from Ad4pjz2bqep4RhQrUAzMuZJkBC3qJ1tZuT --to AS3SCXw8GKTEeXpdwVw7EcC4rqSebFYpfb --amount 10 
-   Password:
-   Transfer ONT
-     From:Ad4pjz2bqep4RhQrUAzMuZJkBC3qJ1tZuT
-     To:AS3SCXw8GKTEeXpdwVw7EcC4rqSebFYpfb
-     Amount:10
-     TxHash:49a705f6beb6a15b92493db496f56e8bcddc95b803dac1e4a02b4579ce760b3f
-
-   Tip:
-     Using './ontology info status 49a705f6beb6a15b92493db496f56e8bcddc95b803dac1e4a02b4579ce760b3f' to query transaction status
+1、 数据库中记录用户提现，修改用户账户余额。
+2、 使用CLI命令对用户提现地址进行转账：
 
    ```
+	   $ ./zeepin asset transfer --asset gala --from ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz --to ZTSPC1PEhXHZZDTFtvRDjoKSZrgYboBwDM --amount 100
+	Password:
+	Transfer GALA
+	  From:ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz
+	  To:ZTSPC1PEhXHZZDTFtvRDjoKSZrgYboBwDM
+	  Amount:100
+	  TxHash:00d9336a5e83754815fdd609f7ecce31135428d4fcc40469082658cfdb8b62c4
 
-   命令的参数列表如下：
+	Tip:
+	  Using './zeepin info status 00d9336a5e83754815fdd609f7ecce31135428d4fcc40469082658cfdb8b62c4' to query transaction status
+
+   ```
+
+   zeepin asset transfer 命令的参数如下：
 
    --wallet, -w  
-   wallet指定转出账户钱包路径，默认值为:"./wallet.dat"
+   wallet指定转出账户钱包路径，默认为根目录下的"wallet.dat"
 
    --gasprice  
-   gasprice * gaslimit 为账户实际支付的ONG 费用。
-   gasprice参数指定转账交易的gas price。交易的gas price不能小于接收节点交易池设置的最低gas price，否则交易会被拒绝。默认值为0。当交易池中有交易在排队等待打包进区块时，交易池会按照gas price有高到低排序，gas price高的交易会被优先处理。
+   zeepin网络中gasprice最小为10000（4位精度，即1个Gala）；
+   gasprice * gaslimit 为账户实际支付的 Gala 燃料费用（每笔转账的最小燃料数值为2个Gala）；
+   gasprice参数指定转账交易的gas price。交易的gas price不能小于接收节点交易池设置的最低gas price，否则交易会被拒绝。默认值为0。
+   交易池会按照gas price由高到低排序，gas price高的交易会被优先处理。
 
    --gaslimit  
+   zeepin网络中gaslimit最小值为20000（4位精度，即2个Gala）；
    gaslimit参数指定最大的gas使用上限。但实际gas花费由VM执行的步数与API决定，假定以下2种情况:  
    1. gaslimit>=实际花费，交易将执行成功，并退回未消费的gas；
    2. gaslimt<实际所需花费，交易将执行失败，并消费掉VM已执行花费的gas;  
    
-   交易允许最低的gaslimit为30000，少于这个数量交易将无法被打包。
-   gaslimit可以通过交易预执行获得。(当然考虑到执行上下文的变化，比如时间，这不是一个确定的值)。  
-   为了便于ONT/ONG相关方法的使用,ONT/ONG的所有方法被设定成为最低的gaslimit,即 30000 gas。这部分交易只需要指定gaslimt=30000即可。
+   zeepin网络中gaslimit最小值为20000（4位精度，即2个Gala），少于这个数量交易将无法被打包。
+   
 
    --asset  
-   asset参数指定转账的资产类型，ont表示ONT，ong表示ONG。默认值为ont。
+   asset 	参数指定转账的资产类型，zpt表示ZPT，gala表示Gala。默认值为zpt
 
    --from   
-   from参数指定转出账户地址。
+   from		参数指定转出账户地址
 
    --to  
-   to参数指定转入账户地址。
+   to		参数指定转入目标账户地址
 
    --amount   
-   amount参数指定转账金额。注意：由于ONT的精度是1，因此如果输入的是个浮点值，那么小数部分的值会被丢弃；ONG的精度为9，因此超出9位的小数部分将会被丢
-
-   ​
-
+   amount	参数指定转账金额。
+   
+   注意：由于ZPT和Gala的精度是4，如果输入超出4位小数，超出部分的数值会被丢弃；
+   
+   
    确认交易结果：
 
-   - 使用返回的交易hash直接查询：
+   - 使用返回的交易hash直接查询并过滤交易所地址向用户转账的记录：
 
      ```
-     $ ./ontology info status 49a705f6beb6a15b92493db496f56e8bcddc95b803dac1e4a02b4579ce760b3f
-     Transaction states:
-     {
-        "TxHash": "49a705f6beb6a15b92493db496f56e8bcddc95b803dac1e4a02b4579ce760b3f",
-        "State": 1,
-        "GasConsumed": 0,
-        "Notify": [
-           {
-              "ContractAddress": "0100000000000000000000000000000000000000",
-              "States": [
-                 "transfer",
-                 "Ad4pjz2bqep4RhQrUAzMuZJkBC3qJ1tZuT",
-                 "AS3SCXw8GKTEeXpdwVw7EcC4rqSebFYpfb",
-                 10
-              ]
-           }
-        ]
-     }
+	$ ./zeepin info status 00d9336a5e83754815fdd609f7ecce31135428d4fcc40469082658cfdb8b62c4
+	Transaction states:
+	{
+	   "TxHash": "00d9336a5e83754815fdd609f7ecce31135428d4fcc40469082658cfdb8b62c4",
+	   "State": 1,
+	   "GasConsumed": 20000,
+	   "Notify": [
+	      {
+		 "ContractAddress": "0200000000000000000000000000000000000000",
+		 "States": [
+		    "transfer",
+		    "ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz",
+		    "ZTSPC1PEhXHZZDTFtvRDjoKSZrgYboBwDM",
+		    1000000
+		 ]
+	      },
+	      {
+		 "ContractAddress": "0200000000000000000000000000000000000000",
+		 "States": [
+		    "transfer",
+		    "ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz",
+		    "ZC3Fmgr3oS56Rg9vxZeVo2mwMMcUiYGcPp",
+		    20000
+		 ]
+	      }
+	   ]
+	}
 
      ```
 
-     ​
 
-   - 同”用户充值“，监控新区块中的交易并过滤出交易所地址向用户提现地址转账的成功交易
+3. 从返回的 Json 格式交易详情中提取交易ID记录在数据库中
 
-3. 从返回的 Json 格式交易详情中提取交易ID，记录在数据库中。
-
-4. 等待区块链确认，确认后将提现记录标志为提现成功。
+4. 等待区块确认后将提现记录标志为提现成功
 
    类似充值时对区块链的监控，提现也一样，监控时若发现区块中的某个交易 ID 与提现记录中的交易 ID 相等，则该交易已经确认，即提现成功。
 
 5. 如果交易始终没有得到确认，即通过交易hash查询不到对应的event log,则需要
 
-   - 通过rpc/SDK接口查询交易是否在交易池中（参照[Java SDK:ONT和ONG转账](https://github.com/ontio/ontology-java-sdk/blob/master/docs/cn/sdk_get_start.md#2-%E5%8E%9F%E7%94%9F%E8%B5%84%E4%BA%A7ont%E5%92%8Cong%E8%BD%AC%E8%B4%A6))，若在，需要等待共识节点打包出块后再查询
+   - 通过rpc/SDK接口查询交易是否在交易池中（参照Java Sdk）若在，需要等待共识节点打包出块后再查询
 
    - 若不在，则可认为该交易失败，需要重新进行转账操作。
 
-   - 若该交易长时间没有被打包，可能是由于gas price过低。
+   - 若该交易长时间没有被打包，可能是由于gasprice设置过低。
 
  
 
