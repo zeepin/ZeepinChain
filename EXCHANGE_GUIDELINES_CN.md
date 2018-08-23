@@ -56,7 +56,6 @@ RESTFUL OPTIONS:
 WEB SOCKET OPTIONS:
   --ws            Enable websocket server
   --wsport value  Ws server listening port (default: 20335)
-   
    ```
   
 zeepin -h 查看更多命令，如参数：
@@ -329,32 +328,25 @@ Signature scheme: SHA256withECDSA
 	}
 ```
 
-通过查看“State” 判断：
+#### 通过查看“State” 判断：
 - 1 代表交易成功
 - 0 代表交易失败
 
 
+#### “Notify"解析数组如下：
 
-“Notify"解析数组如下：
-
-​     ContractAddress：合约地址
-	```0100000000000000000000000000000000000000``` 为ZPT					        
-	```0200000000000000000000000000000000000000``` 为Gala
+##### ContractAddress：合约地址
+- 0100000000000000000000000000000000000000 为ZPT					        
+- 0200000000000000000000000000000000000000 为Gala
 
 ​     States：数组
 
 	transfer	代表转账操作
-
 	from		转出地址
-
 	to		目标地址
-	
 	第四行为转账数量（ZPT和Gala的精度为4，所以这里ZPT和Gala的实际数量因除以10000）
 	
-	
-	
-
-	过滤 to 地址为交易所为用户生成的充值地址，即可取得用户的充值记录
+过滤 to 地址为交易所为用户生成的充值地址，即可取得用户的充值记录
 
 
 
