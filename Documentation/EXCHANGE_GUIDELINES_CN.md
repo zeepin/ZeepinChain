@@ -609,14 +609,20 @@ Governance(Consensus) | 0700000000000000000000000000000000000000 | Zxxxxxxxxxxxx
 	./zeepin --networkid 2
    ```
    可通过 ./zeepin -h 查询更多参数设置
+   
 
 - zeepin官方由区块链浏览器吗？
+
   [https://zeescan.io](https://zeescan.io)
 
+
 - ZPT和Gala的精度问题
+
   ZPT和Gala的精度是4，如果输入超出4位小数，超出部分的数值会被丢弃
 
+
 - 转账手续费需要多少？
+
   
   ```
   gasprice * gaslimit = gala cost
@@ -636,6 +642,7 @@ Governance(Consensus) | 0700000000000000000000000000000000000000 | Zxxxxxxxxxxxx
    zeepin网络中gaslimit最小值为20000（4位精度，即2个Gala），少于这个数量交易将无法被打包。
 
 - 转账交易发生时，如何区别转账的amount和gas？
+  
   识别方法如下：
   交易手续费在 Transaction states 中直接标注在 GasConsumed 中，
   在 Notify 中问最后一组
@@ -670,6 +677,7 @@ Governance(Consensus) | 0700000000000000000000000000000000000000 | Zxxxxxxxxxxxx
 	   ]
 	}
 	```
+
 
 - 
 - 
