@@ -43,8 +43,10 @@ ZEEPIN区块链资产分为：
    ```
 	./zeepin
    ```
+   
 
 默认关闭websocket和rest端口，可以配置以下参数启动端口：
+
 
    ```
 RESTFUL OPTIONS:
@@ -54,7 +56,8 @@ RESTFUL OPTIONS:
 WEB SOCKET OPTIONS:
   --ws            Enable websocket server
   --wsport value  Ws server listening port (default: 20335)
-    ```
+   
+   ```
   
 zeepin -h 查看更多命令，如参数：
 
@@ -90,6 +93,7 @@ ZEEPIN CLI 自身不提供远程开关钱包功能，打开钱包时也没有验
    ```
 	./zeepin account add -d
    ```
+   
 接着输入密码，执行完输出：
 
 ```
@@ -107,6 +111,7 @@ Public key: 02c7fed64a315c664034bae1257f45c9fdf8c24033f0904ce7b47b0090232323
 Signature scheme: SHA256withECDSA
 
 ```
+
 zeepin钱包统一为Z开头，
 
 请务必保存好钱包密码和私钥！
@@ -128,6 +133,7 @@ zeepin钱包私钥生成算法和NEO一致，同一个私钥对应的ZPT和NEO�
   
   ```
   ./zeepin account add -d -n [数量]  -w [钱包文件名]
+  
   ```
   
   -d 默认值为 1，即调用默认设置
