@@ -82,9 +82,7 @@ ZEEPIN CLI 自身不提供远程开关钱包功能，打开钱包时也没有验
 | Node port     | 20338                |
 
 
-### 创建钱包
-
-交易所需要创建一个在线钱包管理用户充值地址。钱包是用来存储账户（公钥和私钥）、合约地址等信息，是用户持有资产的最重要的凭证，一定要保管好钱包文件和钱包密码，不要丢失或泄露。 交易所不需要为每个地址创建一个钱包文件，通常一个钱包文件可以存储用户所有充值地址。也可以使用一个冷钱包（离线钱包）作为更安全的存储方式。
+### 创建ZEEPIN的钱包
 
 
 创建zeepin钱包
@@ -112,15 +110,16 @@ Signature scheme: SHA256withECDSA
 
 ```
 
-zeepin钱包统一为Z开头，
+- zeepin钱包统一为Z开头，请务必保存好钱包密码和私钥，钱包地址大小写敏感，请务必注意！
 
-请务必保存好钱包密码和私钥！
-钱包地址大小写敏感，请务必注意！
+- zeepin钱包私钥生成算法和NEO一致，同一个私钥对应的ZPT和NEO的公钥地址不相同。
 
-zeepin钱包私钥生成算法和NEO一致，同一个私钥对应的ZPT和NEO的公钥地址不相同。
+- 交易所不需要为每个地址创建一个钱包，一个钱包可以存储所有用户的充值地址。也可以使用一个离线的冷钱包作为更安全的存储方式。
 
 
-###  生成充值地址
+
+###  为交易所用户生成充值地址
+
 
 ####  充值地址有两种生成方式：
 
@@ -133,10 +132,9 @@ zeepin钱包私钥生成算法和NEO一致，同一个私钥对应的ZPT和NEO�
   
   ```
   ./zeepin account add -d -n [数量]  -w [钱包文件名]
-  
   ```
   
-  -d 默认值为 1，即调用默认设置
+  -d 默认值为1，即调用默认设置
   -n 批量创建的地址数量
   -w 指定钱包文件，默认为wallet.dat
   
@@ -180,11 +178,302 @@ zeepin钱包私钥生成算法和NEO一致，同一个私钥对应的ZPT和NEO�
 	Signature scheme: SHA256withECDSA
 
 	Create account successfully.
-
 ```
 
 
+## 3、交易所对接资产交易
 
 
+
+### 徐开发的对接程序包括
+
+1. 用CLI或API监控新区块
+2. 根据交易信息完成用户充值
+3. 存储交易所相关交易记录
+
+
+### 用户充值
+
+关于用户充值，请注意以下几点：
+
+- ZEEPIN钱包地址中包含 ZPT 和 Gala 两种资产，交易所记录用户充值时需要判断充值的资产类型，以免搞混充值的资产；
+
+- ZEEPIN钱包是一个全节点钱包，保持在线才能同步区块，可以在 ZEEPIN CLI curblockheight 命令查看当前区块高度来判断节点状态：
+
+  ```
+	./zeepin info curblockheight
+	CurrentBlockHeight:5749
+  ```
+
+
+举例如下：
+
+1. 用户用zeepin钱包向交易所中的钱包地址进行充值：
+
+```
+	 $ ./zeepin asset transfer --asset zpt --from ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz --to ZTSPC1PEhXHZZDTFtvRDjoKSZrgYboBwDM --amount 2
+	Password:
+	Transfer ZPT
+	  From:ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz
+	  To:ZTSPC1PEhXHZZDTFtvRDjoKSZrgYboBwDM
+	  Amount:2
+	  TxHash:2d2b866018c3d1572dd681f30d54ab2d982ece9c5915e3b778fc3d63cef66e4e
+
+	Tip:
+	  Using './zeepin info status 2d2b866018c3d1572dd681f30d54ab2d982ece9c5915e3b778fc3d63cef66e4e' to query transaction status
+```  
+
+2. 通过 ZEEPIN CLI 监控区块信息
+
+
+   ```
+	$ ./zeepin info curblockheight
+	CurrentBlockHeight:5762
+	
+
+	$ ./zeepin info block 5762
+	{
+	   "Hash": "553308eb7eb5769e2624d7164962157ab427c4f33ab7af542fc2a98c3e4c4409",
+	   "Size": 1375,
+	   "Header": {
+	      "Version": 0,
+	      "PrevBlockHash": "386c4251223e569ac34c76541c9d612b0d7ce20b4eb045d57368a8e4d6c1f5a7",
+	      "TransactionsRoot": "2d2b866018c3d1572dd681f30d54ab2d982ece9c5915e3b778fc3d63cef66e4e",
+	      "BlockRoot": "a0a96e1b97c248cc16bb893dcf78d85ea64748707925e8271825c9c71efe88ff",
+	      "Timestamp": 1535005866,
+	      "Height": 5762,
+	      "ConsensusData": 5950638681301161907,
+	      "ConsensusPayload": "7b226c6561646572223a31342c227672665f76616c7565223a22424c46497730747476712b68566e68537652394b6d366f6f77346a4b34473247345a4c71324f34707a4a7566557430716d65774d654337374833474e53363575583835716d2b5355336c6452522b3732773264627066513d222c227672665f70726f6f66223a226e427765362f74645a484b62416e6864705364636154466647417445346d315a623462546d38633331666b653779724e70534e42312f7174693443327a796674737a494667785347517133496f522b7a38776c4630413d3d222c226c6173745f636f6e6669675f626c6f636b5f6e756d223a333235372c226e65775f636861696e5f636f6e666967223a6e756c6c7d",
+	      "NextBookkeeper": "ZC3Fmgr3oS56Rg9vxZeVo2mwMMcTvb44rA",
+	      "Bookkeepers": [
+		 "02dfb488eb1f0116bb099584b1f058c525db1b45b24378314ba7f5cc2da180d724",
+		 "037a53745eb295a6263d00e87b5f6641f22b44fc2436811a6415a69b816bea3571",
+		 "0203b36fa517ac4751b37652e0cef6b730cca8c5540d9cddfb469c26b78f7836e3",
+		 "023ea9e036521ed242c6102f8cdc112d901025ef3fb883213112e30da0590ab1fc",
+		 "02dfb488eb1f0116bb099584b1f058c525db1b45b24378314ba7f5cc2da180d724",
+		 "029c5ecc8400530cc410288496feda44542b6f5aaeff8b925d9b8c6d12a65d4bc3",
+		 "035ad9d8b8350b113cbb3d541e0a89dfd10c981702eb59bce4d1a2bbd13b103a39"
+	      ],
+	      "SigData": [
+		 "a8d9dcc7cd3878122ca841efb60fd1c470a81b9a12c96c95c69cd9ce8876754db1d2c24ca9b592c525c5e98e3dc0df5aaf66278dae2b14679d80edd47953f66c",
+		 "9f372d29c829c88b8f0e55fa44cb1543fbe1f7042dbd55479fec5f3f47d10ebeb473a0d5fe41eda1f1510671706ef8b339117470fee6cffe9dfba150537ed2f5",
+		 "5b6a82c3591e17193d121f00dde54fe1e2fdf4640484e0d2201089f5df63157768383667a0bfb40c4c711d4e6a92a3ba75e6a8fd6c14c5c2257e7ae2fe75b090",
+		 "f177287021afe2b4393e52ff2b630cf1759b5800a6c7a41834d4febad83e506b0c5584895fcd5793c242b9124116d4dbdc87d3c3f86b1c15454be3d3a68ddc27",
+		 "28d18cf67db32d146b404b1b8507003ffa240f274abc96f36f6c58ede1043ba807d359346d32fc9ba7edc53841ebf7a102e6dce063bbfc48588ca1cbaed8daef",
+		 "81f338f39e76ef56e366c340f580ebc998a4063db39b939e890887c2f2bb49fd2d0a6d6fcc6845d771f9769a996ab9197c95c0fdd553ca603b956770bcc0759d",
+		 "955e9e348be138636c078d08f3cf7f350cf6021a1cefd03176dda9e459f1632234a71fc8fd2fe93dbe334bf5c98d08384541d63bfbe499efe2acfb0ab3e2d8ee"
+	      ],
+	      "Hash": "553308eb7eb5769e2624d7164962157ab427c4f33ab7af542fc2a98c3e4c4409"
+	   },
+	   "Transactions": [
+	      {
+		 "Version": 0,
+		 "Nonce": 1535005865,
+		 "GasPrice": 1,
+		 "GasLimit": 20000,
+		 "Payer": "ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz",
+		 "TxType": 209,
+		 "Payload": {
+		    "Code": "00c66b14a34d23aead66348272a8b5a6bdc235fd5a90ab5f6a7cc814a8e9a5aef175ccdd6503f0336701414a9c2009636a7cc802204e6a7cc86c51c1087472616e736665721400000000000000000000000000000000000000010068195a656570696e436861696e2e4e61746976652e496e766f6b65",
+		    "GasLimit": 0
+		 },
+		 "Attributes": [],
+		 "Sigs": [
+		    {
+		       "PubKeys": [
+			  "02c35cfe4126b7a56c63f75e89d8482bc2d7bdcda44c64172e829efe76d1f57295"
+		       ],
+		       "M": 1,
+		       "SigData": [
+			  "bbdc4f00ed4d03905344b54ecdd657c73f530cf811e88299966d6f378fbfba517d4ca395a0fc323edac08338a7784d7942de68dede79582cd1aa18b158cedca4"
+		       ]
+		    }
+		 ],
+		 "Hash": "2d2b866018c3d1572dd681f30d54ab2d982ece9c5915e3b778fc3d63cef66e4e",
+		 "Height": 0
+	      }
+	   ]
+	}
+
+   ```
+
+3. 根据Transaction Hash 取得block中的所有Transaction信息
+
+```
+	$ ./zeepin info status 2d2b866018c3d1572dd681f30d54ab2d982ece9c5915e3b778fc3d63cef66e4e
+	Transaction states:
+	{
+	   "TxHash": "2d2b866018c3d1572dd681f30d54ab2d982ece9c5915e3b778fc3d63cef66e4e",
+	   "State": 1,
+	   "GasConsumed": 20000,
+	   "Notify": [
+	      {
+		 "ContractAddress": "0100000000000000000000000000000000000000",
+		 "States": [
+		    "transfer",
+		    "ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz",
+		    "ZTSPC1PEhXHZZDTFtvRDjoKSZrgYboBwDM",
+		    20000
+		 ]
+	      },
+	      {
+		 "ContractAddress": "0200000000000000000000000000000000000000",
+		 "States": [
+		    "transfer",
+		    "ZSviKhEgka2fZhhoUjv2trnSMtjUhm3fyz",
+		    "ZC3Fmgr3oS56Rg9vxZeVo2mwMMcUiYGcPp",
+		    20000
+		 ]
+	      }
+	   ]
+	}
+```
+
+通过查看“State” 判断：
+- 1 代表交易成功
+- 0 代表交易失败
+
+
+
+“Notify"解析数组如下：
+
+​     ContractAddress：合约地址
+	```0100000000000000000000000000000000000000``` 为ZPT					        
+	```0200000000000000000000000000000000000000``` 为Gala
+
+​     States：数组
+
+	transfer	代表转账操作
+
+	from		转出地址
+
+	to		目标地址
+	
+	第四行为转账数量（ZPT和Gala的精度为4，所以这里ZPT和Gala的实际数量因除以10000）
+	
+	
+	
+
+	过滤 to 地址为交易所为用户生成的充值地址，即可取得用户的充值记录
+
+
+
+### 充值记录
+
+同用户充值，交易所需要写代码监控每个区块的每个交易，在数据库中记录下所有充值提现交易。如果有充值交易就要修改数据库中的用户余额。
+
+
+
+### 处理用户提现请求
+
+关于用户提现，交易所需要完成以下操作：
+
+1. 记录用户提现，修改用户账户余额。
+
+2. 使用CLI命令对用户提现地址进行转账：
+
+   ```
+   $ ./ontology asset transfer --from Ad4pjz2bqep4RhQrUAzMuZJkBC3qJ1tZuT --to AS3SCXw8GKTEeXpdwVw7EcC4rqSebFYpfb --amount 10 
+   Password:
+   Transfer ONT
+     From:Ad4pjz2bqep4RhQrUAzMuZJkBC3qJ1tZuT
+     To:AS3SCXw8GKTEeXpdwVw7EcC4rqSebFYpfb
+     Amount:10
+     TxHash:49a705f6beb6a15b92493db496f56e8bcddc95b803dac1e4a02b4579ce760b3f
+
+   Tip:
+     Using './ontology info status 49a705f6beb6a15b92493db496f56e8bcddc95b803dac1e4a02b4579ce760b3f' to query transaction status
+
+   ```
+
+   命令的参数列表如下：
+
+   --wallet, -w  
+   wallet指定转出账户钱包路径，默认值为:"./wallet.dat"
+
+   --gasprice  
+   gasprice * gaslimit 为账户实际支付的ONG 费用。
+   gasprice参数指定转账交易的gas price。交易的gas price不能小于接收节点交易池设置的最低gas price，否则交易会被拒绝。默认值为0。当交易池中有交易在排队等待打包进区块时，交易池会按照gas price有高到低排序，gas price高的交易会被优先处理。
+
+   --gaslimit  
+   gaslimit参数指定最大的gas使用上限。但实际gas花费由VM执行的步数与API决定，假定以下2种情况:  
+   1. gaslimit>=实际花费，交易将执行成功，并退回未消费的gas；
+   2. gaslimt<实际所需花费，交易将执行失败，并消费掉VM已执行花费的gas;  
+   
+   交易允许最低的gaslimit为30000，少于这个数量交易将无法被打包。
+   gaslimit可以通过交易预执行获得。(当然考虑到执行上下文的变化，比如时间，这不是一个确定的值)。  
+   为了便于ONT/ONG相关方法的使用,ONT/ONG的所有方法被设定成为最低的gaslimit,即 30000 gas。这部分交易只需要指定gaslimt=30000即可。
+
+   --asset  
+   asset参数指定转账的资产类型，ont表示ONT，ong表示ONG。默认值为ont。
+
+   --from   
+   from参数指定转出账户地址。
+
+   --to  
+   to参数指定转入账户地址。
+
+   --amount   
+   amount参数指定转账金额。注意：由于ONT的精度是1，因此如果输入的是个浮点值，那么小数部分的值会被丢弃；ONG的精度为9，因此超出9位的小数部分将会被丢
+
+   ​
+
+   确认交易结果：
+
+   - 使用返回的交易hash直接查询：
+
+     ```
+     $ ./ontology info status 49a705f6beb6a15b92493db496f56e8bcddc95b803dac1e4a02b4579ce760b3f
+     Transaction states:
+     {
+        "TxHash": "49a705f6beb6a15b92493db496f56e8bcddc95b803dac1e4a02b4579ce760b3f",
+        "State": 1,
+        "GasConsumed": 0,
+        "Notify": [
+           {
+              "ContractAddress": "0100000000000000000000000000000000000000",
+              "States": [
+                 "transfer",
+                 "Ad4pjz2bqep4RhQrUAzMuZJkBC3qJ1tZuT",
+                 "AS3SCXw8GKTEeXpdwVw7EcC4rqSebFYpfb",
+                 10
+              ]
+           }
+        ]
+     }
+
+     ```
+
+     ​
+
+   - 同”用户充值“，监控新区块中的交易并过滤出交易所地址向用户提现地址转账的成功交易
+
+3. 从返回的 Json 格式交易详情中提取交易ID，记录在数据库中。
+
+4. 等待区块链确认，确认后将提现记录标志为提现成功。
+
+   类似充值时对区块链的监控，提现也一样，监控时若发现区块中的某个交易 ID 与提现记录中的交易 ID 相等，则该交易已经确认，即提现成功。
+
+5. 如果交易始终没有得到确认，即通过交易hash查询不到对应的event log,则需要
+
+   - 通过rpc/SDK接口查询交易是否在交易池中（参照[Java SDK:ONT和ONG转账](https://github.com/ontio/ontology-java-sdk/blob/master/docs/cn/sdk_get_start.md#2-%E5%8E%9F%E7%94%9F%E8%B5%84%E4%BA%A7ont%E5%92%8Cong%E8%BD%AC%E8%B4%A6))，若在，需要等待共识节点打包出块后再查询
+
+   - 若不在，则可认为该交易失败，需要重新进行转账操作。
+
+   - 若该交易长时间没有被打包，可能是由于gas price过低。
+
+ 
+
+
+
+
+
+
+
+
+
+todo：
+- 1、java sdk 动态钱包创建方案
+- 2、原NEP5地址如何转换为ZEEPIN钱包地址
 
 
