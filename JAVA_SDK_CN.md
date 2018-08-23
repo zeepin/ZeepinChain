@@ -354,4 +354,18 @@ String hash = sdk.nativevm().gala().withdrawgala(account,toAddr,64000L,payerAcct
 
 
 
+## 附 native 合约地址
+
+合约名称 | 合约地址 | Address
+---|---|---
+ZPT Token | 0100000000000000000000000000000000000000| Zxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Gala Token | 0200000000000000000000000000000000000000 | Zxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Zeepin Network GID(Galaxy ID) | 0300000000000000000000000000000000000000 | Zxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Global Environment | 0400000000000000000000000000000000000000 | Zxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Oracle Machine | 0500000000000000000000000000000000000000 | Zxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Authorization Contract | 0600000000000000000000000000000000000000 | Zxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Governance(Consensus) | 0700000000000000000000000000000000000000 | Zxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+
 
