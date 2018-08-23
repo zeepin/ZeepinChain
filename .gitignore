@@ -3,5 +3,7 @@ debug
 *debug
 wallet*
 *.dat
-*/.DS_Store
-*/.gitignore
+.DS_Store
+vendor
+zeepin-*
+ztest-*
