@@ -244,7 +244,7 @@ func newParamInit() *types.Transaction {
 		addr = types.AddressFromPubKey(bookkeepers[0])
 	} else {
 		//m := (5*len(bookkeepers) + 6) / 7
-		m := int(math.Ceil(float64(len(bookkeepers)) * 2.0 / 3.0))
+		m := int(math.Ceil((float64(len(bookkeepers))*2.0 + 1) / 3.0))
 		temp, err := types.AddressFromMultiPubKeys(bookkeepers, m)
 		if err != nil {
 			panic(fmt.Sprint("wrong bookkeeper config, caused by", err))
