@@ -314,7 +314,7 @@ func (pool *BlockPool) endorseDone(blkNum uint32, C uint32) (uint32, bool, bool)
 		return math.MaxUint32, false, false
 	}
 
-	if uint32(len(candidate.EndorseSigs)) < C+1 {
+	if uint32(len(candidate.EndorseSigs)) < 2*C+1 {
 		return math.MaxUint32, false, false
 	}
 
@@ -322,14 +322,14 @@ func (pool *BlockPool) endorseDone(blkNum uint32, C uint32) (uint32, bool, bool)
 		for _, esig := range eSigs {
 			if esig.ForEmpty {
 				emptyEndorseCount++
-				if emptyEndorseCount > int(C) {
+				if emptyEndorseCount > 2*int(C) {
 					// FIXME: endorsedProposer need fix
 					return esig.EndorsedProposer, true, true
 				}
 			} else {
 				endorseCount[esig.EndorsedProposer] += 1
 				// check if endorse-consensus reached
-				if endorseCount[esig.EndorsedProposer] > C {
+				if endorseCount[esig.EndorsedProposer] > 2*C {
 					return esig.EndorsedProposer, false, true
 				}
 			}
@@ -350,7 +350,7 @@ func (pool *BlockPool) endorseFailed(blkNum uint32, C uint32) bool {
 		return false
 	}
 
-	if uint32(len(candidate.EndorseSigs)) < C+1 {
+	if uint32(len(candidate.EndorseSigs)) < 2*C+1 {
 		return false
 	}
 
@@ -359,7 +359,7 @@ func (pool *BlockPool) endorseFailed(blkNum uint32, C uint32) bool {
 		for _, esig := range eSigs {
 			if !esig.ForEmpty {
 				proposalCount[esig.EndorsedProposer] += 1
-				if proposalCount[esig.EndorsedProposer] > C+1 {
+				if proposalCount[esig.EndorsedProposer] > 2*C {
 					return false
 				}
 			} else {
@@ -369,16 +369,16 @@ func (pool *BlockPool) endorseFailed(blkNum uint32, C uint32) bool {
 		endorserCount[endorser] += 1
 	}
 
-	if uint32(len(proposalCount)) > C+1 {
+	if uint32(len(proposalCount)) > 2*C {
 		return true
 	}
-	if emptyEndorseCnt > C {
+	if emptyEndorseCnt > 2*C {
 		return true
 	}
 
-	l := 2*C + 1 - uint32(len(endorserCount))
+	l := 3*C + 1 - uint32(len(endorserCount))
 	for _, v := range proposalCount {
-		if v+l > C {
+		if v+l > 2*C {
 			return false
 		}
 	}
@@ -502,7 +502,7 @@ func (pool *BlockPool) commitDone(blkNum uint32, C uint32, N uint32) (uint32, bo
 
 	// enforce signature quorum if checking commit-consensus base on signature count
 	// if C <= (N-1)/3, N-1-C >= 2*C
-	C = N - 1 - C
+	C = uint32(math.Ceil((float64(N)*2.0 + 1) / 3.0))
 	if proposer == math.MaxUint32 {
 		// check consensus with endorse sigs
 		var emptyCnt uint32

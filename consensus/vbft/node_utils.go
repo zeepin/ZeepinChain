@@ -91,7 +91,7 @@ func (self *Server) isProposer(blockNum uint32, peerIdx uint32) bool {
 
 func (self *Server) is2ndProposer(blockNum uint32, peerIdx uint32) bool {
 	rank := self.getProposerRank(blockNum, peerIdx)
-	return rank > 0 && rank <= int(self.config.C)
+	return rank > 0 && rank <= int(2)
 }
 
 func (self *Server) getProposerRank(blockNum uint32, peerIdx uint32) int {
@@ -114,7 +114,7 @@ func (self *Server) isEndorser(blockNum uint32, peerIdx uint32) bool {
 			}
 			if self.isPeerActive(id, blockNum) {
 				activeN++
-				if activeN > self.config.C*2 {
+				if activeN >= uint32(math.Ceil((float64(self.config.N)*2.0+1)/3.0)) {
 					break
 				}
 			}
@@ -137,7 +137,7 @@ func (self *Server) isCommitter(blockNum uint32, peerIdx uint32) bool {
 			}
 			if self.isPeerActive(id, blockNum) {
 				activeN++
-				if activeN > self.config.C*2 {
+				if activeN >= uint32(math.Ceil((float64(self.config.N)*2.0+1)/3.0)) {
 					break
 				}
 			}
@@ -215,12 +215,12 @@ func (self *Server) buildParticipantConfig(blkNum uint32, block *Block, chainCfg
 	}
 	s += vconfig.MAX_PROPOSER_COUNT
 	cfg.Endorsers = calcParticipantPeers(cfg, chainCfg, s, s+vconfig.MAX_ENDORSER_COUNT)
-	if uint32(len(cfg.Endorsers)) < 2*chainCfg.C {
+	if uint32(len(cfg.Endorsers)) < uint32(math.Ceil((float64(chainCfg.N)*2.0+1)/3.0)) {
 		return nil, fmt.Errorf("cfg.Endorsers length less than double chainCfg.C:%d,%d", uint32(len(cfg.Endorsers)), chainCfg.C)
 	}
 	s += vconfig.MAX_ENDORSER_COUNT
 	cfg.Committers = calcParticipantPeers(cfg, chainCfg, s, s+vconfig.MAX_COMMITTER_COUNT)
-	if uint32(len(cfg.Committers)) < 2*chainCfg.C {
+	if uint32(len(cfg.Committers)) < uint32(math.Ceil((float64(chainCfg.N)*2.0+1)/3.0)) {
 		return nil, fmt.Errorf("cfg.Committers length less than double chainCfg.C:%d,%d", uint32(len(cfg.Committers)), chainCfg.C)
 	}
 	log.Infof("server %d, blkNum: %d, state: %d, participants config: %v, %v, %v", self.Index, blkNum,
@@ -256,7 +256,7 @@ func calcParticipantPeers(cfg *BlockParticipantConfig, chain *vconfig.ChainConfi
 		}
 		if end == vconfig.MAX_ENDORSER_COUNT+vconfig.MAX_PROPOSER_COUNT ||
 			end == vconfig.MAX_PROPOSER_COUNT+vconfig.MAX_ENDORSER_COUNT+vconfig.MAX_COMMITTER_COUNT {
-			if uint32(len(peers)) > chain.C*2 {
+			if uint32(len(peers)) >= uint32(math.Ceil((float64(chain.N)*2.0+1)/3.0)) {
 				return peers
 			}
 		}
@@ -304,8 +304,8 @@ func getCommitConsensus(commitMsgs []*blockCommitMsg, C int) (uint32, bool) {
 		}
 
 		commitCount[c.BlockProposer] += 1
-		if commitCount[c.BlockProposer] > C {
-			return c.BlockProposer, emptyCommitCount > C
+		if commitCount[c.BlockProposer] > 2*C {
+			return c.BlockProposer, emptyCommitCount > 2*C
 		}
 
 		for endorser := range c.EndorsersSig {
@@ -314,7 +314,7 @@ func getCommitConsensus(commitMsgs []*blockCommitMsg, C int) (uint32, bool) {
 			}
 
 			endorseCount[c.BlockProposer][endorser] = struct{}{}
-			if len(endorseCount[c.BlockProposer]) > C+1 {
+			if len(endorseCount[c.BlockProposer]) >= 2*C+1 {
 				return c.BlockProposer, c.CommitForEmpty
 			}
 		}
