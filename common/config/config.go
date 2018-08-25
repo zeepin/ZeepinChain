@@ -118,7 +118,7 @@ var PolarisConfig = &GenesisConfig{
 	ConsensusType: CONSENSUS_TYPE_VBFT,
 	GBFT: &VBFTConfig{
 		N:                    9,
-		C:                    3,
+		C:                    2,
 		K:                    9,
 		L:                    144,
 		BlockMsgDelay:        10000,
@@ -200,7 +200,7 @@ var MainNetConfig = &GenesisConfig{
 	ConsensusType: CONSENSUS_TYPE_VBFT,
 	GBFT: &VBFTConfig{
 		N:                    9,
-		C:                    3,
+		C:                    2,
 		K:                    9,
 		L:                    144,
 		BlockMsgDelay:        10000,

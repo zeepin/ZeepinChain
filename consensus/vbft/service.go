@@ -26,9 +26,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/ontio/ontology-crypto/vrf"
-	"github.com/ontio/ontology-eventbus/actor"
 	"github.com/imZhuFei/zeepin/account"
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/log"
@@ -45,6 +42,9 @@ import (
 	ninit "github.com/imZhuFei/zeepin/smartcontract/service/native/init"
 	nutils "github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
 	"github.com/imZhuFei/zeepin/validator/increment"
+	"github.com/ontio/ontology-crypto/keypair"
+	"github.com/ontio/ontology-crypto/vrf"
+	"github.com/ontio/ontology-eventbus/actor"
 )
 
 type BftActionType uint8
@@ -2306,7 +2306,7 @@ func (self *Server) catchConsensus(blkNum uint32) error {
 		proposals[p.Block.getProposer()] = p
 	}
 
-	C := int(self.config.C)
+	C := 2 * int(self.config.C)
 	eMsgs := self.msgPool.GetEndorsementsMsgs(blkNum)
 	var proposal *blockProposalMsg
 	endorseDone := false
@@ -2401,7 +2401,7 @@ func (self *Server) verifyPrevBlockHash(blkNum uint32, proposal *blockProposalMs
 func (self *Server) hasBlockConsensused() bool {
 	blkNum := self.GetCurrentBlockNo()
 
-	C := int(self.config.C)
+	C := 2 * int(self.config.C)
 	cMsgs := self.msgPool.GetCommitMsgs(blkNum)
 	emptyCnt := 0
 	proposers := make(map[uint32]int)
