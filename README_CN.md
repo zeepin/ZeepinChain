@@ -1,6 +1,6 @@
 
-<h1 align="center">zeepin </h1>
-<h4 align="center">Version 0.1 </h4>
+<h1 align="center">ZEEPIN</h1>
+<h4 align="center">Version 0.1.0 </h4>
 
 [English](README.md) | [中文](README_CN.md) | [한글](README_KO.md)
 
@@ -14,7 +14,7 @@ Zeepin Chain是一条去中心化的文创及娱乐资产公链，通过区块�
 
 Zeepin Chain构建了完整的区块链技术框架，采用GBFT－POS共识机制（星际共识），提供具备图灵完备性的虚拟机作为智能合约的执行环境，为应用架构提供自定义脚步控制支持。支持Java、C#、Python、Javascript等编程语言开发的脚本，虚拟机都可以通过api与链进行集成交互。
 
-zeepin致力于创建一个可自由配置、易扩展、高性能的区块链底层基础设施，让部署区块链环境及开发dApp变得更加的简单。zeepin v0.1版本根据文创行业需求基于本体1.0核心框架进行定制开发，目前代码处于快速迭代开发、测试中，欢迎更多的开发者加入到zeepin技术社区中来！
+zeepin致力于创建一个可自由配置、易扩展、高性能的区块链底层基础设施，让部署区块链环境及开发dApp变得更加的简单。zeepin v0.1.0版本根据文创行业需求基于本体1.0核心框架进行定制开发，目前代码处于快速迭代开发、测试中，欢迎更多的开发者加入到zeepin技术社区中来！
 
 
 ## 目录
@@ -52,6 +52,7 @@ zeepin的运行支持以下方式
 * MainNet同步节点部署
 * MainNet竞选节点部署
 
+参数：--networkid：1为默认主网；2为测网；3为单机运行；
 
 #### TestNet同步节点部署
 
@@ -66,7 +67,7 @@ zeepin的运行支持以下方式
 运行zeepin
 
    ```
-	./zeepin --networkid 1
+	./zeepin
    ```
 
 #### MainNet竞选节点部署
@@ -74,13 +75,13 @@ zeepin的运行支持以下方式
 先[创建zeepin钱包](#创建zeepin钱包)后运行zeepin
 
    ```
-	./zeepin --enableconsensus --rest --restport=20334 --ws --wsport=20335 --rpcport=20336 --nodeport=20338 --loglevel=0
+	./zeepin --enableconsensus --rest --restport=20334 --ws --wsport=20335 --rpcport=20336 --nodeport=20338
    ```
 
 查看更多命令参数：
 
    ```
-   	--loglevel=0 日志参数
+	--loglevel=0 日志参数
 	--password=xxx 钱包密码
 	./zeepin --help
    ```
