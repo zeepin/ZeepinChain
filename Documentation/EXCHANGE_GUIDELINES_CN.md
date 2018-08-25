@@ -18,13 +18,13 @@ ZEEPIN区块链资产分为：
 
 
 
-## 1、ZEEPIN同步节点的部署
+## 1、ZEEPIN同步节点的部署  
 
 ### 获取zeepin
 #### 从release获取
 - 从[下载页面](https://github.com/zeepin/zeepinChain/releases)获取
 
-## 服务器部署
+### 服务器部署
 #### MainNet同步节点部署
 
 目录结构如下
@@ -63,9 +63,9 @@ zeepin -h 查看更多命令，如参数：
    ```
 	--loglevel=0 日志参数
    ```
+  
 
-
-## 2、ZEEPIN CLI客户端使用
+## 2、ZEEPIN CLI客户端使用  
 
 ### 安全策略
 
@@ -115,12 +115,12 @@ Signature scheme: SHA256withECDSA
 
 - 交易所不需要为每个地址创建一个钱包，一个钱包可以存储所有用户的充值地址。也可以使用一个离线的冷钱包作为更安全的存储方式。
 
+  
+
+###  为交易所用户生成充值地址  
 
 
-###  为交易所用户生成充值地址
-
-
-####  充值地址有两种生成方式：
+####  充值地址有两种生成方式： 
 
 - 动态生成：用户创建账户时通过 Java SDK 实现动态创建 ZPT/Gala 地址并返回（优点：自动维护 / 缺点：备份不太方便）
 
@@ -180,7 +180,7 @@ Signature scheme: SHA256withECDSA
 ```
 
 
-## 3、交易所对接资产交易
+## 3、交易所对接资产交易  
 
 
 
@@ -599,49 +599,50 @@ Governance(Consensus) | 0700000000000000000000000000000000000000 | Zxxxxxxxxxxxx
 
 
 
-## FAQ （持续更新）
+# FAQ （持续更新）
 
-- 如何连接测试网？
+- ***如何连接测试网？***
 
   运行zeepin测试节点：
 
    ```
 	./zeepin --networkid 2
    ```
-   可通过 ./zeepin -h 查询更多参数设置
+   *可通过 ./zeepin -h 查询更多参数设置*  
    
 
-- zeepin官方由区块链浏览器吗？
+- ***zeepin官方由区块链浏览器吗？***
 
-  [https://zeescan.io](https://zeescan.io)
-
-
-- ZPT和Gala的精度问题
-
-  ZPT和Gala的精度是4，如果输入超出4位小数，超出部分的数值会被丢弃
+  [https://zeescan.io](https://zeescan.io)  
 
 
-- 转账手续费需要多少？
+- ***ZPT和Gala的精度问题***
+
+  ZPT和Gala的精度是4，如果输入超出4位小数，超出部分的数值会被丢弃  
+
+
+- ***转账手续费需要多少？***
 
   
   ```
   gasprice * gaslimit = gala cost
   ```
-   --gasprice  
+   ***--gasprice***
    zeepin网络中gasprice最小为1；
    gasprice * gaslimit 为账户实际支付的 Gala 燃料费用（每笔转账的最小燃料数值为2个Gala）；
    gasprice参数指定转账交易的gas price。交易的gas price不能小于接收节点交易池设置的最低gas price，否则交易会被拒绝。默认值为0。
    交易池会按照gas price由高到低排序，gas price高的交易会被优先处理。
 
-   --gaslimit  
+   ***--gaslimit*** 
    zeepin网络中gaslimit最小值为20000（4位精度，即2个Gala）；
    gaslimit参数指定最大的gas使用上限。但实际gas花费由VM执行的步数与API决定，假定以下2种情况:  
    1. gaslimit>=实际花费，交易将执行成功，并退回未消费的gas；
    2. gaslimt<实际所需花费，交易将执行失败，并消费掉VM已执行花费的gas;  
    
-   zeepin网络中gaslimit最小值为20000（4位精度，即2个Gala），少于这个数量交易将无法被打包。
+   zeepin网络中gaslimit最小值为20000（4位精度，即2个Gala），少于这个数量交易将无法被打包。  
+   
 
-- 转账交易发生时，如何区别转账的amount和gas？
+- ***转账交易发生时，如何区别转账的amount和gas？***
   
   识别方法如下：
   交易手续费在 Transaction states 中直接标注在 GasConsumed 中，
@@ -676,10 +677,13 @@ Governance(Consensus) | 0700000000000000000000000000000000000000 | Zxxxxxxxxxxxx
 	      }
 	   ]
 	}
-	```
+	```  
 
+- ***NEP5上的 ZPT 和主网 ZPT 兑换（Gala同样按此处理）***
 
-- 
+  NEP5上的私钥通过SDK或ZeeWallet激活，获得新的Zeepin钱包地址。
+  
+
 - 
 - 
 - 
