@@ -315,7 +315,7 @@ func (self *StateMgr) onLiveTick(evt *StateEvent) error {
 }
 
 func (self *StateMgr) getMinActivePeerCount() int {
-	n := int(self.server.config.C) * 3 // plus self
+	n := int(self.server.config.C) * 2 // plus self
 	if n > MAX_PEER_CONNECTIONS {
 		// FIXME: C vs. maxConnections
 		return MAX_PEER_CONNECTIONS
@@ -397,7 +397,7 @@ func (self *StateMgr) checkStartSyncing(startBlkNum uint32, forceSync bool) erro
 					peers[k] = append(peers[k], p.peerIdx)
 				}
 			}
-			if len(peers[n]) > 3*int(self.server.config.C) {
+			if len(peers[n]) > int(self.server.config.C) {
 				maxCommitted = n
 			}
 		}
@@ -427,7 +427,7 @@ func (self *StateMgr) checkStartSyncing(startBlkNum uint32, forceSync bool) erro
 
 // return 0 if consensus not reached yet
 func (self *StateMgr) getConsensusedCommittedBlockNum() (uint32, bool) {
-	C := 2 * int(self.server.config.C)
+	C := int(self.server.config.C)
 
 	consensused := false
 	var maxCommitted uint32
@@ -459,7 +459,7 @@ func (self *StateMgr) canFastForward(targetBlkNum uint32) bool {
 		return false
 	}
 
-	C := 2 * int(self.server.config.C)
+	C := int(self.server.config.C)
 	// one block less than targetBlkNum is also acceptable for fastforward
 	for blkNum := self.server.GetCurrentBlockNo(); blkNum < targetBlkNum; blkNum++ {
 		if len(self.server.msgPool.GetProposalMsgs(blkNum)) == 0 {

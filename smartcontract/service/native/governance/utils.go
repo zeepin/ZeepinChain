@@ -284,8 +284,8 @@ func CheckVBFTConfig(configuration *config.VBFTConfig) error {
 	if configuration.L < 16*configuration.K || configuration.L%configuration.K != 0 {
 		return errors.NewErr("initConfig. L can not be less than 16*K and K must be times of L in config!")
 	}
-	if configuration.K < 3*configuration.C+1 {
-		return errors.NewErr("initConfig. K can not be less than 3*C+1 in config!")
+	if configuration.K < 2*configuration.C+1 {
+		return errors.NewErr("initConfig. K can not be less than 2*C+1 in config!")
 	}
 	if configuration.N < configuration.K || configuration.K < 9 {
 		return errors.NewErr("initConfig. config not match N >= K >= 9!")

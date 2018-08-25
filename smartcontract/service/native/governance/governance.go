@@ -140,17 +140,17 @@ func InitConfig(native *native.NativeService) ([]byte, error) {
 	configuration := new(config.VBFTConfig)
 	buf, err := serialization.ReadVarBytes(bytes.NewBuffer(native.Input))
 	if err != nil {
-		return utils.BYTE_FALSE, errors.NewErr("serialization.ReadVarBytes, contract params deserialize error!")
+		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "serialization.ReadVarBytes, contract params deserialize error!")
 	}
 	if err := configuration.Deserialize(bytes.NewBuffer(buf)); err != nil {
-		return utils.BYTE_FALSE, errors.NewErr("deserialize, contract params deserialize error!")
+		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "deserialize, contract params deserialize error!")
 	}
 	contract := native.ContextRef.CurrentContext().ContractAddress
 
 	// check if initConfig is already execute
 	governanceViewBytes, err := native.CloneCache.Get(scommon.ST_STORAGE, utils.ConcatKey(contract, []byte(GOVERNANCE_VIEW)))
 	if err != nil {
-		return utils.BYTE_FALSE, errors.NewErr("getGovernanceView, get governanceViewBytes error!")
+		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "getGovernanceView, get governanceViewBytes error!")
 	}
 	if governanceViewBytes != nil {
 		return utils.BYTE_FALSE, errors.NewErr("initConfig. initConfig is already executed!")
@@ -159,7 +159,7 @@ func InitConfig(native *native.NativeService) ([]byte, error) {
 	//check the configuration
 	err = CheckVBFTConfig(configuration)
 	if err != nil {
-		return utils.BYTE_FALSE, errors.NewErr("checkGBFTConfig failed!")
+		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "checkGBFTConfig failed!")
 	}
 
 	//init globalParam
@@ -175,7 +175,7 @@ func InitConfig(native *native.NativeService) ([]byte, error) {
 	}
 	err = putGlobalParam(native, contract, globalParam)
 	if err != nil {
-		return utils.BYTE_FALSE, errors.NewErr("putGlobalParam, put globalParam error!")
+		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "putGlobalParam, put globalParam error!")
 	}
 
 	var view uint32 = 1
@@ -190,7 +190,7 @@ func InitConfig(native *native.NativeService) ([]byte, error) {
 		}
 		address, err := common.AddressFromBase58(peer.Address)
 		if err != nil {
-			return utils.BYTE_FALSE, errors.NewErr("common.AddressFromBase58, address format error!")
+			return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "common.AddressFromBase58, address format error!")
 		}
 
 		peerPoolItem := new(PeerPoolItem)
@@ -1058,8 +1058,8 @@ func UpdateConfig(native *native.NativeService) ([]byte, error) {
 	if configuration.L < 16*configuration.K || configuration.L%configuration.K != 0 {
 		return utils.BYTE_FALSE, errors.NewErr("updateConfig. L can not be less than 16*K and K must be times of L in config!")
 	}
-	if configuration.K < 3*configuration.C+1 {
-		return utils.BYTE_FALSE, errors.NewErr("updateConfig. K can not be less than 3*C+1 in config!")
+	if configuration.K < 2*configuration.C+1 {
+		return utils.BYTE_FALSE, errors.NewErr("updateConfig. K can not be less than 2*C+1 in config!")
 	}
 	if 4*configuration.K > globalParam.CandidateNum {
 		return utils.BYTE_FALSE, errors.NewErr("updateConfig. 4*K can not be more than candidateNum!")

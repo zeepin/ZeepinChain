@@ -28,13 +28,11 @@ import (
 	"github.com/imZhuFei/zeepin/core/payload"
 	"github.com/imZhuFei/zeepin/core/signature"
 	"github.com/imZhuFei/zeepin/core/types"
-	httpcom "github.com/imZhuFei/zeepin/http/base/common"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/auth"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/governance"
 	nutils "github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/zpt"
 	svrneovm "github.com/imZhuFei/zeepin/smartcontract/service/neovm"
-	cstates "github.com/imZhuFei/zeepin/smartcontract/states"
 	"github.com/imZhuFei/zeepin/vm/neovm"
 	"github.com/ontio/ontology-crypto/keypair"
 	sig "github.com/ontio/ontology-crypto/signature"
@@ -89,7 +87,7 @@ func main() {
 	switch branch {
 	case "multiAddr":
 		//int((5*len(pubKeys)+6)/7)
-		mt := int(math.Ceil(float64((len(config.Configuration.Wallets))*2.0+1) / 3.0))
+		mt := int(math.Ceil(float64(len(config.Configuration.Wallets)) * 2.0 / 3.0))
 		address, err := types.AddressFromMultiPubKeys(pubKeys, mt)
 		if err != nil {
 			fmt.Println(fmt.Errorf("return config multi address error:%s", err))
@@ -132,7 +130,7 @@ func main() {
 		}
 		tx = NewInvokeTransaction(gasPrice, gasLimit, code)
 		for i := 0; i < 9; i++ {
-			if err := MultiSignToTransaction(tx, uint16(math.Ceil((float64(len(config.Configuration.Wallets))*2.0+1)/3.0)), pubKeys, users[i]); err != nil {
+			if err := MultiSignToTransaction(tx, uint16(math.Ceil(9.0*2.0/3.0)), pubKeys, users[i]); err != nil {
 				fmt.Println("sign transaction error!")
 				return
 			}
@@ -187,7 +185,7 @@ func main() {
 		}
 		tx = NewInvokeTransaction(gasPrice, gasLimit, invokeCode)
 		for i := 0; i < len(config.Configuration.Wallets); i++ {
-			if err := MultiSignToTransaction(tx, uint16(math.Ceil((float64(len(config.Configuration.Wallets))*2.0+1)/3.0)), pubKeys, users[i]); err != nil {
+			if err := MultiSignToTransaction(tx, uint16(math.Ceil(float64(len(config.Configuration.Wallets))*2.0/3.0)), pubKeys, users[i]); err != nil {
 				fmt.Println("sign transaction error!")
 				return
 			}
@@ -445,7 +443,7 @@ func main() {
 		}
 		tx = NewInvokeTransaction(gasPrice, gasLimit, code)
 		for i := 0; i < len(config.Configuration.Wallets); i++ {
-			if err := MultiSignToTransaction(tx, uint16(math.Ceil((float64(len(config.Configuration.Wallets))*2.0+1)/3.0)), pubKeys, users[i]); err != nil {
+			if err := MultiSignToTransaction(tx, uint16(math.Ceil(float64(len(config.Configuration.Wallets))*2.0/3.0)), pubKeys, users[i]); err != nil {
 				fmt.Println("sign transaction error!")
 				return
 			}
@@ -458,7 +456,7 @@ func main() {
 		}
 		tx = NewInvokeTransaction(gasPrice, gasLimit, code)
 		for i := 0; i < len(config.Configuration.Wallets); i++ {
-			if err := MultiSignToTransaction(tx, uint16(math.Ceil((float64(len(config.Configuration.Wallets))*2.0+1)/3.0)), pubKeys, users[i]); err != nil {
+			if err := MultiSignToTransaction(tx, uint16(math.Ceil(float64(len(config.Configuration.Wallets))*2.0/3.0)), pubKeys, users[i]); err != nil {
 				fmt.Println("sign transaction error!")
 				return
 			}
