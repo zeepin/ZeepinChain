@@ -26,9 +26,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/ontio/ontology-crypto/vrf"
-	"github.com/ontio/ontology-eventbus/actor"
 	"github.com/imZhuFei/zeepin/account"
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/log"
@@ -45,6 +42,9 @@ import (
 	ninit "github.com/imZhuFei/zeepin/smartcontract/service/native/init"
 	nutils "github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
 	"github.com/imZhuFei/zeepin/validator/increment"
+	"github.com/ontio/ontology-crypto/keypair"
+	"github.com/ontio/ontology-crypto/vrf"
+	"github.com/ontio/ontology-eventbus/actor"
 )
 
 type BftActionType uint8
@@ -1288,7 +1288,7 @@ func (self *Server) processMsgEvent() error {
 
 				if proposer, forEmpty, done := self.blockPool.commitDone(msgBlkNum, self.config.C, self.config.N); done {
 					self.blockPool.setCommitDone(msgBlkNum)
-					log.Infof("server %d commit %d done", msgBlkNum)
+					log.Infof("server %d commit done", msgBlkNum)
 					proposal := self.findBlockProposal(msgBlkNum, proposer, forEmpty)
 					if proposal == nil {
 						// TODO: commit done, but we not have the proposal, should request proposal from neighbours

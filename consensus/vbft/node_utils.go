@@ -215,12 +215,12 @@ func (self *Server) buildParticipantConfig(blkNum uint32, block *Block, chainCfg
 	}
 	s += vconfig.MAX_PROPOSER_COUNT
 	cfg.Endorsers = calcParticipantPeers(cfg, chainCfg, s, s+vconfig.MAX_ENDORSER_COUNT)
-	if uint32(len(cfg.Endorsers)) < 2*chainCfg.C {
+	if uint32(len(cfg.Endorsers)) <= 2*chainCfg.C {
 		return nil, fmt.Errorf("cfg.Endorsers length less than double chainCfg.C:%d,%d", uint32(len(cfg.Endorsers)), chainCfg.C)
 	}
 	s += vconfig.MAX_ENDORSER_COUNT
 	cfg.Committers = calcParticipantPeers(cfg, chainCfg, s, s+vconfig.MAX_COMMITTER_COUNT)
-	if uint32(len(cfg.Committers)) < 2*chainCfg.C {
+	if uint32(len(cfg.Committers)) <= 2*chainCfg.C {
 		return nil, fmt.Errorf("cfg.Committers length less than double chainCfg.C:%d,%d", uint32(len(cfg.Committers)), chainCfg.C)
 	}
 	log.Infof("server %d, blkNum: %d, state: %d, participants config: %v, %v, %v", self.Index, blkNum,

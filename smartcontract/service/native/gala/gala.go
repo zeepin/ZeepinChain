@@ -24,7 +24,9 @@ import (
 
 	"fmt"
 
+	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/constants"
+	"github.com/imZhuFei/zeepin/common/serialization"
 	scommon "github.com/imZhuFei/zeepin/core/store/common"
 	"github.com/imZhuFei/zeepin/errors"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native"
