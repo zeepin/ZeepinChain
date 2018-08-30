@@ -101,7 +101,7 @@ func main() {
 			fmt.Println("open wallet " + config.Configuration.Wallets[i] + " password error. " + err.Error())
 			return
 		}
-		fmt.Println("open wallet " + config.Configuration.Wallets[i])
+		//fmt.Println("open wallet " + config.Configuration.Wallets[i])
 		users = append(users, user)
 		pubKeys = append(pubKeys, user.PublicKey)
 	}

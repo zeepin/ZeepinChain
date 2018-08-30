@@ -1288,6 +1288,7 @@ func (self *Server) processMsgEvent() error {
 
 				if proposer, forEmpty, done := self.blockPool.commitDone(msgBlkNum, self.config.C, self.config.N); done {
 					self.blockPool.setCommitDone(msgBlkNum)
+					log.Infof("server %d commit %d done", msgBlkNum)
 					proposal := self.findBlockProposal(msgBlkNum, proposer, forEmpty)
 					if proposal == nil {
 						// TODO: commit done, but we not have the proposal, should request proposal from neighbours

@@ -502,7 +502,7 @@ func (pool *BlockPool) commitDone(blkNum uint32, C uint32, N uint32) (uint32, bo
 
 	// enforce signature quorum if checking commit-consensus base on signature count
 	// if C <= (N-1)/3, N-1-C >= 2*C
-	C = uint32(math.Ceil((float64(N)*2.0 + 1) / 3.0))
+	C = N - 1 - C
 	if proposer == math.MaxUint32 {
 		// check consensus with endorse sigs
 		var emptyCnt uint32
@@ -534,6 +534,7 @@ func (pool *BlockPool) commitDone(blkNum uint32, C uint32, N uint32) (uint32, bo
 				break
 			}
 		}
+		log.Infof("Check candidate block endorsersig, not commit Done")
 	}
 
 	if proposer != math.MaxUint32 {

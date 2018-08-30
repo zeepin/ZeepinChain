@@ -319,7 +319,7 @@ func getCommitConsensus(commitMsgs []*blockCommitMsg, C int) (uint32, bool) {
 			}
 		}
 	}
-
+	log.Infof("Not Consensus Done")
 	return math.MaxUint32, false
 }
 
