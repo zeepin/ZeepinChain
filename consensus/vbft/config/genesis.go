@@ -56,7 +56,7 @@ func genConsensusPayload(cfg *config.VBFTConfig, txhash common.Uint256, height u
 	if int(cfg.K) > len(cfg.Peers) {
 		return nil, fmt.Errorf("peer count is less than K")
 	}
-	if cfg.K < 3*cfg.C+1 {
+	if cfg.K < 2*cfg.C+1 {
 		return nil, fmt.Errorf("invalid config, K: %d, C: %d", cfg.K, cfg.C)
 	}
 	if cfg.L%cfg.K != 0 || cfg.L < cfg.K*2 {
