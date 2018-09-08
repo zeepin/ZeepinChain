@@ -54,7 +54,6 @@ import (
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/zpt"
 	"github.com/imZhuFei/zeepin/smartcontract/service/neovm"
 	"github.com/ontio/ontology-crypto/keypair"
-	"zeepin/consensus/vbft/config"
 )
 
 const (

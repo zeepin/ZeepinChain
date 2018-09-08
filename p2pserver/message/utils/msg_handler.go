@@ -50,7 +50,9 @@ import (
 	"github.com/imZhuFei/zeepin/core/types"
 	actor "github.com/imZhuFei/zeepin/p2pserver/actor/req"
 	msgCommon "github.com/imZhuFei/zeepin/p2pserver/common"
+	"github.com/imZhuFei/zeepin/p2pserver/message/msg_pack"
 	msgTypes "github.com/imZhuFei/zeepin/p2pserver/message/types"
+	"github.com/imZhuFei/zeepin/p2pserver/net/protocol"
 	evtActor "github.com/ontio/ontology-eventbus/actor"
 )
 

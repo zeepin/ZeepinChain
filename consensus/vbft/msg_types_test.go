@@ -44,7 +44,6 @@ import (
 	"github.com/imZhuFei/zeepin/consensus/vbft/config"
 	"github.com/imZhuFei/zeepin/core/signature"
 	"github.com/imZhuFei/zeepin/core/types"
-	"zeepin/consensus/vbft/config"
 )
 
 func constructProposalMsgTest(acc *account.Account) *blockProposalMsg {

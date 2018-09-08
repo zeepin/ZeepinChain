@@ -40,6 +40,7 @@ import (
 
 	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/imZhuFei/zeepin/core/types"
+	. "github.com/imZhuFei/zeepin/smartcontract"
 	"github.com/imZhuFei/zeepin/vm/neovm"
 	"github.com/stretchr/testify/assert"
 )

@@ -40,7 +40,6 @@ import (
 	msgCommon "github.com/imZhuFei/zeepin/p2pserver/common"
 	"github.com/imZhuFei/zeepin/p2pserver/message/types"
 	"github.com/imZhuFei/zeepin/p2pserver/net/protocol"
-	"zeepin/p2pserver/net/protocol"
 )
 
 // MessageHandler defines the unified api for each net message

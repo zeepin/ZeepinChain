@@ -52,7 +52,6 @@ import (
 	"github.com/imZhuFei/zeepin/core/states"
 	gov "github.com/imZhuFei/zeepin/smartcontract/service/native/governance"
 	nutils "github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
-	"zeepin/consensus/vbft/config"
 )
 
 func SignMsg(account *account.Account, msg ConsensusMsg) ([]byte, error) {

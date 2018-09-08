@@ -43,7 +43,6 @@ import (
 	"github.com/imZhuFei/zeepin/p2pserver/net/protocol"
 	"github.com/stretchr/testify/assert"
 	"testing"
-	"zeepin/p2pserver/net/protocol"
 )
 
 func testHandler(data *msgCommon.MsgPayload, p2p p2p.P2P, pid *actor.PID, args ...interface{}) error {
