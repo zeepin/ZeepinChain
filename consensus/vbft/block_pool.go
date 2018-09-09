@@ -637,11 +637,7 @@ func (pool *BlockPool) addSignaturesToBlockLocked(block *Block, forEmpty bool) e
 	return nil
 }
 
-<<<<<<< HEAD
 func (pool *BlockPool) setBlockSealed(block *Block, forEmpty bool, sigdata bool) error {
-=======
-func (pool *BlockPool) setBlockSealed(block *Block, forEmpty bool) error {
->>>>>>> 005dd1a294d38dff3ccdcbcb695801e12848b158
 	pool.lock.Lock()
 	defer pool.lock.Unlock()
 
@@ -657,19 +653,11 @@ func (pool *BlockPool) setBlockSealed(block *Block, forEmpty bool) error {
 		}
 		return fmt.Errorf("double seal for block %d", blkNum)
 	}
-<<<<<<< HEAD
 	if sigdata {
 		if err := pool.addSignaturesToBlockLocked(block, forEmpty); err != nil {
 			return fmt.Errorf("failed to add sig to block: %s", err)
 		}
 	}
-=======
-
-	if err := pool.addSignaturesToBlockLocked(block, forEmpty); err != nil {
-		return fmt.Errorf("failed to add sig to block: %s", err)
-	}
-
->>>>>>> 005dd1a294d38dff3ccdcbcb695801e12848b158
 	if !forEmpty {
 		// remove empty block
 		c.SealedBlock = &Block{

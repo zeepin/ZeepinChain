@@ -115,11 +115,7 @@ func ReadMessage(reader io.Reader) (Message, uint32, error) {
 		return nil, 0, fmt.Errorf("unmatched magic number %d, expected %d", hdr.Magic, magic)
 	}
 
-<<<<<<< HEAD
 	if hdr.Length > common.MAX_PAYLOAD_LEN {
-=======
-	if int(hdr.Length) > common.MAX_PAYLOAD_LEN {
->>>>>>> 005dd1a294d38dff3ccdcbcb695801e12848b158
 		return nil, 0, fmt.Errorf("msg payload length:%d exceed max payload size: %d",
 			hdr.Length, common.MAX_PAYLOAD_LEN)
 	}

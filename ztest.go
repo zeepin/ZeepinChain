@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with The ZeepinChain.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 
 package main
 
@@ -46,19 +46,16 @@ import (
 	"github.com/imZhuFei/zeepin/core/payload"
 	"github.com/imZhuFei/zeepin/core/signature"
 	"github.com/imZhuFei/zeepin/core/types"
+	httpcom "github.com/imZhuFei/zeepin/http/base/common"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/auth"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/governance"
 	nutils "github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/zpt"
 	svrneovm "github.com/imZhuFei/zeepin/smartcontract/service/neovm"
+	cstates "github.com/imZhuFei/zeepin/smartcontract/states"
 	"github.com/imZhuFei/zeepin/vm/neovm"
 	"github.com/ontio/ontology-crypto/keypair"
 	sig "github.com/ontio/ontology-crypto/signature"
-<<<<<<< HEAD
-=======
-	cstates "github.com/imZhuFei/zeepin/smartcontract/states"
-	httpcom "github.com/imZhuFei/zeepin/http/base/common"
->>>>>>> 005dd1a294d38dff3ccdcbcb695801e12848b158
 )
 
 func main() {
