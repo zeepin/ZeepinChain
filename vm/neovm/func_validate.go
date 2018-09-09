@@ -24,6 +24,7 @@ import (
 	"math/big"
 
 	"fmt"
+
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/vm/neovm/errors"
 	"github.com/imZhuFei/zeepin/vm/neovm/types"
@@ -32,6 +33,13 @@ import (
 func validateCount1(e *ExecutionEngine) error {
 	if err := LogStackTrace(e, 1, "[validateCount1]"); err != nil {
 		return err
+	}
+	return nil
+}
+func validateAltStackCount1(e *ExecutionEngine) error {
+	stackCount := e.AltStack.Count()
+	if stackCount < 1 {
+		return errors.ERR_UNDER_STACK_LEN
 	}
 	return nil
 }

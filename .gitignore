@@ -11,3 +11,12 @@ ztest
 smartcontract/service/native/.DS_Store
 zeepin
 ztest
+*.log
+ztest
+ztest.go
+ztest
+ztest.go
+.vscode/launch.json
+.DS_Store
+peers.recent
+convertaddress
