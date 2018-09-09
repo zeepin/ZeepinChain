@@ -41,10 +41,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/imZhuFei/zeepin/account"
 	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/imZhuFei/zeepin/p2pserver/common"
+	"github.com/ontio/ontology-crypto/keypair"
 )
 
 var key keypair.PublicKey

@@ -37,13 +37,14 @@ package cmd
 import (
 	"bufio"
 	"fmt"
+	"os"
+	"time"
+
 	"github.com/gosuri/uiprogress"
 	"github.com/imZhuFei/zeepin/cmd/utils"
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/serialization"
 	"github.com/urfave/cli"
-	"os"
-	"time"
 )
 
 var ExportCommand = cli.Command{

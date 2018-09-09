@@ -38,11 +38,12 @@ import (
 	"bytes"
 	"fmt"
 
+	"strings"
+
 	"github.com/imZhuFei/zeepin/core/payload"
 	"github.com/imZhuFei/zeepin/core/states"
 	"github.com/imZhuFei/zeepin/core/store/common"
 	"github.com/imZhuFei/zeepin/errors"
-	"strings"
 )
 
 type StateBatch struct {

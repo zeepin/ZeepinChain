@@ -66,9 +66,9 @@ func (this *InitContractAdminParam) Deserialize(rd io.Reader) error {
 
 /* **********************************************   */
 type TransferParam struct {
-	ContractAddr  common.Address
-	NewAdminGID []byte
-	KeyNo         uint64
+	ContractAddr common.Address
+	NewAdminGID  []byte
+	KeyNo        uint64
 }
 
 func (this *TransferParam) Serialize(w io.Writer) error {
@@ -101,7 +101,7 @@ func (this *TransferParam) Deserialize(rd io.Reader) error {
 /* **********************************************   */
 type FuncsToRoleParam struct {
 	ContractAddr common.Address
-	AdminGID   []byte
+	AdminGID     []byte
 	Role         []byte
 	FuncNames    []string
 	KeyNo        uint64
@@ -164,7 +164,7 @@ func (this *FuncsToRoleParam) Deserialize(rd io.Reader) error {
 
 type GIDsToRoleParam struct {
 	ContractAddr common.Address
-	AdminGID   []byte
+	AdminGID     []byte
 	Role         []byte
 	Persons      [][]byte
 	KeyNo        uint64

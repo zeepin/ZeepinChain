@@ -44,8 +44,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ontio/ontology-crypto/keypair"
-	sig "github.com/ontio/ontology-crypto/signature"
 	"github.com/imZhuFei/zeepin/account"
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/serialization"
@@ -58,6 +56,8 @@ import (
 	"github.com/imZhuFei/zeepin/smartcontract/service/wasmvm"
 	cstates "github.com/imZhuFei/zeepin/smartcontract/states"
 	"github.com/imZhuFei/zeepin/vm/wasmvm/exec"
+	"github.com/ontio/ontology-crypto/keypair"
+	sig "github.com/ontio/ontology-crypto/signature"
 )
 
 const (

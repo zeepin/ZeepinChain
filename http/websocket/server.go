@@ -37,6 +37,7 @@ package websocket
 
 import (
 	"bytes"
+
 	"github.com/imZhuFei/zeepin/common"
 	cfg "github.com/imZhuFei/zeepin/common/config"
 	"github.com/imZhuFei/zeepin/common/log"

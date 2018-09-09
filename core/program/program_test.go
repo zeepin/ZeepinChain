@@ -35,9 +35,10 @@
 package program
 
 import (
+	"testing"
+
 	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestProgramBuilder_PushBytes(t *testing.T) {

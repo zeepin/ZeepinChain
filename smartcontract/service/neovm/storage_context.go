@@ -36,6 +36,7 @@ package neovm
 
 import (
 	"fmt"
+
 	"github.com/imZhuFei/zeepin/common"
 	vm "github.com/imZhuFei/zeepin/vm/neovm"
 )

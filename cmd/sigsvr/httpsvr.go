@@ -37,10 +37,11 @@ package sigsvr
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/imZhuFei/zeepin/cmd/sigsvr/common"
-	"github.com/imZhuFei/zeepin/common/log"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/imZhuFei/zeepin/cmd/sigsvr/common"
+	"github.com/imZhuFei/zeepin/common/log"
 )
 
 var DefCliRpcSvr = NewCliRpcServer()

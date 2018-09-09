@@ -38,12 +38,13 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
+	"io"
+	"os"
+
 	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/imZhuFei/zeepin/common/serialization"
 	"github.com/imZhuFei/zeepin/core/ledger"
 	"github.com/imZhuFei/zeepin/core/types"
-	"io"
-	"os"
 )
 
 func ImportBlocks(importFile string, targetHeight uint32) error {

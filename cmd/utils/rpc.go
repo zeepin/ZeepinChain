@@ -37,10 +37,11 @@ package utils
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/imZhuFei/zeepin/common/config"
 	"io/ioutil"
 	"net/http"
 	"strings"
+
+	"github.com/imZhuFei/zeepin/common/config"
 )
 
 //JsonRpc version

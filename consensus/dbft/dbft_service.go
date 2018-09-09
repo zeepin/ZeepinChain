@@ -37,7 +37,9 @@ package dbft
 import (
 	"bytes"
 	"fmt"
-	"github.com/ontio/ontology-eventbus/actor"
+	"reflect"
+	"time"
+
 	"github.com/imZhuFei/zeepin/account"
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/config"
@@ -52,8 +54,7 @@ import (
 	"github.com/imZhuFei/zeepin/events/message"
 	p2pmsg "github.com/imZhuFei/zeepin/p2pserver/message/types"
 	"github.com/imZhuFei/zeepin/validator/increment"
-	"reflect"
-	"time"
+	"github.com/ontio/ontology-eventbus/actor"
 )
 
 type DbftService struct {

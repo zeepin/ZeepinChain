@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with The ZeepinChain.  If not, see <http://www.gnu.org/licenses/>.
-
- * Copyright (C) 2018 The ontology Authors
  * This file is part of The ontology library.
  *
  * The ontology is free software: you can redistribute it and/or modify
@@ -31,7 +29,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with The ontology.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package neovm
 
 import (

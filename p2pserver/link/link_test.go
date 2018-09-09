@@ -40,7 +40,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/imZhuFei/zeepin/account"
 	common2 "github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/log"
@@ -48,6 +47,7 @@ import (
 	ct "github.com/imZhuFei/zeepin/core/types"
 	"github.com/imZhuFei/zeepin/p2pserver/common"
 	mt "github.com/imZhuFei/zeepin/p2pserver/message/types"
+	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -40,7 +40,10 @@ import (
 	"bytes"
 	"encoding/hex"
 	"fmt"
-	"github.com/ontio/ontology-eventbus/actor"
+	"sort"
+	"strconv"
+	"sync"
+
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/config"
 	"github.com/imZhuFei/zeepin/common/log"
@@ -52,9 +55,7 @@ import (
 	nutils "github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
 	tc "github.com/imZhuFei/zeepin/txnpool/common"
 	"github.com/imZhuFei/zeepin/validator/types"
-	"sort"
-	"strconv"
-	"sync"
+	"github.com/ontio/ontology-eventbus/actor"
 )
 
 type txStats struct {

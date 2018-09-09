@@ -39,12 +39,12 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/imZhuFei/zeepin/common/serialization"
 	"github.com/imZhuFei/zeepin/core/signature"
 	"github.com/imZhuFei/zeepin/errors"
+	"github.com/ontio/ontology-crypto/keypair"
 )
 
 type ConsensusPayload struct {

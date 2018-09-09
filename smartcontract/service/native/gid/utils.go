@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with The ZeepinChain.  If not, see <http://www.gnu.org/licenses/>.
-
- * Copyright (C) 2018 The ontology Authors
  * This file is part of The ontology library.
  *
  * The ontology is free software: you can redistribute it and/or modify
@@ -37,13 +35,13 @@ import (
 	"encoding/hex"
 	"errors"
 
-	"github.com/ontio/ontology-crypto/keypair"
 	com "github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/core/states"
 	"github.com/imZhuFei/zeepin/core/store/common"
 	"github.com/imZhuFei/zeepin/core/types"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
+	"github.com/ontio/ontology-crypto/keypair"
 )
 
 const flag_exist = 0x01

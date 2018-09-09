@@ -37,10 +37,11 @@ package utils
 import (
 	"bytes"
 	"encoding/hex"
+	"testing"
+
 	"github.com/imZhuFei/zeepin/cmd/abi"
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/vm/neovm"
-	"testing"
 )
 
 func TestParseNativeParam(t *testing.T) {

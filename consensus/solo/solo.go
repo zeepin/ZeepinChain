@@ -39,8 +39,6 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/ontio/ontology-eventbus/actor"
 	"github.com/imZhuFei/zeepin/account"
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/config"
@@ -52,6 +50,8 @@ import (
 	"github.com/imZhuFei/zeepin/events"
 	"github.com/imZhuFei/zeepin/events/message"
 	"github.com/imZhuFei/zeepin/validator/increment"
+	"github.com/ontio/ontology-crypto/keypair"
+	"github.com/ontio/ontology-eventbus/actor"
 )
 
 /*

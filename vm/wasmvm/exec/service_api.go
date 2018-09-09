@@ -34,9 +34,10 @@
 package exec
 
 import (
+	"strconv"
+
 	"github.com/imZhuFei/zeepin/errors"
 	"github.com/imZhuFei/zeepin/vm/wasmvm/util"
-	"strconv"
 )
 
 func strToInt(engine *ExecutionEngine) (bool, error) {

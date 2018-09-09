@@ -34,9 +34,10 @@
 package types
 
 import (
+	"testing"
+
 	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestAddressFromBookkeepers(t *testing.T) {

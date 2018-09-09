@@ -330,7 +330,7 @@ func (pool *BlockPool) endorseDone(blkNum uint32, C uint32) (uint32, bool, bool)
 		return math.MaxUint32, false, false
 	}
 
-	if uint32(len(candidate.EndorseSigs)) < C+1 {
+	if uint32(len(candidate.EndorseSigs)) < 2*C {
 		return math.MaxUint32, false, false
 	}
 
@@ -338,14 +338,14 @@ func (pool *BlockPool) endorseDone(blkNum uint32, C uint32) (uint32, bool, bool)
 		for _, esig := range eSigs {
 			if esig.ForEmpty {
 				emptyEndorseCount++
-				if emptyEndorseCount > int(C) {
+				if emptyEndorseCount >= int(2*C) {
 					// FIXME: endorsedProposer need fix
 					return esig.EndorsedProposer, true, true
 				}
 			} else {
 				endorseCount[esig.EndorsedProposer] += 1
 				// check if endorse-consensus reached
-				if endorseCount[esig.EndorsedProposer] > C {
+				if endorseCount[esig.EndorsedProposer] >= 2*C {
 					return esig.EndorsedProposer, false, true
 				}
 			}
@@ -366,7 +366,7 @@ func (pool *BlockPool) endorseFailed(blkNum uint32, C uint32) bool {
 		return false
 	}
 
-	if uint32(len(candidate.EndorseSigs)) < C+1 {
+	if uint32(len(candidate.EndorseSigs)) < 2*C {
 		return false
 	}
 
@@ -375,7 +375,7 @@ func (pool *BlockPool) endorseFailed(blkNum uint32, C uint32) bool {
 		for _, esig := range eSigs {
 			if !esig.ForEmpty {
 				proposalCount[esig.EndorsedProposer] += 1
-				if proposalCount[esig.EndorsedProposer] > C+1 {
+				if proposalCount[esig.EndorsedProposer] >= 2*C {
 					return false
 				}
 			} else {
@@ -385,7 +385,7 @@ func (pool *BlockPool) endorseFailed(blkNum uint32, C uint32) bool {
 		endorserCount[endorser] += 1
 	}
 
-	if uint32(len(proposalCount)) > C+1 {
+	if uint32(len(proposalCount)) >= 2*C {
 		return true
 	}
 	if emptyEndorseCnt > C {
@@ -637,7 +637,7 @@ func (pool *BlockPool) addSignaturesToBlockLocked(block *Block, forEmpty bool) e
 	return nil
 }
 
-func (pool *BlockPool) setBlockSealed(block *Block, forEmpty bool) error {
+func (pool *BlockPool) setBlockSealed(block *Block, forEmpty bool, sigdata bool) error {
 	pool.lock.Lock()
 	defer pool.lock.Unlock()
 
@@ -653,11 +653,11 @@ func (pool *BlockPool) setBlockSealed(block *Block, forEmpty bool) error {
 		}
 		return fmt.Errorf("double seal for block %d", blkNum)
 	}
-
-	if err := pool.addSignaturesToBlockLocked(block, forEmpty); err != nil {
-		return fmt.Errorf("failed to add sig to block: %s", err)
+	if sigdata {
+		if err := pool.addSignaturesToBlockLocked(block, forEmpty); err != nil {
+			return fmt.Errorf("failed to add sig to block: %s", err)
+		}
 	}
-
 	if !forEmpty {
 		// remove empty block
 		c.SealedBlock = &Block{

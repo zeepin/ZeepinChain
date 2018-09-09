@@ -38,9 +38,10 @@ import (
 	"bytes"
 	"compress/zlib"
 	"fmt"
-	"github.com/imZhuFei/zeepin/common/serialization"
 	"io"
 	"io/ioutil"
+
+	"github.com/imZhuFei/zeepin/common/serialization"
 )
 
 const (

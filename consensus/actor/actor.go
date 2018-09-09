@@ -38,12 +38,12 @@ import (
 	"errors"
 	"time"
 
-	"github.com/ontio/ontology-eventbus/actor"
 	"github.com/imZhuFei/zeepin/core/types"
 	ontErrors "github.com/imZhuFei/zeepin/errors"
 	netActor "github.com/imZhuFei/zeepin/p2pserver/actor/server"
 	ptypes "github.com/imZhuFei/zeepin/p2pserver/message/types"
 	txpool "github.com/imZhuFei/zeepin/txnpool/common"
+	"github.com/ontio/ontology-eventbus/actor"
 )
 
 type TxPoolActor struct {

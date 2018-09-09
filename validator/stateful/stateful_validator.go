@@ -35,14 +35,15 @@
 package stateful
 
 import (
-	"github.com/ontio/ontology-eventbus/actor"
+	"reflect"
+
 	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/imZhuFei/zeepin/core/ledger"
 	"github.com/imZhuFei/zeepin/core/types"
 	"github.com/imZhuFei/zeepin/errors"
 	"github.com/imZhuFei/zeepin/validator/db"
 	vatypes "github.com/imZhuFei/zeepin/validator/types"
-	"reflect"
+	"github.com/ontio/ontology-eventbus/actor"
 )
 
 // Validator is an interface for tx validation actor

@@ -35,11 +35,12 @@ package statestore
 
 import (
 	"fmt"
+	"os"
+	"testing"
+
 	"github.com/imZhuFei/zeepin/core/states"
 	com "github.com/imZhuFei/zeepin/core/store/common"
 	"github.com/imZhuFei/zeepin/core/store/leveldbstore"
-	"os"
-	"testing"
 )
 
 var (

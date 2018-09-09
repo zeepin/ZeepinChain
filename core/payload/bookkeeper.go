@@ -38,8 +38,8 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/imZhuFei/zeepin/common/serialization"
+	"github.com/ontio/ontology-crypto/keypair"
 )
 
 const BookkeeperPayloadVersion byte = 0x00

@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with The ZeepinChain.  If not, see <http://www.gnu.org/licenses/>.
-
- * Copyright (C) 2018 The ontology Authors
  * This file is part of The ontology library.
  *
  * The ontology is free software: you can redistribute it and/or modify
@@ -32,7 +30,6 @@
  * along with The ontology.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Package localrpc privides a function to start local rpc server
 package localrpc
 
 import (
@@ -40,6 +37,7 @@ import (
 	"strconv"
 
 	"fmt"
+
 	cfg "github.com/imZhuFei/zeepin/common/config"
 	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/imZhuFei/zeepin/http/base/rpc"

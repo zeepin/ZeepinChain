@@ -38,12 +38,13 @@ import (
 	"bytes"
 	"encoding/hex"
 	"encoding/json"
-	"github.com/ontio/ontology-crypto/keypair"
+
 	clisvrcom "github.com/imZhuFei/zeepin/cmd/sigsvr/common"
 	cliutil "github.com/imZhuFei/zeepin/cmd/utils"
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/ontio/ontology-crypto/keypair"
 )
 
 type SigRawTransactionReq struct {

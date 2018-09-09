@@ -34,13 +34,14 @@
 package genesis
 
 import (
-	"github.com/ontio/ontology-crypto/keypair"
+	"os"
+	"testing"
+
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/config"
 	"github.com/imZhuFei/zeepin/common/log"
+	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/stretchr/testify/assert"
-	"os"
-	"testing"
 )
 
 func TestMain(m *testing.M) {

@@ -38,6 +38,7 @@ import (
 	"math/big"
 
 	"fmt"
+
 	"github.com/imZhuFei/zeepin/vm/neovm/interfaces"
 )
 

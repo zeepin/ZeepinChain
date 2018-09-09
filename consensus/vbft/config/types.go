@@ -39,8 +39,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/ontio/ontology-crypto/keypair"
 )
 
 // PubkeyID returns a marshaled representation of the given public key.

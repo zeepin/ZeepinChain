@@ -37,14 +37,15 @@ package test
 import (
 	"bytes"
 	"fmt"
-	"github.com/ontio/ontology-crypto/keypair"
+	"math/big"
+	"testing"
+
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/core/types"
 	"github.com/imZhuFei/zeepin/merkle"
 	"github.com/imZhuFei/zeepin/vm/neovm"
+	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/stretchr/testify/assert"
-	"math/big"
-	"testing"
 )
 
 func TestMerkleVerifier(t *testing.T) {

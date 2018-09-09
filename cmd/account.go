@@ -37,13 +37,14 @@ package cmd
 import (
 	"bufio"
 	"fmt"
-	"github.com/ontio/ontology-crypto/keypair"
-	s "github.com/ontio/ontology-crypto/signature"
+	"strings"
+
 	"github.com/imZhuFei/zeepin/cmd/common"
 	"github.com/imZhuFei/zeepin/cmd/utils"
 	"github.com/imZhuFei/zeepin/common/config"
+	"github.com/ontio/ontology-crypto/keypair"
+	s "github.com/ontio/ontology-crypto/signature"
 	"github.com/urfave/cli"
-	"strings"
 )
 
 //map info, to get some information easily

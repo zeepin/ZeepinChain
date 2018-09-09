@@ -38,10 +38,10 @@ import (
 	"errors"
 	"time"
 
-	"github.com/ontio/ontology-eventbus/actor"
 	"github.com/imZhuFei/zeepin/common/log"
 	ac "github.com/imZhuFei/zeepin/p2pserver/actor/server"
 	"github.com/imZhuFei/zeepin/p2pserver/common"
+	"github.com/ontio/ontology-eventbus/actor"
 )
 
 var netServerPid *actor.PID

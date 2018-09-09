@@ -37,7 +37,6 @@ package dbft
 import (
 	"fmt"
 
-	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/imZhuFei/zeepin/account"
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/log"
@@ -46,6 +45,7 @@ import (
 	"github.com/imZhuFei/zeepin/core/types"
 	"github.com/imZhuFei/zeepin/core/vote"
 	msg "github.com/imZhuFei/zeepin/p2pserver/message/types"
+	"github.com/ontio/ontology-crypto/keypair"
 )
 
 const ContextVersion uint32 = 0

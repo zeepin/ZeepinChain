@@ -35,10 +35,10 @@
 package types
 
 import (
-	"github.com/ontio/ontology-eventbus/actor"
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/core/types"
 	"github.com/imZhuFei/zeepin/errors"
+	"github.com/ontio/ontology-eventbus/actor"
 )
 
 // message

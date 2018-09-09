@@ -38,13 +38,14 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"github.com/ontio/ontology-crypto/keypair"
+	"math"
+	"math/big"
+
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/constants"
 	"github.com/imZhuFei/zeepin/common/serialization"
 	"github.com/imZhuFei/zeepin/vm/neovm"
-	"math"
-	"math/big"
+	"github.com/ontio/ontology-crypto/keypair"
 )
 
 type ProgramBuilder struct {

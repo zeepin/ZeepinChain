@@ -35,9 +35,10 @@ package exec
 
 import (
 	"bytes"
+	"testing"
+
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/vm/wasmvm/wasm"
-	"testing"
 )
 
 func TestEnvCall_GetParams(t *testing.T) {

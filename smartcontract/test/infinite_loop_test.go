@@ -35,11 +35,12 @@
 package test
 
 import (
+	"os"
+	"testing"
+
 	"github.com/imZhuFei/zeepin/core/types"
 	. "github.com/imZhuFei/zeepin/smartcontract"
 	"github.com/stretchr/testify/assert"
-	"os"
-	"testing"
 )
 
 func TestInfiniteLoopCrash(t *testing.T) {

@@ -38,8 +38,8 @@ import (
 	"bytes"
 	"io"
 
-	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/imZhuFei/zeepin/common/serialization"
+	"github.com/ontio/ontology-crypto/keypair"
 )
 
 type BookkeeperState struct {

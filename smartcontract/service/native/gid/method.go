@@ -39,7 +39,6 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/imZhuFei/zeepin/account"
 	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/imZhuFei/zeepin/common/serialization"
@@ -48,6 +47,7 @@ import (
 	"github.com/imZhuFei/zeepin/core/types"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
+	"github.com/ontio/ontology-crypto/keypair"
 )
 
 func regIdWithPublicKey(srvc *native.NativeService) ([]byte, error) {

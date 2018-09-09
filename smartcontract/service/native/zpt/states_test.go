@@ -38,8 +38,8 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/magiconair/properties/assert"
 	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/magiconair/properties/assert"
 )
 
 func TestState_Serialize(t *testing.T) {

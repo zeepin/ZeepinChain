@@ -39,13 +39,14 @@ import (
 	"fmt"
 	"reflect"
 
+	"math/big"
+
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/serialization"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native"
 	"github.com/imZhuFei/zeepin/smartcontract/states"
 	vm "github.com/imZhuFei/zeepin/vm/neovm"
 	"github.com/imZhuFei/zeepin/vm/neovm/types"
-	"math/big"
 )
 
 func NativeInvoke(service *NeoVmService, engine *vm.ExecutionEngine) error {

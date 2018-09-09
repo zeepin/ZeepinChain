@@ -34,8 +34,9 @@
 package wasmvm
 
 import (
-	"github.com/imZhuFei/zeepin/vm/wasmvm/exec"
 	"testing"
+
+	"github.com/imZhuFei/zeepin/vm/wasmvm/exec"
 )
 
 func TestNewWasmStateReader(t *testing.T) {

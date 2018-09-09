@@ -38,12 +38,13 @@ import (
 	"bytes"
 	"math/big"
 
+	"math"
+
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/core/payload"
 	"github.com/imZhuFei/zeepin/core/types"
 	neovm "github.com/imZhuFei/zeepin/smartcontract/service/neovm"
 	vm "github.com/imZhuFei/zeepin/vm/neovm"
-	"math"
 )
 
 // NewDeployTransaction returns a deploy Transaction

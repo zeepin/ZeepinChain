@@ -35,10 +35,11 @@
 package types
 
 import (
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/stretchr/testify/assert"
 	"math/big"
 	"testing"
+
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestBoolean_Equals(t *testing.T) {

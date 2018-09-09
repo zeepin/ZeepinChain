@@ -39,10 +39,10 @@ import (
 	"errors"
 	"io"
 
-	"github.com/ontio/ontology-crypto/keypair"
-	s "github.com/ontio/ontology-crypto/signature"
 	"github.com/imZhuFei/zeepin/common/log"
 	ontErrors "github.com/imZhuFei/zeepin/errors"
+	"github.com/ontio/ontology-crypto/keypair"
+	s "github.com/ontio/ontology-crypto/signature"
 	"golang.org/x/crypto/ripemd160"
 )
 

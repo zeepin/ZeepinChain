@@ -37,10 +37,10 @@ package stateless
 import (
 	"reflect"
 
-	"github.com/ontio/ontology-eventbus/actor"
 	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/imZhuFei/zeepin/core/validation"
 	vatypes "github.com/imZhuFei/zeepin/validator/types"
+	"github.com/ontio/ontology-eventbus/actor"
 )
 
 // Validator wraps validator actor's pid

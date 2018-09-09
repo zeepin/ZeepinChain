@@ -36,9 +36,10 @@ package handlers
 
 import (
 	"encoding/json"
+	"testing"
+
 	"github.com/imZhuFei/zeepin/account"
 	clisvrcom "github.com/imZhuFei/zeepin/cmd/sigsvr/common"
-	"testing"
 )
 
 func TestSigTransferTransaction(t *testing.T) {

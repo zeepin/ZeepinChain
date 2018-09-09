@@ -36,8 +36,8 @@ package signature
 import (
 	"testing"
 
-	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/imZhuFei/zeepin/account"
+	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -36,8 +36,8 @@ package stateless
 import (
 	"testing"
 
-	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/ontio/ontology-eventbus/actor"
+	"time"
+
 	"github.com/imZhuFei/zeepin/account"
 	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/imZhuFei/zeepin/core/signature"
@@ -45,8 +45,9 @@ import (
 	"github.com/imZhuFei/zeepin/core/utils"
 	"github.com/imZhuFei/zeepin/errors"
 	types2 "github.com/imZhuFei/zeepin/validator/types"
+	"github.com/ontio/ontology-crypto/keypair"
+	"github.com/ontio/ontology-eventbus/actor"
 	"github.com/stretchr/testify/assert"
-	"time"
 )
 
 func signTransaction(signer *account.Account, tx *ctypes.Transaction) error {

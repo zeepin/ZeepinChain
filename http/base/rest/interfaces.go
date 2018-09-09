@@ -36,6 +36,8 @@ package rest
 
 import (
 	"bytes"
+	"strconv"
+
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/config"
 	"github.com/imZhuFei/zeepin/common/log"
@@ -46,7 +48,6 @@ import (
 	bcomn "github.com/imZhuFei/zeepin/http/base/common"
 	berr "github.com/imZhuFei/zeepin/http/base/error"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
-	"strconv"
 )
 
 const TLS_PORT int = 443
@@ -105,8 +106,8 @@ func GetBlockHeight(cmd map[string]interface{}) map[string]interface{} {
 //get block hash by height
 func GetBlockHash(cmd map[string]interface{}) map[string]interface{} {
 	resp := ResponsePack(berr.SUCCESS)
-	param := cmd["Height"].(string)
-	if len(param) == 0 {
+	param, ok := cmd["Height"].(string)
+	if !ok || len(param) == 0 {
 		return ResponsePack(berr.INVALID_PARAMS)
 	}
 	height, err := strconv.ParseInt(param, 10, 64)
@@ -163,8 +164,8 @@ func GetBlockByHash(cmd map[string]interface{}) map[string]interface{} {
 //get block height by transaction hash
 func GetBlockHeightByTxHash(cmd map[string]interface{}) map[string]interface{} {
 	resp := ResponsePack(berr.SUCCESS)
-	str := cmd["Hash"].(string)
-	if len(str) == 0 {
+	str, ok := cmd["Hash"].(string)
+	if !ok || len(str) == 0 {
 		return ResponsePack(berr.INVALID_PARAMS)
 	}
 	hash, err := common.Uint256FromHexString(str)
@@ -186,8 +187,8 @@ func GetBlockHeightByTxHash(cmd map[string]interface{}) map[string]interface{} {
 func GetBlockTxsByHeight(cmd map[string]interface{}) map[string]interface{} {
 	resp := ResponsePack(berr.SUCCESS)
 
-	param := cmd["Height"].(string)
-	if len(param) == 0 {
+	param, ok := cmd["Height"].(string)
+	if !ok || len(param) == 0 {
 		return ResponsePack(berr.INVALID_PARAMS)
 	}
 	height, err := strconv.ParseInt(param, 10, 64)
@@ -299,6 +300,7 @@ func SendRawTransaction(cmd map[string]interface{}) map[string]interface{} {
 			resp["Result"], err = bactor.PreExecuteContract(&txn)
 			if err != nil {
 				log.Infof("PreExec: ", err)
+				resp["Result"] = err.Error()
 				return ResponsePack(berr.SMARTCODE_ERROR)
 			}
 			return resp

@@ -87,8 +87,8 @@ func TestSerialization_Init(t *testing.T) {
 
 func TestSerialization_Transfer(t *testing.T) {
 	param := &TransferParam{
-		ContractAddr:  ZptContractAddr,
-		NewAdminGID: newAdmin,
+		ContractAddr: ZptContractAddr,
+		NewAdminGID:  newAdmin,
 	}
 	bf := new(bytes.Buffer)
 	if err := param.Serialize(bf); err != nil {
@@ -107,7 +107,7 @@ func TestSerialization_Transfer(t *testing.T) {
 func TestSerialization_AssignFuncs(t *testing.T) {
 	param := &FuncsToRoleParam{
 		ContractAddr: ZptContractAddr,
-		AdminGID:   admin,
+		AdminGID:     admin,
 		Role:         []byte("role"),
 		FuncNames:    funcs,
 	}
@@ -128,7 +128,7 @@ func TestSerialization_AssignFuncs(t *testing.T) {
 func TestSerialization_AssignGIDs(t *testing.T) {
 	param := &GIDsToRoleParam{
 		ContractAddr: ZptContractAddr,
-		AdminGID:   admin,
+		AdminGID:     admin,
 		Role:         []byte(role),
 		Persons:      [][]byte{[]byte{0x03, 0x04, 0x05, 0x06}, []byte{0x07, 0x08, 0x09, 0x0a}},
 	}

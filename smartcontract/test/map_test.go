@@ -36,11 +36,12 @@ package test
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/imZhuFei/zeepin/core/types"
 	"github.com/imZhuFei/zeepin/smartcontract"
 	"github.com/imZhuFei/zeepin/vm/neovm"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestMap(t *testing.T) {

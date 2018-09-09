@@ -41,7 +41,6 @@ import (
 	"reflect"
 	"sort"
 
-	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/serialization"
 	"github.com/imZhuFei/zeepin/core/types"
@@ -50,6 +49,7 @@ import (
 	"github.com/imZhuFei/zeepin/smartcontract/event"
 	vm "github.com/imZhuFei/zeepin/vm/neovm"
 	vmtypes "github.com/imZhuFei/zeepin/vm/neovm/types"
+	"github.com/ontio/ontology-crypto/keypair"
 )
 
 // HeaderGetNextConsensus put current block time to vm stack

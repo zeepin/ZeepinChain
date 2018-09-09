@@ -37,9 +37,10 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"github.com/imZhuFei/zeepin/cmd/abi"
 	"strconv"
 	"strings"
+
+	"github.com/imZhuFei/zeepin/cmd/abi"
 )
 
 func NewNeovmContractAbi(abiData []byte) (*abi.NeovmContractAbi, error) {

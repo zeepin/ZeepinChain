@@ -39,8 +39,8 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -38,6 +38,7 @@ import (
 	"io"
 
 	"fmt"
+
 	"github.com/imZhuFei/zeepin/common/serialization"
 	"github.com/imZhuFei/zeepin/errors"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"

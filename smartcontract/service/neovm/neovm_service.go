@@ -37,7 +37,6 @@ package neovm
 import (
 	"fmt"
 
-	"github.com/ontio/ontology-crypto/keypair"
 	scommon "github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/imZhuFei/zeepin/core/payload"
@@ -51,6 +50,7 @@ import (
 	"github.com/imZhuFei/zeepin/smartcontract/storage"
 	vm "github.com/imZhuFei/zeepin/vm/neovm"
 	ntypes "github.com/imZhuFei/zeepin/vm/neovm/types"
+	"github.com/ontio/ontology-crypto/keypair"
 )
 
 var (

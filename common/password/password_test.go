@@ -34,8 +34,9 @@
 package password
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestGetAccountPassword(t *testing.T) {

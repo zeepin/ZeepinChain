@@ -37,6 +37,7 @@ package rpc
 import (
 	"bytes"
 	"encoding/hex"
+
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/config"
 	"github.com/imZhuFei/zeepin/common/log"
@@ -304,7 +305,7 @@ func SendRawTransaction(params []interface{}) map[string]interface{} {
 		str := params[0].(string)
 		hex, err := common.HexToBytes(str)
 		if err != nil {
-			return responsePack(berr.INVALID_PARAMS, "")
+			return responsePack(berr.INVALID_PARAMS, err.Error())
 		}
 		var txn types.Transaction
 		if err := txn.Deserialize(bytes.NewReader(hex)); err != nil {

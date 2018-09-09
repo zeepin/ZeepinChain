@@ -39,13 +39,13 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/imZhuFei/zeepin/consensus/vbft/config"
 	"github.com/imZhuFei/zeepin/core/ledger"
 	"github.com/imZhuFei/zeepin/core/signature"
 	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/ontio/ontology-crypto/keypair"
 )
 
 type ConsensusMsgPayload struct {

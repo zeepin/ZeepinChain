@@ -35,9 +35,9 @@
 package actor
 
 import (
-	"github.com/ontio/ontology-eventbus/actor"
 	"github.com/imZhuFei/zeepin/events"
 	"github.com/imZhuFei/zeepin/events/message"
+	"github.com/ontio/ontology-eventbus/actor"
 )
 
 type EventActor struct {

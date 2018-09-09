@@ -35,8 +35,9 @@ package states
 
 import (
 	"bytes"
-	"github.com/imZhuFei/zeepin/core/types"
 	"testing"
+
+	"github.com/imZhuFei/zeepin/core/types"
 )
 
 func TestContract_Serialize_Deserialize(t *testing.T) {

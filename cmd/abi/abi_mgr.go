@@ -37,9 +37,10 @@ package abi
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/imZhuFei/zeepin/common/log"
 	"io/ioutil"
 	"strings"
+
+	"github.com/imZhuFei/zeepin/common/log"
 )
 
 var DefAbiMgr = NewAbiMgr()

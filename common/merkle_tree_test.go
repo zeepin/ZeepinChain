@@ -35,8 +35,9 @@ package common
  */
 import (
 	"crypto/sha256"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestHash(t *testing.T) {

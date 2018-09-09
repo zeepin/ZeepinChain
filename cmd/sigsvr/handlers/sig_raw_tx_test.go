@@ -38,12 +38,13 @@ import (
 	"bytes"
 	"encoding/hex"
 	"encoding/json"
+	"os"
+	"testing"
+
 	"github.com/imZhuFei/zeepin/account"
 	clisvrcom "github.com/imZhuFei/zeepin/cmd/sigsvr/common"
 	"github.com/imZhuFei/zeepin/cmd/utils"
 	"github.com/imZhuFei/zeepin/common/log"
-	"os"
-	"testing"
 )
 
 var (

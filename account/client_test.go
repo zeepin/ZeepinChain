@@ -31,16 +31,16 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with The ontology.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package account
 
 import (
 	"fmt"
+	"os"
+	"testing"
+
 	"github.com/ontio/ontology-crypto/keypair"
 	s "github.com/ontio/ontology-crypto/signature"
 	"github.com/stretchr/testify/assert"
-	"os"
-	"testing"
 )
 
 var (

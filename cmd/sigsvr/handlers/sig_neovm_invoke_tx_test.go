@@ -36,10 +36,11 @@ package handlers
 
 import (
 	"encoding/json"
+	"testing"
+
 	clisvrcom "github.com/imZhuFei/zeepin/cmd/sigsvr/common"
 	"github.com/imZhuFei/zeepin/cmd/utils"
 	"github.com/imZhuFei/zeepin/common"
-	"testing"
 )
 
 func TestSigNeoVMInvokeTx(t *testing.T) {

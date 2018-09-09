@@ -41,8 +41,6 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/ontio/ontology-crypto/vrf"
 	"github.com/imZhuFei/zeepin/account"
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/config"
@@ -52,6 +50,8 @@ import (
 	"github.com/imZhuFei/zeepin/core/states"
 	gov "github.com/imZhuFei/zeepin/smartcontract/service/native/governance"
 	nutils "github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
+	"github.com/ontio/ontology-crypto/keypair"
+	"github.com/ontio/ontology-crypto/vrf"
 )
 
 func SignMsg(account *account.Account, msg ConsensusMsg) ([]byte, error) {

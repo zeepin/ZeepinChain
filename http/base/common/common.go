@@ -39,7 +39,11 @@ import (
 	"bytes"
 	"encoding/hex"
 	"fmt"
-	"github.com/ontio/ontology-crypto/keypair"
+	"math/big"
+	"reflect"
+	"strings"
+	"time"
+
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/imZhuFei/zeepin/core/payload"
@@ -50,16 +54,13 @@ import (
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
 	svrneovm "github.com/imZhuFei/zeepin/smartcontract/service/neovm"
 	"github.com/imZhuFei/zeepin/vm/neovm"
-	"math/big"
-	"reflect"
-	"strings"
-	"time"
+	"github.com/ontio/ontology-crypto/keypair"
 )
 
 const MAX_SEARCH_HEIGHT uint32 = 100
 
 type BalanceOfRsp struct {
-	Zpt string `json:"zpt"`
+	Zpt  string `json:"zpt"`
 	Gala string `json:"gala"`
 }
 
@@ -282,7 +283,7 @@ func GetBalance(address common.Address) (*BalanceOfRsp, error) {
 		return nil, fmt.Errorf("get gala balance error:%s", err)
 	}
 	return &BalanceOfRsp{
-		Zpt: fmt.Sprintf("%d", zpt),
+		Zpt:  fmt.Sprintf("%d", zpt),
 		Gala: fmt.Sprintf("%d", gala),
 	}, nil
 }

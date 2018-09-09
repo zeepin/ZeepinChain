@@ -36,6 +36,7 @@ package common
 
 import (
 	"errors"
+
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/core/states"
 	"github.com/imZhuFei/zeepin/smartcontract/event"
