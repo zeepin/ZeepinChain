@@ -14,6 +14,22 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with The ZeepinChain.  If not, see <http://www.gnu.org/licenses/>.
+
+ * Copyright (C) 2018 The ontology Authors
+ * This file is part of The ontology library.
+ *
+ * The ontology is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * The ontology is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with The ontology.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package genesis
@@ -244,7 +260,11 @@ func newParamInit() *types.Transaction {
 		addr = types.AddressFromPubKey(bookkeepers[0])
 	} else {
 		//m := (5*len(bookkeepers) + 6) / 7
+<<<<<<< HEAD
 		m := int(math.Ceil((float64(len(bookkeepers))*2.0 + 1) / 3.0))
+=======
+		m := int(math.Ceil(float64(len(bookkeepers)) * 2.0 / 3.0))
+>>>>>>> 005dd1a294d38dff3ccdcbcb695801e12848b158
 		temp, err := types.AddressFromMultiPubKeys(bookkeepers, m)
 		if err != nil {
 			panic(fmt.Sprint("wrong bookkeeper config, caused by", err))

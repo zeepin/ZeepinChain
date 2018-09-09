@@ -14,6 +14,22 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with The ZeepinChain.  If not, see <http://www.gnu.org/licenses/>.
+
+ * Copyright (C) 2018 The ontology Authors
+ * This file is part of The ontology library.
+ *
+ * The ontology is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * The ontology is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with The ontology.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package auth
@@ -50,9 +66,9 @@ func (this *InitContractAdminParam) Deserialize(rd io.Reader) error {
 
 /* **********************************************   */
 type TransferParam struct {
-	ContractAddr  common.Address
-	NewAdminGID []byte
-	KeyNo         uint64
+	ContractAddr common.Address
+	NewAdminGID  []byte
+	KeyNo        uint64
 }
 
 func (this *TransferParam) Serialize(w io.Writer) error {
@@ -85,7 +101,7 @@ func (this *TransferParam) Deserialize(rd io.Reader) error {
 /* **********************************************   */
 type FuncsToRoleParam struct {
 	ContractAddr common.Address
-	AdminGID   []byte
+	AdminGID     []byte
 	Role         []byte
 	FuncNames    []string
 	KeyNo        uint64
@@ -148,7 +164,7 @@ func (this *FuncsToRoleParam) Deserialize(rd io.Reader) error {
 
 type GIDsToRoleParam struct {
 	ContractAddr common.Address
-	AdminGID   []byte
+	AdminGID     []byte
 	Role         []byte
 	Persons      [][]byte
 	KeyNo        uint64

@@ -14,6 +14,22 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with The ZeepinChain.  If not, see <http://www.gnu.org/licenses/>.
+
+ * Copyright (C) 2018 The ontology Authors
+ * This file is part of The ontology library.
+ *
+ * The ontology is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * The ontology is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with The ontology.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 // Package restful privides restful server router and handler
@@ -23,10 +39,6 @@ import (
 	"context"
 	"crypto/tls"
 	"encoding/json"
-	cfg "github.com/imZhuFei/zeepin/common/config"
-	"github.com/imZhuFei/zeepin/common/log"
-	berr "github.com/imZhuFei/zeepin/http/base/error"
-	"github.com/imZhuFei/zeepin/http/base/rest"
 	"io/ioutil"
 	"net"
 	"net/http"
@@ -34,6 +46,11 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	cfg "github.com/imZhuFei/zeepin/common/config"
+	"github.com/imZhuFei/zeepin/common/log"
+	berr "github.com/imZhuFei/zeepin/http/base/error"
+	"github.com/imZhuFei/zeepin/http/base/rest"
 )
 
 type handler func(map[string]interface{}) map[string]interface{}
@@ -68,7 +85,7 @@ const (
 	GET_MERKLE_PROOF      = "/api/v1/merkleproof/:hash"
 	GET_GAS_PRICE         = "/api/v1/gasprice"
 	GET_ALLOWANCE         = "/api/v1/allowance/:asset/:from/:to"
-	GET_UNBOUNDGALA        = "/api/v1/unboundgala/:addr"
+	GET_UNBOUNDGALA       = "/api/v1/unboundgala/:addr"
 	GET_MEMPOOL_TXCOUNT   = "/api/v1/mempool/txcount"
 	GET_MEMPOOL_TXSTATE   = "/api/v1/mempool/txstate/:hash"
 	GET_VERSION           = "/api/v1/version"
@@ -144,7 +161,7 @@ func (this *restServer) registryMethod() {
 		GET_ALLOWANCE:         {name: "getallowance", handler: rest.GetAllowance},
 		GET_MERKLE_PROOF:      {name: "getmerkleproof", handler: rest.GetMerkleProof},
 		GET_GAS_PRICE:         {name: "getgasprice", handler: rest.GetGasPrice},
-		GET_UNBOUNDGALA:        {name: "getunboundgala", handler: rest.GetUnboundGala},
+		GET_UNBOUNDGALA:       {name: "getunboundgala", handler: rest.GetUnboundGala},
 		GET_MEMPOOL_TXCOUNT:   {name: "getmempooltxcount", handler: rest.GetMemPoolTxCount},
 		GET_MEMPOOL_TXSTATE:   {name: "getmempooltxstate", handler: rest.GetMemPoolTxState},
 		GET_VERSION:           {name: "getversion", handler: rest.GetNodeVersion},
