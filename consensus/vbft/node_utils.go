@@ -255,7 +255,7 @@ func calcParticipantPeers(cfg *BlockParticipantConfig, chain *vconfig.ChainConfi
 		if len(cfg.Proposers) != 0 {
 			for _, p := range cfg.Proposers {
 				proposerMap[p] = true
-				if uint32(len(proposerMap)) >= chain.C {
+				if uint32(len(proposerMap)) >= chain.C-1 {
 					break
 				}
 			}
