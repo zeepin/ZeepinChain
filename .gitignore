@@ -41,3 +41,4 @@ Chain/6/states/LOG
 Chain/6/states/MANIFEST-000014
 config-vbft.json
 wallet.dat
+common/constants/constants_test.go
