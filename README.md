@@ -22,7 +22,7 @@ Zeepin Chain is a decentralized chain for cultural and entertainment assets. By 
 * [License](#license)
 
 ## Build development environment
-The requirements to build Ontology are:
+The requirements to build Zeepin are:
 
 - Golang version 1.9 or later
 - Glide (a third party package management tool)
