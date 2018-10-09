@@ -1,0 +1,8 @@
+{
+  "Configuration": {
+    "Wallets":  ["/home/zeepin/node1/wallet.dat", "/home/zeepin/node2/wallet.dat", "/home/zeepin/node3/wallet.dat", "/home/zeepin/node4/wallet.dat", "/home/zeepin/node5/wallet.dat", "/home/zeepin/node6/wallet.dat", "/home/zeepin/node7/wallet.dat", "/home/zeepin/node8/wallet.dat", "/home/zeepin/node9/wallet.dat"],
+    "Passwords": ["123456", "123456", "123456", "123456", "123456", "123456", "123456", "123456", "123456"],
+    "RpcUrl": "http://127.0.0.1:20336",
+    "GIds": ["GID:ZPT:ZZc2Nx6aTeqvJcGjCAEYFBqpppP6MhaWYx"]
+  }
+}
