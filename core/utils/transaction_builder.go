@@ -48,7 +48,7 @@ import (
 )
 
 // NewDeployTransaction returns a deploy Transaction
-func NewDeployTransaction(code []byte, name, version, author, email, desp string, needStorage bool) *types.MutableTransaction {
+func NewDeployTransaction(code []byte, name, version, author, email, desp string, needStorage bool) *types.Transaction {
 	//TODO: check arguments
 	DeployCodePayload := &payload.DeployCode{
 		Code:        code,
@@ -60,26 +60,26 @@ func NewDeployTransaction(code []byte, name, version, author, email, desp string
 		Description: desp,
 	}
 
-	return &types.MutableTransaction{
+	return &types.Transaction{
 		TxType:  types.Deploy,
 		Payload: DeployCodePayload,
 	}
 }
 
 // NewInvokeTransaction returns an invoke Transaction
-func NewInvokeTransaction(code []byte) *types.MutableTransaction {
+func NewInvokeTransaction(code []byte) *types.Transaction {
 	//TODO: check arguments
 	invokeCodePayload := &payload.InvokeCode{
 		Code: code,
 	}
 
-	return &types.MutableTransaction{
+	return &types.Transaction{
 		TxType:  types.Invoke,
 		Payload: invokeCodePayload,
 	}
 }
 
-func BuildNativeTransaction(addr common.Address, initMethod string, args []byte) *types.MutableTransaction {
+func BuildNativeTransaction(addr common.Address, initMethod string, args []byte) *types.Transaction {
 	bf := new(bytes.Buffer)
 	builder := vm.NewParamsBuilder(bf)
 	builder.EmitPushByteArray(args)

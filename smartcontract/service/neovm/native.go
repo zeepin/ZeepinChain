@@ -87,12 +87,14 @@ func NativeInvoke(service *NeoVmService, engine *vm.ExecutionEngine) error {
 		Args:    buf.Bytes(),
 	}
 
-	sink := common.ZeroCopySink{}
-	contract.Serialization(&sink)
+	bf := new(bytes.Buffer)
+	if err := contract.Serialize(bf); err != nil {
+		return err
+	}
 
 	native := &native.NativeService{
 		CloneCache: service.CloneCache,
-		Code:       sink.Bytes(),
+		Code:       bf.Bytes(),
 		Tx:         service.Tx,
 		Height:     service.Height,
 		Time:       service.Time,

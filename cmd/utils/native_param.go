@@ -51,7 +51,7 @@ import (
 	"github.com/imZhuFei/zeepin/vm/neovm"
 )
 
-func NewNativeInvokeTransaction(gasPrice, gasLimit uint64, contractAddr common.Address, version byte, params []interface{}, funcAbi *abi.NativeContractFunctionAbi) (*types.MutableTransaction, error) {
+func NewNativeInvokeTransaction(gasPrice, gasLimit uint64, contractAddr common.Address, version byte, params []interface{}, funcAbi *abi.NativeContractFunctionAbi) (*types.Transaction, error) {
 	builder := neovm.NewParamsBuilder(new(bytes.Buffer))
 	err := ParseNativeFuncParam(builder, funcAbi.Name, params, funcAbi.Parameters)
 	if err != nil {

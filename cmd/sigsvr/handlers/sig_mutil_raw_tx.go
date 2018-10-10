@@ -35,10 +35,12 @@
 package handlers
 
 import (
+	"bytes"
 	"encoding/hex"
 	"encoding/json"
 	"sort"
 
+	"github.com/ontio/ontology-crypto/keypair"
 	clisvrcom "github.com/imZhuFei/zeepin/cmd/sigsvr/common"
 	cliutil "github.com/imZhuFei/zeepin/cmd/utils"
 	"github.com/imZhuFei/zeepin/common"
@@ -46,7 +48,6 @@ import (
 	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/imZhuFei/zeepin/core/signature"
 	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/ontio/ontology-crypto/keypair"
 )
 
 type SigMutilRawTransactionReq struct {
@@ -77,13 +78,8 @@ func SigMutilRawTransaction(req *clisvrcom.CliRpcRequest, resp *clisvrcom.CliRpc
 		resp.ErrorCode = clisvrcom.CLIERR_INVALID_PARAMS
 		return
 	}
-	tmpTx, err := types.TransactionFromRawBytes(rawTxData)
-	if err != nil {
-		log.Infof("Cli Qid:%s SigMutilRawTransaction tx Deserialize error:%s", req.Qid, err)
-		resp.ErrorCode = clisvrcom.CLIERR_INVALID_TX
-		return
-	}
-	mutTx, err := tmpTx.IntoMutable()
+	rawTx := &types.Transaction{}
+	err = rawTx.Deserialize(bytes.NewBuffer(rawTxData))
 	if err != nil {
 		log.Infof("Cli Qid:%s SigMutilRawTransaction tx Deserialize error:%s", req.Qid, err)
 		resp.ErrorCode = clisvrcom.CLIERR_INVALID_TX
@@ -108,26 +104,21 @@ func SigMutilRawTransaction(req *clisvrcom.CliRpcRequest, resp *clisvrcom.CliRpc
 	}
 
 	var emptyAddress = common.Address{}
-	if mutTx.Payer == emptyAddress {
+	if rawTx.Payer == emptyAddress {
 		payer, err := types.AddressFromMultiPubKeys(pubKeys, rawReq.M)
 		if err != nil {
 			log.Infof("Cli Qid:%s SigMutilRawTransaction AddressFromMultiPubKeys error:%s", req.Qid, err)
 			resp.ErrorCode = clisvrcom.CLIERR_INTERNAL_ERR
 			return
 		}
-		mutTx.Payer = payer
+		rawTx.Payer = payer
 	}
-	if len(mutTx.Sigs) == 0 {
-		mutTx.Sigs = make([]*types.Sig, 0)
+	if len(rawTx.Sigs) == 0 {
+		rawTx.Sigs = make([]*types.Sig, 0)
 	}
 
-	signer, err := req.GetAccount()
-	if err != nil {
-		log.Infof("Cli Qid:%s SigMutilRawTransaction GetAccount:%s", req.Qid, err)
-		resp.ErrorCode = clisvrcom.CLIERR_ACCOUNT_UNLOCK
-		return
-	}
-	txHash := mutTx.Hash()
+	signer := clisvrcom.DefAccount
+	txHash := rawTx.Hash()
 	sigData, err := cliutil.Sign(txHash.ToArray(), signer)
 	if err != nil {
 		log.Infof("Cli Qid:%s SigMutilRawTransaction Sign error:%s", req.Qid, err)
@@ -136,41 +127,34 @@ func SigMutilRawTransaction(req *clisvrcom.CliRpcRequest, resp *clisvrcom.CliRpc
 	}
 
 	hasMutilSig := false
-	for i, sigs := range mutTx.Sigs {
+	for i, sigs := range rawTx.Sigs {
 		if pubKeysEqual(sigs.PubKeys, pubKeys) {
 			hasMutilSig = true
 			if hasAlreadySig(txHash.ToArray(), signer.PublicKey, sigs.SigData) {
 				break
 			}
 			sigs.SigData = append(sigs.SigData, sigData)
-			mutTx.Sigs[i] = sigs
+			rawTx.Sigs[i] = sigs
 			break
 		}
 	}
 	if !hasMutilSig {
-		mutTx.Sigs = append(mutTx.Sigs, types.Sig{
+		rawTx.Sigs = append(rawTx.Sigs, &types.Sig{
 			PubKeys: pubKeys,
 			M:       uint16(rawReq.M),
 			SigData: [][]byte{sigData},
 		})
 	}
 
-	tmpTx, err = mutTx.IntoImmutable()
-	if err != nil {
-		log.Infof("Cli Qid:%s SigMutilRawTransaction tx Serialize error:%s", req.Qid, err)
-		resp.ErrorCode = clisvrcom.CLIERR_INTERNAL_ERR
-		return
-	}
-	sink := common.ZeroCopySink{}
-	err = tmpTx.Serialization(&sink)
-
+	buf := bytes.NewBuffer(nil)
+	err = rawTx.Serialize(buf)
 	if err != nil {
 		log.Infof("Cli Qid:%s SigMutilRawTransaction tx Serialize error:%s", req.Qid, err)
 		resp.ErrorCode = clisvrcom.CLIERR_INTERNAL_ERR
 		return
 	}
 	resp.Result = &SigRawTransactionRsp{
-		SignedTx: hex.EncodeToString(sink.Bytes()),
+		SignedTx: hex.EncodeToString(buf.Bytes()),
 	}
 }
 

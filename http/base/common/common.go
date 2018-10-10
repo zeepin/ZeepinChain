@@ -205,8 +205,7 @@ func TransArryByteToHexString(ptx *types.Transaction) *Transactions {
 
 	trans.Attributes = make([]TxAttributeInfo, 0)
 	trans.Sigs = []Sig{}
-	for _, sigdata := range ptx.Sigs {
-		sig, _ := sigdata.GetSig()
+	for _, sig := range ptx.Sigs {
 		e := Sig{M: sig.M}
 		for i := 0; i < len(sig.PubKeys); i++ {
 			key := keypair.SerializePublicKey(sig.PubKeys[i])
@@ -307,13 +306,9 @@ func GetAllowance(asset string, from, to common.Address) (string, error) {
 }
 
 func GetContractBalance(cVersion byte, contractAddr, accAddr common.Address) (uint64, error) {
-	mutable, err := NewNativeInvokeTransaction(0, 0, contractAddr, cVersion, "balanceOf", []interface{}{accAddr[:]})
+	tx, err := NewNativeInvokeTransaction(0, 0, contractAddr, cVersion, "balanceOf", []interface{}{accAddr[:]})
 	if err != nil {
 		return 0, fmt.Errorf("NewNativeInvokeTransaction error:%s", err)
-	}
-	tx, err := mutable.IntoImmutable()
-	if err != nil {
-		return 0, err
 	}
 	result, err := bactor.PreExecuteContract(tx)
 	if err != nil {
@@ -336,17 +331,13 @@ func GetContractAllowance(cVersion byte, contractAddr, fromAddr, toAddr common.A
 		From common.Address
 		To   common.Address
 	}
-	mutable, err := NewNativeInvokeTransaction(0, 0, contractAddr, cVersion, "allowance",
+	tx, err := NewNativeInvokeTransaction(0, 0, contractAddr, cVersion, "allowance",
 		[]interface{}{&allowanceStruct{
 			From: fromAddr,
 			To:   toAddr,
 		}})
 	if err != nil {
 		return 0, fmt.Errorf("NewNativeInvokeTransaction error:%s", err)
-	}
-	tx, err := mutable.IntoImmutable()
-	if err != nil {
-		return 0, err
 	}
 	result, err := bactor.PreExecuteContract(tx)
 	if err != nil {
@@ -411,7 +402,7 @@ func GetBlockTransactions(block *types.Block) interface{} {
 }
 
 //NewNativeInvokeTransaction return native contract invoke transaction
-func NewNativeInvokeTransaction(gasPirce, gasLimit uint64, contractAddress common.Address, version byte, method string, params []interface{}) (*types.MutableTransaction, error) {
+func NewNativeInvokeTransaction(gasPirce, gasLimit uint64, contractAddress common.Address, version byte, method string, params []interface{}) (*types.Transaction, error) {
 	invokeCode, err := BuildNativeInvokeCode(contractAddress, version, method, params)
 	if err != nil {
 		return nil, err
@@ -419,7 +410,7 @@ func NewNativeInvokeTransaction(gasPirce, gasLimit uint64, contractAddress commo
 	return NewSmartContractTransaction(gasPirce, gasLimit, invokeCode)
 }
 
-func NewNeovmInvokeTransaction(gasPrice, gasLimit uint64, contractAddress common.Address, params []interface{}) (*types.MutableTransaction, error) {
+func NewNeovmInvokeTransaction(gasPrice, gasLimit uint64, contractAddress common.Address, params []interface{}) (*types.Transaction, error) {
 	invokeCode, err := BuildNeoVMInvokeCode(contractAddress, params)
 	if err != nil {
 		return nil, err
@@ -427,17 +418,17 @@ func NewNeovmInvokeTransaction(gasPrice, gasLimit uint64, contractAddress common
 	return NewSmartContractTransaction(gasPrice, gasLimit, invokeCode)
 }
 
-func NewSmartContractTransaction(gasPrice, gasLimit uint64, invokeCode []byte) (*types.MutableTransaction, error) {
+func NewSmartContractTransaction(gasPrice, gasLimit uint64, invokeCode []byte) (*types.Transaction, error) {
 	invokePayload := &payload.InvokeCode{
 		Code: invokeCode,
 	}
-	tx := &types.MutableTransaction{
+	tx := &types.Transaction{
 		GasPrice: gasPrice,
 		GasLimit: gasLimit,
 		TxType:   types.Invoke,
 		Nonce:    uint32(time.Now().Unix()),
 		Payload:  invokePayload,
-		Sigs:     nil,
+		Sigs:     make([]*types.Sig, 0, 0),
 	}
 	return tx, nil
 }
