@@ -37,6 +37,7 @@ import (
 	"fmt"
 
 	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/imZhuFei/zeepin/core/store"
 	ctypes "github.com/imZhuFei/zeepin/core/types"
 	"github.com/imZhuFei/zeepin/smartcontract/context"
@@ -179,7 +180,12 @@ func (this *SmartContract) CheckWitness(address common.Address) bool {
 }
 
 func (this *SmartContract) checkAccountAddress(address common.Address) bool {
-	addresses := this.Config.Tx.GetSignatureAddresses()
+
+	addresses, err := this.Config.Tx.GetSignatureAddresses()
+	if err != nil {
+		log.Errorf("get signature address error:%v", err)
+		return false
+	}
 	for _, v := range addresses {
 		if v == address {
 			return true
