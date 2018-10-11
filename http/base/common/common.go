@@ -205,7 +205,8 @@ func TransArryByteToHexString(ptx *types.Transaction) *Transactions {
 
 	trans.Attributes = make([]TxAttributeInfo, 0)
 	trans.Sigs = []Sig{}
-	for _, sig := range ptx.Sigs {
+	for _, sigdata := range ptx.Sigs {
+		sig, _ := sigdata.GetSig()
 		e := Sig{M: sig.M}
 		for i := 0; i < len(sig.PubKeys); i++ {
 			key := keypair.SerializePublicKey(sig.PubKeys[i])
