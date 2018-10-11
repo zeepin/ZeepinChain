@@ -35,7 +35,6 @@
 package handlers
 
 import (
-	"bytes"
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
@@ -78,27 +77,42 @@ func SigNeoVMInvokeTx(req *clisvrcom.CliRpcRequest, resp *clisvrcom.CliRpcRespon
 		resp.ErrorCode = clisvrcom.CLIERR_INVALID_PARAMS
 		return
 	}
-	tx, err := httpcom.NewNeovmInvokeTransaction(rawReq.GasPrice, rawReq.GasLimit, contAddr, params)
+	mutable, err := httpcom.NewNeovmInvokeTransaction(rawReq.GasPrice, rawReq.GasLimit, contAddr, params)
 	if err != nil {
 		log.Infof("Cli Qid:%s SigNeoVMInvokeTx InvokeNeoVMContractTx error:%s", req.Qid, err)
 		resp.ErrorCode = clisvrcom.CLIERR_INVALID_PARAMS
 		return
 	}
+	if rawReq.Payer != "" {
+		payerAddress, err := common.AddressFromBase58(rawReq.Payer)
+		if err != nil {
+			log.Infof("Cli Qid:%s SigNeoVMInvokeTx AddressFromBase58 error:%s", req.Qid, err)
+			resp.ErrorCode = clisvrcom.CLIERR_INVALID_PARAMS
+			return
+		}
+		mutable.Payer = payerAddress
+	}
 	signer := clisvrcom.DefAccount
-	err = cliutil.SignTransaction(signer, tx)
+	err = cliutil.SignTransaction(signer, mutable)
 	if err != nil {
 		log.Infof("Cli Qid:%s SigNeoVMInvokeTx SignTransaction error:%s", req.Qid, err)
 		resp.ErrorCode = clisvrcom.CLIERR_INTERNAL_ERR
 		return
 	}
-	buf := bytes.NewBuffer(nil)
-	err = tx.Serialize(buf)
+	tx, err := mutable.IntoImmutable()
+	if err != nil {
+		log.Infof("Cli Qid:%s SigNeoVMInvokeTx mutable Serialize error:%s", req.Qid, err)
+		resp.ErrorCode = clisvrcom.CLIERR_INTERNAL_ERR
+		return
+	}
+	sink := common.ZeroCopySink{}
+	err = tx.Serialization(&sink)
 	if err != nil {
 		log.Infof("Cli Qid:%s SigNeoVMInvokeTx tx Serialize error:%s", req.Qid, err)
 		resp.ErrorCode = clisvrcom.CLIERR_INTERNAL_ERR
 		return
 	}
 	resp.Result = &SigNeoVMInvokeTxRsp{
-		SignedTx: hex.EncodeToString(buf.Bytes()),
+		SignedTx: hex.EncodeToString(sink.Bytes()),
 	}
 }

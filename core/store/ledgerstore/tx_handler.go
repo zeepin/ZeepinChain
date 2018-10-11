@@ -265,7 +265,7 @@ func SaveNotify(eventStore scommon.EventStore, txHash common.Uint256, notify *ev
 }
 
 func genNativeTransferCode(from, to common.Address, value uint64) []byte {
-	transfer := zpt.Transfers{States: []*zpt.State{{From: from, To: to, Value: value}}}
+	transfer := zpt.Transfers{States: []zpt.State{{From: from, To: to, Value: value}}}
 	tr := new(bytes.Buffer)
 	transfer.Serialize(tr)
 	return tr.Bytes()
