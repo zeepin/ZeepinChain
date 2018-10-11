@@ -260,11 +260,7 @@ func invokeCodeContract(ctx *cli.Context) error {
 	if err != nil {
 		return fmt.Errorf("SignTransaction error:%s", err)
 	}
-	tx, err := invokeTx.IntoImmutable()
-	if err != nil {
-		return err
-	}
-	txHash, err := utils.SendRawTransaction(tx)
+	txHash, err := utils.SendRawTransaction(invokeTx)
 	if err != nil {
 		return fmt.Errorf("SendTransaction error:%s", err)
 	}

@@ -35,12 +35,12 @@
 package handlers
 
 import (
+	"bytes"
 	"encoding/hex"
 	"encoding/json"
 
 	clisvrcom "github.com/imZhuFei/zeepin/cmd/sigsvr/common"
 	cliutil "github.com/imZhuFei/zeepin/cmd/utils"
-	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/log"
 )
 
@@ -80,20 +80,14 @@ func SigTransferTransaction(req *clisvrcom.CliRpcRequest, resp *clisvrcom.CliRpc
 		resp.ErrorCode = clisvrcom.CLIERR_INTERNAL_ERR
 		return
 	}
-	tx, err := transferTx.IntoImmutable()
-	if err != nil {
-		log.Infof("Cli Qid:%s SigTransferTransaction tx IntoInmmutable error:%s", req.Qid, err)
-		resp.ErrorCode = clisvrcom.CLIERR_INTERNAL_ERR
-		return
-	}
-	sink := common.ZeroCopySink{}
-	err = tx.Serialization(&sink)
+	buf := bytes.NewBuffer(nil)
+	err = transferTx.Serialize(buf)
 	if err != nil {
 		log.Infof("Cli Qid:%s SigTransferTransaction tx Serialize error:%s", req.Qid, err)
 		resp.ErrorCode = clisvrcom.CLIERR_INTERNAL_ERR
 		return
 	}
 	resp.Result = &SinTransferTransactionRsp{
-		SignedTx: hex.EncodeToString(sink.Bytes()),
+		SignedTx: hex.EncodeToString(buf.Bytes()),
 	}
 }

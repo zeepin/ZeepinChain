@@ -71,13 +71,6 @@ func (this *Contract) Serialize(w io.Writer) error {
 	return nil
 }
 
-func (this *Contract) Serialization(sink *common.ZeroCopySink) {
-	sink.WriteByte(this.Version)
-	sink.WriteAddress(this.Address)
-	sink.WriteVarBytes([]byte(this.Method))
-	sink.WriteVarBytes([]byte(this.Args))
-}
-
 // Deserialize contract
 func (this *Contract) Deserialize(r io.Reader) error {
 	var err error
@@ -99,25 +92,6 @@ func (this *Contract) Deserialize(r io.Reader) error {
 	this.Args, err = serialization.ReadVarBytes(r)
 	if err != nil {
 		return errors.NewDetailErr(err, errors.ErrNoCode, "[Contract] Args deserialize error!")
-	}
-	return nil
-}
-func (this *Contract) Deserialization(source *common.ZeroCopySource) error {
-	var irregular, eof bool
-	this.Version, eof = source.NextByte()
-	this.Address, eof = source.NextAddress()
-	var method []byte
-	method, _, irregular, eof = source.NextVarBytes()
-	if irregular {
-		return common.ErrIrregularData
-	}
-	this.Method = string(method)
-	this.Args, _, irregular, eof = source.NextVarBytes()
-	if irregular {
-		return common.ErrIrregularData
-	}
-	if eof {
-		return io.ErrUnexpectedEOF
 	}
 	return nil
 }

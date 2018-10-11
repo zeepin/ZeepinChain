@@ -38,7 +38,6 @@ import (
 	"bytes"
 	"encoding/hex"
 	"encoding/json"
-
 	"github.com/imZhuFei/zeepin/cmd/abi"
 	clisvrcom "github.com/imZhuFei/zeepin/cmd/sigsvr/common"
 	cliutil "github.com/imZhuFei/zeepin/cmd/utils"
@@ -101,14 +100,8 @@ func SigNativeInvokeTx(req *clisvrcom.CliRpcRequest, resp *clisvrcom.CliRpcRespo
 		resp.ErrorCode = clisvrcom.CLIERR_INTERNAL_ERR
 		return
 	}
-	immutable, err := tx.IntoImmutable()
-	if err != nil {
-		log.Infof("convert to immutable transaction error:%s", req.Qid, err)
-		resp.ErrorCode = clisvrcom.CLIERR_INTERNAL_ERR
-		return
-	}
 	buf := bytes.NewBuffer(nil)
-	err = immutable.Serialize(buf)
+	err = tx.Serialize(buf)
 	if err != nil {
 		log.Infof("Cli Qid:%s SigNativeInvokeTx tx Serialize error:%s", req.Qid, err)
 		resp.ErrorCode = clisvrcom.CLIERR_INTERNAL_ERR

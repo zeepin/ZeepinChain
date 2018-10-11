@@ -35,6 +35,7 @@
 package handlers
 
 import (
+	"bytes"
 	"encoding/hex"
 	"encoding/json"
 
@@ -67,54 +68,42 @@ func SigRawTransaction(req *clisvrcom.CliRpcRequest, resp *clisvrcom.CliRpcRespo
 		resp.ErrorCode = clisvrcom.CLIERR_INVALID_PARAMS
 		return
 	}
-	tmpTx, err := types.TransactionFromRawBytes(rawTxData)
+	rawTx := &types.Transaction{}
+	err = rawTx.Deserialize(bytes.NewBuffer(rawTxData))
 	if err != nil {
 		log.Infof("Cli Qid:%s SigRawTransaction tx Deserialize error:%s", req.Qid, err)
 		resp.ErrorCode = clisvrcom.CLIERR_INVALID_TX
 		return
 	}
-	mutable, err := tmpTx.IntoMutable()
-	if err != nil {
-		log.Infof("Cli Qid:%s SigRawTransaction tx IntoMutable error:%s", req.Qid, err)
-		resp.ErrorCode = clisvrcom.CLIERR_INVALID_TX
-		return
-	}
-
 	signer := clisvrcom.DefAccount
 	var emptyAddress = common.Address{}
-	if mutable.Payer == emptyAddress {
-		mutable.Payer = signer.Address
+	if rawTx.Payer == emptyAddress {
+		rawTx.Payer = signer.Address
 	}
 
-	txHash := mutable.Hash()
+	txHash := rawTx.Hash()
 	sigData, err := cliutil.Sign(txHash.ToArray(), signer)
 	if err != nil {
 		log.Infof("Cli Qid:%s SigRawTransaction Sign error:%s", req.Qid, err)
 		resp.ErrorCode = clisvrcom.CLIERR_INTERNAL_ERR
 		return
 	}
-	if len(mutable.Sigs) == 0 {
-		mutable.Sigs = make([]types.Sig, 0)
+	if len(rawTx.Sigs) == 0 {
+		rawTx.Sigs = make([]*types.Sig, 0)
 	}
-	mutable.Sigs = append(mutable.Sigs, types.Sig{
+	rawTx.Sigs = append(rawTx.Sigs, &types.Sig{
 		PubKeys: []keypair.PublicKey{signer.PublicKey},
 		M:       1,
 		SigData: [][]byte{sigData},
 	})
-	rawTx, err := mutable.IntoImmutable()
-	if err != nil {
-		log.Infof("Cli Qid:%s SigRawTransaction tx IntoImmutable error:%s", req.Qid, err)
-		resp.ErrorCode = clisvrcom.CLIERR_INTERNAL_ERR
-		return
-	}
-	sink := common.ZeroCopySink{}
-	err = rawTx.Serialization(&sink)
+	buf := bytes.NewBuffer(nil)
+	err = rawTx.Serialize(buf)
 	if err != nil {
 		log.Infof("Cli Qid:%s SigRawTransaction tx Serialize error:%s", req.Qid, err)
 		resp.ErrorCode = clisvrcom.CLIERR_INTERNAL_ERR
 		return
 	}
 	resp.Result = &SigRawTransactionRsp{
-		SignedTx: hex.EncodeToString(sink.Bytes()),
+		SignedTx: hex.EncodeToString(buf.Bytes()),
 	}
 }
