@@ -77,11 +77,7 @@ func checkTransactionSignatures(tx *types.Transaction) error {
 	}
 
 	address := make(map[common.Address]bool, len(tx.Sigs))
-	for _, sigdata := range tx.Sigs {
-		sig, err := sigdata.GetSig()
-		if err != nil {
-			return err
-		}
+	for _, sig := range tx.Sigs {
 		m := int(sig.M)
 		kn := len(sig.PubKeys)
 		sn := len(sig.SigData)

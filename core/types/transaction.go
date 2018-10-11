@@ -49,7 +49,7 @@ import (
 	"github.com/ontio/ontology-crypto/keypair"
 )
 
-const MAX_TX_SIZE = 1024 * 1024 // The max size of a transaction to prevent DOS attacks
+const MAX_TX_SIZE = 1024 * 1024 * 2 // The max size of a transaction to prevent DOS attacks
 
 type Transaction struct {
 	Version  byte
@@ -61,7 +61,7 @@ type Transaction struct {
 	Payload  Payload
 	//Attributes []*TxAttribute
 	attributes byte //this must be 0 now, Attribute Array length use VarUint encoding, so byte is enough for extension
-	Sigs       []RawSig
+	Sigs       []*Sig
 
 	Raw []byte // raw transaction data
 
@@ -112,13 +112,16 @@ func (tx *Transaction) Deserialization(source *common.ZeroCopySource) error {
 	}
 
 	for i := 0; i < int(length); i++ {
-		var sig RawSig
-		err := sig.Deserialization(source)
+		var rawsig RawSig
+		err := rawsig.Deserialization(source)
 		if err != nil {
 			return err
 		}
-
-		tx.Sigs = append(tx.Sigs, sig)
+		sig, err := rawsig.GetSig()
+		if err != nil {
+			return err
+		}
+		tx.Sigs = append(tx.Sigs, &sig)
 	}
 
 	pend := source.Pos()
@@ -143,12 +146,8 @@ func (tx *Transaction) IntoMutable() (*MutableTransaction, error) {
 		Payload:  tx.Payload,
 	}
 
-	for _, raw := range tx.Sigs {
-		sig, err := raw.GetSig()
-		if err != nil {
-			return nil, err
-		}
-		mutable.Sigs = append(mutable.Sigs, sig)
+	for _, sig := range tx.Sigs {
+		mutable.Sigs = append(mutable.Sigs, *sig)
 	}
 
 	return mutable, nil
@@ -351,18 +350,22 @@ func (self *Sig) Deserialize(r io.Reader) error {
 	return nil
 }
 
-func (self *Transaction) GetSignatureAddresses() ([]common.Address, error) {
-	if len(self.SignedAddr) == 0 {
-		addrs := make([]common.Address, 0, len(self.Sigs))
-		for _, prog := range self.Sigs {
-			addrs = append(addrs, AddressFromVmCode(prog.Verify))
+func (self *Transaction) GetSignatureAddresses() []common.Address {
+	address := make([]common.Address, 0, len(self.Sigs))
+	for _, sig := range self.Sigs {
+		m := int(sig.M)
+		n := len(sig.PubKeys)
+		if n == 1 {
+			address = append(address, AddressFromPubKey(sig.PubKeys[0]))
+		} else {
+			addr, err := AddressFromMultiPubKeys(sig.PubKeys, m)
+			if err != nil {
+				return nil
+			}
+			address = append(address, addr)
 		}
-		self.SignedAddr = addrs
 	}
-	//if len(self.SignedAddr) != len(self.Sigs) {
-	//	return nil, errors.New("mismatched sigs and signed address")
-	//}
-	return self.SignedAddr, nil
+	return address
 }
 
 type TransactionType byte
@@ -391,30 +394,30 @@ func (tx *Transaction) Serialization(sink *common.ZeroCopySink) error {
 }
 
 // Serialize the Transaction
+/*
 func (tx *Transaction) Serialize(w io.Writer) error {
 	_, err := w.Write(tx.Raw)
 	return err
 }
-
-/*
-	 func (tx *Transaction) Serialize(w io.Writer) error {
-	 err := tx.SerializeUnsigned(w)
-	 if err != nil {
-		 return err
-	 }
-	 err = serialization.WriteVarUint(w, uint64(len(tx.Sigs)))
-	 if err != nil {
-		 return err
-	 }
-	 for _, sig := range tx.Sigs {
-		 err = sig.Serialize(w)
-		 if err != nil {
-			 return err
-		 }
-	 }
-	 return nil
- }
 */
+
+func (tx *Transaction) Serialize(w io.Writer) error {
+	err := tx.SerializeUnsigned(w)
+	if err != nil {
+		return err
+	}
+	err = serialization.WriteVarUint(w, uint64(len(tx.Sigs)))
+	if err != nil {
+		return err
+	}
+	for _, sig := range tx.Sigs {
+		err = sig.Serialize(w)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
 
 //Serialize the Transaction data without contracts
 func (tx *Transaction) SerializeUnsigned(w io.Writer) error {
@@ -469,13 +472,12 @@ func (tx *Transaction) Deserialize(r io.Reader) error {
 	}
 
 	for i := 0; i < int(length); i++ {
-		var raw RawSig
-		err := raw.Deserialize(r)
+		sig := new(Sig)
+		err := sig.Deserialize(r)
 		if err != nil {
 			return errors.New("deserialize transaction failed")
 		}
-
-		tx.Sigs = append(tx.Sigs, raw)
+		tx.Sigs = append(tx.Sigs, sig)
 	}
 
 	return nil

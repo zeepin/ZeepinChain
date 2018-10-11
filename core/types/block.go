@@ -68,54 +68,6 @@ func (b *Block) Serialize(w io.Writer) error {
 	return nil
 }
 
-func (b *Block) Serialization(sink *common.ZeroCopySink) error {
-	err := b.Header.Serialization(sink)
-	if err != nil {
-		return err
-	}
-
-	sink.WriteUint32(uint32(len(b.Transactions)))
-	for _, transaction := range b.Transactions {
-		err := transaction.Serialization(sink)
-		if err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-func (self *Block) Deserialization(source *common.ZeroCopySource) error {
-	if self.Header == nil {
-		self.Header = new(Header)
-	}
-	err := self.Header.Deserialization(source)
-	if err != nil {
-		return err
-	}
-
-	length, eof := source.NextUint32()
-	if eof {
-		return io.ErrUnexpectedEOF
-	}
-
-	var hashes []common.Uint256
-	for i := uint32(0); i < length; i++ {
-		transaction := new(Transaction)
-		// note currently all transaction in the block shared the same source
-		err := transaction.Deserialization(source)
-		if err != nil {
-			return err
-		}
-		txhash := transaction.Hash()
-		hashes = append(hashes, txhash)
-		self.Transactions = append(self.Transactions, transaction)
-	}
-
-	self.Header.TransactionsRoot = common.ComputeMerkleRoot(hashes)
-
-	return nil
-}
-
 func (b *Block) Deserialize(r io.Reader) error {
 	if b.Header == nil {
 		b.Header = new(Header)
@@ -131,7 +83,7 @@ func (b *Block) Deserialize(r io.Reader) error {
 		return err
 	}
 
-	var hashes []common.Uint256
+	var hashes = make([]common.Uint256, 0, length)
 	for i := uint32(0); i < length; i++ {
 		transaction := new(Transaction)
 		err := transaction.Deserialize(r)
