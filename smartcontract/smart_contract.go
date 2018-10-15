@@ -179,7 +179,9 @@ func (this *SmartContract) CheckWitness(address common.Address) bool {
 }
 
 func (this *SmartContract) checkAccountAddress(address common.Address) bool {
+
 	addresses := this.Config.Tx.GetSignatureAddresses()
+
 	for _, v := range addresses {
 		if v == address {
 			return true

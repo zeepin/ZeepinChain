@@ -110,6 +110,11 @@ func checkTransactionSignatures(tx *types.Transaction) error {
 	if address[tx.Payer] == false {
 		return errors.New("signature missing for payer: " + tx.Payer.ToBase58())
 	}
+	addrList := make([]common.Address, 0, len(address))
+	for addr := range address {
+		addrList = append(addrList, addr)
+	}
+	tx.SignedAddr = addrList
 
 	return nil
 }

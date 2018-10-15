@@ -100,59 +100,6 @@ func (b *Block) Deserialize(r io.Reader) error {
 	return nil
 }
 
-func (b *Block) Trim(w io.Writer) error {
-	err := b.Header.Serialize(w)
-	if err != nil {
-		return err
-	}
-	err = serialization.WriteUint32(w, uint32(len(b.Transactions)))
-	if err != nil {
-		return fmt.Errorf("block item transaction length serialization failed: %s", err)
-	}
-	for _, tx := range b.Transactions {
-		hash := tx.Hash()
-		err := hash.Serialize(w)
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (b *Block) FromTrimmedData(r io.Reader) error {
-	if b.Header == nil {
-		b.Header = new(Header)
-	}
-	err := b.Header.Deserialize(r)
-	if err != nil {
-		return err
-	}
-
-	//Transactions
-	var i uint32
-	Len, err := serialization.ReadUint32(r)
-	if err != nil {
-		return err
-	}
-	var txhash common.Uint256
-	var hashes []common.Uint256
-	for i = 0; i < Len; i++ {
-		err := txhash.Deserialize(r)
-		if err != nil {
-			return err
-		}
-		transaction := new(Transaction)
-		transaction.SetHash(txhash)
-		b.Transactions = append(b.Transactions, transaction)
-		hashes = append(hashes, txhash)
-	}
-
-	b.Header.TransactionsRoot = common.ComputeMerkleRoot(hashes)
-
-	return nil
-}
-
 func (b *Block) ToArray() []byte {
 	bf := new(bytes.Buffer)
 	b.Serialize(bf)
@@ -175,8 +122,4 @@ func (b *Block) RebuildMerkleRoot() {
 	}
 	hash := common.ComputeMerkleRoot(hashes)
 	b.Header.TransactionsRoot = hash
-}
-
-func (bd *Block) SerializeUnsigned(w io.Writer) error {
-	return bd.Header.SerializeUnsigned(w)
 }
