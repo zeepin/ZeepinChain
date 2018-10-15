@@ -65,7 +65,7 @@ type Transaction struct {
 
 	Raw []byte // raw transaction data
 
-	hash       common.Uint256
+	hash       *common.Uint256
 	SignedAddr []common.Address // this is assigned when passed signature verification
 
 	nonDirectConstracted bool // used to check literal construction like `tx := &Transaction{...}`
@@ -97,7 +97,8 @@ func (tx *Transaction) Deserialization(source *common.ZeroCopySource) error {
 	source.BackUp(lenUnsigned)
 	rawUnsigned, _ := source.NextBytes(lenUnsigned)
 	temp := sha256.Sum256(rawUnsigned)
-	tx.hash = common.Uint256(sha256.Sum256(temp[:]))
+	f := common.Uint256(sha256.Sum256(temp[:]))
+	tx.hash = &f
 
 	// tx sigs
 	length, _, irregular, eof := source.NextVarUint()
@@ -550,7 +551,15 @@ func (tx *Transaction) ToArray() []byte {
 }
 
 func (tx *Transaction) Hash() common.Uint256 {
-	return tx.hash
+	if tx.hash == nil {
+		buf := bytes.Buffer{}
+		tx.SerializeUnsigned(&buf)
+
+		temp := sha256.Sum256(buf.Bytes())
+		f := common.Uint256(sha256.Sum256(temp[:]))
+		tx.hash = &f
+	}
+	return *tx.hash
 }
 
 func (tx *Transaction) Type() common.InventoryType {
