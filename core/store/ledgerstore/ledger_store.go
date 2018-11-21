@@ -61,6 +61,7 @@ import (
 	"github.com/imZhuFei/zeepin/events/message"
 	"github.com/imZhuFei/zeepin/smartcontract"
 	scommon "github.com/imZhuFei/zeepin/smartcontract/common"
+	"github.com/imZhuFei/zeepin/smartcontract/context"
 	"github.com/imZhuFei/zeepin/smartcontract/event"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/global_params"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
@@ -888,7 +889,12 @@ func (this *LedgerStoreImp) PreExecuteContract(tx *types.Transaction) (*sstate.P
 		}
 
 		//start the smart contract executive function
-		engine, _ := sc.NewExecuteEngine(invoke.Code)
+		var engine context.Engine
+		if tx.Attributes == 0 {
+			engine, _ = sc.NewExecuteEngine(invoke.Code)
+		} else {
+			engine, _ = sc.NewWasmExecuteEngine(invoke.Code)
+		}
 		result, err := engine.Invoke()
 		if err != nil {
 			return &sstate.PreExecResult{State: event.CONTRACT_STATE_FAIL, Gas: neovm.MIN_TRANSACTION_GAS, Result: nil}, err
@@ -898,7 +904,14 @@ func (this *LedgerStoreImp) PreExecuteContract(tx *types.Transaction) (*sstate.P
 		if gasCost < mixGas {
 			gasCost = mixGas
 		}
-		return &sstate.PreExecResult{State: event.CONTRACT_STATE_SUCCESS, Gas: gasCost, Result: scommon.ConvertNeoVmTypeHexString(result)}, nil
+		if tx.Attributes == 0 {
+			result = scommon.ConvertNeoVmTypeHexString(result)
+		} else {
+			if v, ok := result.([]byte); ok {
+				result = common.ToHexString(v)
+			}
+		}
+		return &sstate.PreExecResult{State: event.CONTRACT_STATE_SUCCESS, Gas: gasCost, Result: result}, nil
 	} else if tx.TxType == types.Deploy {
 		deploy := tx.Payload.(*payload.DeployCode)
 		return &sstate.PreExecResult{State: event.CONTRACT_STATE_SUCCESS, Gas: preGas[neovm.CONTRACT_CREATE_NAME] + calcGasByCodeLen(len(deploy.Code), preGas[neovm.UINT_DEPLOY_CODE_LEN_NAME]), Result: nil}, nil

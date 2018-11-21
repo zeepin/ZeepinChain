@@ -43,6 +43,7 @@ import (
 	"github.com/imZhuFei/zeepin/smartcontract/event"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native"
 	"github.com/imZhuFei/zeepin/smartcontract/service/neovm"
+	"github.com/imZhuFei/zeepin/smartcontract/service/wasmvm"
 	"github.com/imZhuFei/zeepin/smartcontract/storage"
 	vm "github.com/imZhuFei/zeepin/vm/neovm"
 )
@@ -148,6 +149,24 @@ func (this *SmartContract) NewExecuteEngine(code []byte) (context.Engine, error)
 		Time:       this.Config.Time,
 		Height:     this.Config.Height,
 		Engine:     vm.NewExecutionEngine(),
+	}
+	return service, nil
+}
+
+// Execute is smart contract execute manager
+// According different vm type to launch different service
+func (this *SmartContract) NewWasmExecuteEngine(code []byte) (context.Engine, error) {
+	if !this.checkContexts() {
+		return nil, fmt.Errorf("%s", "engine over max limit!")
+	}
+	service := &wasmvm.WasmVmService{
+		Store:      this.Store,
+		CloneCache: this.CloneCache,
+		ContextRef: this,
+		Code:       code,
+		Tx:         this.Config.Tx,
+		Time:       this.Config.Time,
+		Height:     this.Config.Height,
 	}
 	return service, nil
 }

@@ -63,7 +63,7 @@ func NewNativeInvokeTransaction(gasPrice, gasLimit uint64, contractAddr common.A
 	builder.Emit(neovm.SYSCALL)
 	builder.EmitPushByteArray([]byte(svrneovm.NATIVE_INVOKE_NAME))
 	invokeCode := builder.ToArray()
-	return httpcom.NewSmartContractTransaction(gasPrice, gasLimit, invokeCode)
+	return httpcom.NewSmartContractTransaction(gasPrice, gasLimit, invokeCode, 0)
 }
 
 func ParseNativeFuncParam(builder *neovm.ParamsBuilder, funName string, params []interface{}, paramsAbi []*abi.NativeContractParamAbi) error {

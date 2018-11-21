@@ -51,6 +51,7 @@ import (
 	"github.com/imZhuFei/zeepin/core/types"
 	"github.com/imZhuFei/zeepin/errors"
 	"github.com/imZhuFei/zeepin/smartcontract"
+	"github.com/imZhuFei/zeepin/smartcontract/context"
 	"github.com/imZhuFei/zeepin/smartcontract/event"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/global_params"
 	ninit "github.com/imZhuFei/zeepin/smartcontract/service/native/init"
@@ -207,7 +208,12 @@ func (self *StateStore) HandleInvokeTransaction(store store.LedgerStore, stateBa
 	}
 
 	//start the smart contract executive function
-	engine, _ := sc.NewExecuteEngine(invoke.Code)
+	var engine context.Engine
+	if tx.Attributes == 0 {
+		engine, _ = sc.NewExecuteEngine(invoke.Code)
+	} else {
+		engine, _ = sc.NewWasmExecuteEngine(invoke.Code)
+	}
 
 	_, err = engine.Invoke()
 

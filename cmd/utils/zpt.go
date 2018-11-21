@@ -36,17 +36,14 @@ package utils
 
 import (
 	"bytes"
-	"encoding/binary"
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"strconv"
 	"strings"
 	"time"
 
 	"github.com/imZhuFei/zeepin/account"
 	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/serialization"
 	"github.com/imZhuFei/zeepin/core/payload"
 	"github.com/imZhuFei/zeepin/core/types"
 	httpcom "github.com/imZhuFei/zeepin/http/base/common"
@@ -55,7 +52,6 @@ import (
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/zpt"
 	"github.com/imZhuFei/zeepin/smartcontract/service/wasmvm"
 	cstates "github.com/imZhuFei/zeepin/smartcontract/states"
-	"github.com/imZhuFei/zeepin/vm/wasmvm/exec"
 	"github.com/ontio/ontology-crypto/keypair"
 	sig "github.com/ontio/ontology-crypto/signature"
 )
@@ -426,15 +422,15 @@ func DeployContract(
 	cversion,
 	cauthor,
 	cemail,
-	cdesc string) (string, error) {
+	cdesc string, attr uint64) (string, error) {
 
-	c, err := hex.DecodeString(code)
-	if err != nil {
-		return "", fmt.Errorf("hex.DecodeString error:%s", err)
-	}
-	mutable := NewDeployCodeTransaction(gasPrice, gasLimit, c, needStorage, cname, cversion, cauthor, cemail, cdesc)
+	//c, err := hex.DecodeString(code)
+	//if err != nil {
+	//	return "", fmt.Errorf("hex.DecodeString error:%s", err)
+	//}
+	mutable := NewDeployCodeTransaction(gasPrice, gasLimit, []byte(code), needStorage, cname, cversion, cauthor, cemail, cdesc, attr)
 
-	err = SignTransaction(signer, mutable)
+	err := SignTransaction(signer, mutable)
 	if err != nil {
 		return "", err
 	}
@@ -456,15 +452,16 @@ func PrepareDeployContract(
 	cversion,
 	cauthor,
 	cemail,
-	cdesc string) (*cstates.PreExecResult, error) {
-	c, err := hex.DecodeString(code)
-	if err != nil {
-		return nil, fmt.Errorf("hex.DecodeString error:%s", err)
-	}
-	mutable := NewDeployCodeTransaction(0, 0, c, needStorage, cname, cversion, cauthor, cemail, cdesc)
+	cdesc string,
+	attr uint64) (*cstates.PreExecResult, error) {
+	//c, err := hex.DecodeString(code)
+	//if err != nil {
+	//	return nil, fmt.Errorf("hex.DecodeString error:%s", err)
+	//}
+	mutable := NewDeployCodeTransaction(0, 0, []byte(code), needStorage, cname, cversion, cauthor, cemail, cdesc, attr)
 	tx, _ := mutable.IntoImmutable()
 	var buffer bytes.Buffer
-	err = tx.Serialize(&buffer)
+	err := tx.Serialize(&buffer)
 	if err != nil {
 		return nil, fmt.Errorf("Serialize error:%s", err)
 	}
@@ -511,11 +508,7 @@ func InvokeWasmVMContract(
 	paramType wasmvm.ParamType,
 	params []interface{}) (string, error) {
 
-	invokeCode, err := BuildWasmVMInvokeCode(contractAddress, method, paramType, cversion, params)
-	if err != nil {
-		return "", err
-	}
-	tx, err := httpcom.NewSmartContractTransaction(gasPrice, gasLimit, invokeCode)
+	tx, err := httpcom.NewWASMVMInvokeTransaction(gasPrice, gasLimit, contractAddress, method, paramType, cversion, params)
 	if err != nil {
 		return "", err
 	}
@@ -584,7 +577,7 @@ func PrepareInvokeNeoVMContract(
 }
 
 func PrepareInvokeCodeNeoVMContract(code []byte) (*cstates.PreExecResult, error) {
-	mutable, err := httpcom.NewSmartContractTransaction(0, 0, code)
+	mutable, err := httpcom.NewSmartContractTransaction(0, 0, code, 0)
 	if err != nil {
 		return nil, err
 	}
@@ -609,6 +602,34 @@ func PrepareInvokeCodeNeoVMContract(code []byte) (*cstates.PreExecResult, error)
 	}
 	return preResult, nil
 }
+
+/*func PrepareInvokeCodeWASMVMContract(code []byte) (*cstates.PreExecResult, error) {
+	mutable, err := httpcom.NewWASMVMInvokeTransaction(0, 0, code)
+	if err != nil {
+		return nil, err
+	}
+	mutable.Attributes = 1
+	tx, err := mutable.IntoImmutable()
+	if err != nil {
+		return nil, err
+	}
+	var buffer bytes.Buffer
+	err = tx.Serialize(&buffer)
+	if err != nil {
+		return nil, fmt.Errorf("Serialize error:%s", err)
+	}
+	txData := hex.EncodeToString(buffer.Bytes())
+	data, err := sendRpcRequest("sendrawtransaction", []interface{}{txData, 1})
+	if err != nil {
+		return nil, err
+	}
+	preResult := &cstates.PreExecResult{}
+	err = json.Unmarshal(data, &preResult)
+	if err != nil {
+		return nil, fmt.Errorf("json.Unmarshal PreExecResult:%s error:%s", data, err)
+	}
+	return preResult, nil
+}*/
 
 func PrepareInvokeNativeContract(
 	contractAddress common.Address,
@@ -641,9 +662,45 @@ func PrepareInvokeNativeContract(
 	return preResult, nil
 }
 
+func PrepareInvokeWASMVMContract(
+	contractAddress common.Address,
+	methodName string,
+	paramType wasmvm.ParamType,
+	version byte,
+	params []interface{},
+	attr byte,
+) (*cstates.PreExecResult, error) {
+	mutable, err := httpcom.NewWASMVMInvokeTransaction(0, 0, contractAddress, methodName, paramType, version, params)
+	if err != nil {
+		return nil, err
+	}
+	tx, err := mutable.IntoImmutable()
+	tx.Attributes = attr
+	if err != nil {
+		return nil, err
+	}
+
+	var buffer bytes.Buffer
+	err = tx.Serialize(&buffer)
+	if err != nil {
+		return nil, fmt.Errorf("Serialize error:%s", err)
+	}
+	txData := hex.EncodeToString(buffer.Bytes())
+	data, err := sendRpcRequest("sendrawtransaction", []interface{}{txData, 1})
+	if err != nil {
+		return nil, err
+	}
+	preResult := &cstates.PreExecResult{}
+	err = json.Unmarshal(data, &preResult)
+	if err != nil {
+		return nil, fmt.Errorf("json.Unmarshal PreExecResult:%s error:%s", data, err)
+	}
+	return preResult, nil
+}
+
 //NewDeployCodeTransaction return a smart contract deploy transaction instance
 func NewDeployCodeTransaction(gasPrice, gasLimit uint64, code []byte, needStorage bool,
-	cname, cversion, cauthor, cemail, cdesc string) *types.MutableTransaction {
+	cname, cversion, cauthor, cemail, cdesc string, attr uint64) *types.MutableTransaction {
 
 	deployPayload := &payload.DeployCode{
 		Code:        code,
@@ -655,113 +712,114 @@ func NewDeployCodeTransaction(gasPrice, gasLimit uint64, code []byte, needStorag
 		Description: cdesc,
 	}
 	tx := &types.MutableTransaction{
-		Version:  VERSION_TRANSACTION,
-		TxType:   types.Deploy,
-		Nonce:    uint32(time.Now().Unix()),
-		Payload:  deployPayload,
-		GasPrice: gasPrice,
-		GasLimit: gasLimit,
-		Sigs:     make([]types.Sig, 0, 0),
+		Version:    VERSION_TRANSACTION,
+		TxType:     types.Deploy,
+		Nonce:      uint32(time.Now().Unix()),
+		Payload:    deployPayload,
+		GasPrice:   gasPrice,
+		GasLimit:   gasLimit,
+		Attributes: byte(attr),
+		Sigs:       make([]types.Sig, 0, 0),
 	}
 	return tx
 }
 
-//for wasm vm
-//build param bytes for wasm contract
-func buildWasmContractParam(params []interface{}, paramType wasmvm.ParamType) ([]byte, error) {
-	switch paramType {
-	case wasmvm.Json:
-		args := make([]exec.Param, len(params))
+// //for wasm vm
+// //build param bytes for wasm contract
+// func buildWasmContractParam(params []interface{}, paramType wasmvm.ParamType) ([]byte, error) {
+// 	switch paramType {
+// 	case wasmvm.Json:
+// 		args := make([]exec.Param, len(params))
 
-		for i, param := range params {
-			switch param.(type) {
-			case string:
-				arg := exec.Param{Ptype: "string", Pval: param.(string)}
-				args[i] = arg
-			case int:
-				arg := exec.Param{Ptype: "int", Pval: strconv.Itoa(param.(int))}
-				args[i] = arg
-			case int64:
-				arg := exec.Param{Ptype: "int64", Pval: strconv.FormatInt(param.(int64), 10)}
-				args[i] = arg
-			case []int:
-				bf := bytes.NewBuffer(nil)
-				array := param.([]int)
-				for i, tmp := range array {
-					bf.WriteString(strconv.Itoa(tmp))
-					if i != len(array)-1 {
-						bf.WriteString(",")
-					}
-				}
-				arg := exec.Param{Ptype: "int_array", Pval: bf.String()}
-				args[i] = arg
-			case []int64:
-				bf := bytes.NewBuffer(nil)
-				array := param.([]int64)
-				for i, tmp := range array {
-					bf.WriteString(strconv.FormatInt(tmp, 10))
-					if i != len(array)-1 {
-						bf.WriteString(",")
-					}
-				}
-				arg := exec.Param{Ptype: "int_array", Pval: bf.String()}
-				args[i] = arg
-			default:
-				return nil, fmt.Errorf("not a supported type :%v\n", param)
-			}
-		}
+// 		for i, param := range params {
+// 			switch param.(type) {
+// 			case string:
+// 				arg := exec.Param{Ptype: "string", Pval: param.(string)}
+// 				args[i] = arg
+// 			case int:
+// 				arg := exec.Param{Ptype: "int", Pval: strconv.Itoa(param.(int))}
+// 				args[i] = arg
+// 			case int64:
+// 				arg := exec.Param{Ptype: "int64", Pval: strconv.FormatInt(param.(int64), 10)}
+// 				args[i] = arg
+// 			case []int:
+// 				bf := bytes.NewBuffer(nil)
+// 				array := param.([]int)
+// 				for i, tmp := range array {
+// 					bf.WriteString(strconv.Itoa(tmp))
+// 					if i != len(array)-1 {
+// 						bf.WriteString(",")
+// 					}
+// 				}
+// 				arg := exec.Param{Ptype: "int_array", Pval: bf.String()}
+// 				args[i] = arg
+// 			case []int64:
+// 				bf := bytes.NewBuffer(nil)
+// 				array := param.([]int64)
+// 				for i, tmp := range array {
+// 					bf.WriteString(strconv.FormatInt(tmp, 10))
+// 					if i != len(array)-1 {
+// 						bf.WriteString(",")
+// 					}
+// 				}
+// 				arg := exec.Param{Ptype: "int_array", Pval: bf.String()}
+// 				args[i] = arg
+// 			default:
+// 				return nil, fmt.Errorf("not a supported type :%v\n", param)
+// 			}
+// 		}
 
-		bs, err := json.Marshal(exec.Args{args})
-		if err != nil {
-			return nil, err
-		}
-		return bs, nil
-	case wasmvm.Raw:
-		bf := bytes.NewBuffer(nil)
-		for _, param := range params {
-			switch param.(type) {
-			case string:
-				tmp := bytes.NewBuffer(nil)
-				serialization.WriteString(tmp, param.(string))
-				bf.Write(tmp.Bytes())
+// 		bs, err := json.Marshal(exec.Args{args})
+// 		if err != nil {
+// 			return nil, err
+// 		}
+// 		return bs, nil
+// 	case wasmvm.Raw:
+// 		bf := bytes.NewBuffer(nil)
+// 		for _, param := range params {
+// 			switch param.(type) {
+// 			case string:
+// 				tmp := bytes.NewBuffer(nil)
+// 				serialization.WriteString(tmp, param.(string))
+// 				bf.Write(tmp.Bytes())
 
-			case int:
-				tmpBytes := make([]byte, 4)
-				binary.LittleEndian.PutUint32(tmpBytes, uint32(param.(int)))
-				bf.Write(tmpBytes)
+// 			case int:
+// 				tmpBytes := make([]byte, 4)
+// 				binary.LittleEndian.PutUint32(tmpBytes, uint32(param.(int)))
+// 				bf.Write(tmpBytes)
 
-			case int64:
-				tmpBytes := make([]byte, 8)
-				binary.LittleEndian.PutUint64(tmpBytes, uint64(param.(int64)))
-				bf.Write(tmpBytes)
+// 			case int64:
+// 				tmpBytes := make([]byte, 8)
+// 				binary.LittleEndian.PutUint64(tmpBytes, uint64(param.(int64)))
+// 				bf.Write(tmpBytes)
 
-			default:
-				return nil, fmt.Errorf("not a supported type :%v\n", param)
-			}
-		}
-		return bf.Bytes(), nil
-	default:
-		return nil, fmt.Errorf("unsupported type")
-	}
-}
+// 			default:
+// 				return nil, fmt.Errorf("not a supported type :%v\n", param)
+// 			}
+// 		}
+// 		return bf.Bytes(), nil
+// 	default:
+// 		return nil, fmt.Errorf("unsupported type")
+// 	}
+// }
 
-//BuildWasmVMInvokeCode return wasn vm invoke code
-func BuildWasmVMInvokeCode(smartcodeAddress common.Address, methodName string, paramType wasmvm.ParamType, version byte, params []interface{}) ([]byte, error) {
-	contract := &cstates.Contract{}
-	contract.Address = smartcodeAddress
-	contract.Method = methodName
-	contract.Version = version
+// //BuildWasmVMInvokeCode return wasn vm invoke code
+// func BuildWasmVMInvokeCode(smartcodeAddress common.Address, methodName string, paramType wasmvm.ParamType, version byte, params []interface{}) ([]byte, error) {
+// 	contract := &cstates.Contract{}
+// 	contract.Address = smartcodeAddress
+// 	contract.Method = methodName
+// 	contract.Version = version
 
-	argbytes, err := buildWasmContractParam(params, paramType)
+// 	argbytes, err := buildWasmContractParam(params, paramType)
 
-	if err != nil {
-		return nil, fmt.Errorf("build wasm contract param failed:%s", err)
-	}
-	contract.Args = argbytes
-	bf := bytes.NewBuffer(nil)
-	contract.Serialize(bf)
-	return bf.Bytes(), nil
-}
+// 	if err != nil {
+// 		return nil, fmt.Errorf("build wasm contract param failed:%s", err)
+// 	}
+// 	contract.Args = argbytes
+// 	bf := bytes.NewBuffer(nil)
+// 	contract.Serialize(bf)
+// 	return bf.Bytes(), nil
+// }
 
 //ParseNeoVMContractReturnTypeBool return bool value of smart contract execute code.
 func ParseNeoVMContractReturnTypeBool(hexStr string) (bool, error) {
