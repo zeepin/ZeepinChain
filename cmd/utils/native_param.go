@@ -46,13 +46,13 @@ import (
 	"github.com/imZhuFei/zeepin/cmd/abi"
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/embed/simulator"
 	httpcom "github.com/imZhuFei/zeepin/http/base/common"
-	svrneovm "github.com/imZhuFei/zeepin/smartcontract/service/neovm"
-	"github.com/imZhuFei/zeepin/vm/neovm"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/embed"
 )
 
 func NewNativeInvokeTransaction(gasPrice, gasLimit uint64, contractAddr common.Address, version byte, params []interface{}, funcAbi *abi.NativeContractFunctionAbi) (*types.MutableTransaction, error) {
-	builder := neovm.NewParamsBuilder(new(bytes.Buffer))
+	builder := simulator.NewParamsBuilder(new(bytes.Buffer))
 	err := ParseNativeFuncParam(builder, funcAbi.Name, params, funcAbi.Parameters)
 	if err != nil {
 		return nil, err
@@ -60,13 +60,13 @@ func NewNativeInvokeTransaction(gasPrice, gasLimit uint64, contractAddr common.A
 	builder.EmitPushByteArray([]byte(funcAbi.Name))
 	builder.EmitPushByteArray(contractAddr[:])
 	builder.EmitPushInteger(new(big.Int).SetInt64(int64(version)))
-	builder.Emit(neovm.SYSCALL)
-	builder.EmitPushByteArray([]byte(svrneovm.NATIVE_INVOKE_NAME))
+	builder.Emit(simulator.SYSCALL)
+	builder.EmitPushByteArray([]byte(embed.NATIVE_INVOKE_NAME))
 	invokeCode := builder.ToArray()
 	return httpcom.NewSmartContractTransaction(gasPrice, gasLimit, invokeCode, 0)
 }
 
-func ParseNativeFuncParam(builder *neovm.ParamsBuilder, funName string, params []interface{}, paramsAbi []*abi.NativeContractParamAbi) error {
+func ParseNativeFuncParam(builder *simulator.ParamsBuilder, funName string, params []interface{}, paramsAbi []*abi.NativeContractParamAbi) error {
 	size := len(paramsAbi)
 	if size == 0 {
 		//Params cannot empty, if params is empty, fulfil with func name
@@ -88,7 +88,7 @@ func ParseNativeFuncParam(builder *neovm.ParamsBuilder, funName string, params [
 	return ParseNativeParams(builder, params, paramsAbi)
 }
 
-func ParseNativeParams(builder *neovm.ParamsBuilder, params []interface{}, paramsAbi []*abi.NativeContractParamAbi) error {
+func ParseNativeParams(builder *simulator.ParamsBuilder, params []interface{}, paramsAbi []*abi.NativeContractParamAbi) error {
 	if len(params) != len(paramsAbi) {
 		return fmt.Errorf("abi unmatch")
 	}
@@ -136,7 +136,7 @@ func ParseNativeParams(builder *neovm.ParamsBuilder, params []interface{}, param
 	return nil
 }
 
-func ParseNativeParamStruct(builder *neovm.ParamsBuilder, param interface{}, structAbi *abi.NativeContractParamAbi) error {
+func ParseNativeParamStruct(builder *simulator.ParamsBuilder, param interface{}, structAbi *abi.NativeContractParamAbi) error {
 	params, ok := param.([]interface{})
 	if !ok {
 		return fmt.Errorf("assert to []interface{} failed")
@@ -145,23 +145,23 @@ func ParseNativeParamStruct(builder *neovm.ParamsBuilder, param interface{}, str
 		return fmt.Errorf("struct abi not match")
 	}
 	builder.EmitPushInteger(big.NewInt(0))
-	builder.Emit(neovm.NEWSTRUCT)
-	builder.Emit(neovm.TOALTSTACK)
+	builder.Emit(simulator.NEWSTRUCT)
+	builder.Emit(simulator.TOALTSTACK)
 	for i, param := range params {
 		paramAbi := structAbi.SubType[i]
 		err := ParseNativeParams(builder, []interface{}{param}, []*abi.NativeContractParamAbi{paramAbi})
 		if err != nil {
 			return fmt.Errorf("params struct:%s item:%s error:%s", structAbi.Name, paramAbi.Name, err)
 		}
-		builder.Emit(neovm.DUPFROMALTSTACK)
-		builder.Emit(neovm.SWAP)
-		builder.Emit(neovm.APPEND)
+		builder.Emit(simulator.DUPFROMALTSTACK)
+		builder.Emit(simulator.SWAP)
+		builder.Emit(simulator.APPEND)
 	}
-	builder.Emit(neovm.FROMALTSTACK)
+	builder.Emit(simulator.FROMALTSTACK)
 	return nil
 }
 
-func ParseNativeParamArray(builder *neovm.ParamsBuilder, param interface{}, arrayAbi *abi.NativeContractParamAbi) error {
+func ParseNativeParamArray(builder *simulator.ParamsBuilder, param interface{}, arrayAbi *abi.NativeContractParamAbi) error {
 	params, ok := param.([]interface{})
 	if !ok {
 		return fmt.Errorf("assert to []interface{} failed")
@@ -179,11 +179,11 @@ func ParseNativeParamArray(builder *neovm.ParamsBuilder, param interface{}, arra
 		return fmt.Errorf("parse array error:%s", err)
 	}
 	builder.EmitPushInteger(big.NewInt(int64(len(params))))
-	builder.Emit(neovm.PACK)
+	builder.Emit(simulator.PACK)
 	return nil
 }
 
-func ParseNativeParamByte(builder *neovm.ParamsBuilder, param string) error {
+func ParseNativeParamByte(builder *simulator.ParamsBuilder, param string) error {
 	if param == "" {
 		return fmt.Errorf("invalid byte")
 	}
@@ -198,7 +198,7 @@ func ParseNativeParamByte(builder *neovm.ParamsBuilder, param string) error {
 	return nil
 }
 
-func ParseNativeParamByteArray(builder *neovm.ParamsBuilder, param string) error {
+func ParseNativeParamByteArray(builder *simulator.ParamsBuilder, param string) error {
 	data, err := hex.DecodeString(param)
 	if err != nil {
 		return fmt.Errorf("hex decode string error:%s", err)
@@ -207,7 +207,7 @@ func ParseNativeParamByteArray(builder *neovm.ParamsBuilder, param string) error
 	return nil
 }
 
-func ParseNativeParamUint256(builder *neovm.ParamsBuilder, param string) error {
+func ParseNativeParamUint256(builder *simulator.ParamsBuilder, param string) error {
 	if param == "" {
 		return fmt.Errorf("invalid uint256")
 	}
@@ -219,12 +219,12 @@ func ParseNativeParamUint256(builder *neovm.ParamsBuilder, param string) error {
 	return nil
 }
 
-func ParseNativeParamString(builder *neovm.ParamsBuilder, param string) error {
+func ParseNativeParamString(builder *simulator.ParamsBuilder, param string) error {
 	builder.EmitPushByteArray([]byte(param))
 	return nil
 }
 
-func ParseNativeParamInteger(builder *neovm.ParamsBuilder, param string) error {
+func ParseNativeParamInteger(builder *simulator.ParamsBuilder, param string) error {
 	if param == "" {
 		return fmt.Errorf("invalid integer")
 	}
@@ -236,7 +236,7 @@ func ParseNativeParamInteger(builder *neovm.ParamsBuilder, param string) error {
 	return nil
 }
 
-func ParseNativeParamBool(builder *neovm.ParamsBuilder, param string) error {
+func ParseNativeParamBool(builder *simulator.ParamsBuilder, param string) error {
 	var b bool
 	switch strings.ToLower(param) {
 	case "true":
@@ -250,7 +250,7 @@ func ParseNativeParamBool(builder *neovm.ParamsBuilder, param string) error {
 	return nil
 }
 
-func ParseNativeParamAddress(builder *neovm.ParamsBuilder, param string) error {
+func ParseNativeParamAddress(builder *simulator.ParamsBuilder, param string) error {
 	if param == "" {
 		return fmt.Errorf("invalid address")
 	}

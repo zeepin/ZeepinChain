@@ -39,13 +39,13 @@ import (
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/core/store"
 	ctypes "github.com/imZhuFei/zeepin/core/types"
+	vm "github.com/imZhuFei/zeepin/embed/simulator"
 	"github.com/imZhuFei/zeepin/smartcontract/context"
 	"github.com/imZhuFei/zeepin/smartcontract/event"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native"
-	"github.com/imZhuFei/zeepin/smartcontract/service/neovm"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/embed"
 	"github.com/imZhuFei/zeepin/smartcontract/service/wasmvm"
 	"github.com/imZhuFei/zeepin/smartcontract/storage"
-	vm "github.com/imZhuFei/zeepin/vm/neovm"
 )
 
 const (
@@ -112,7 +112,7 @@ func (this *SmartContract) PushNotifications(notifications []*event.NotifyEventI
 }
 
 func (this *SmartContract) CheckExecStep() bool {
-	if this.ExecStep >= neovm.VM_STEP_LIMIT {
+	if this.ExecStep >= embed.VM_STEP_LIMIT {
 		return false
 	}
 	this.ExecStep += 1
@@ -140,7 +140,7 @@ func (this *SmartContract) NewExecuteEngine(code []byte) (context.Engine, error)
 	if !this.checkContexts() {
 		return nil, fmt.Errorf("%s", "engine over max limit!")
 	}
-	service := &neovm.NeoVmService{
+	service := &embed.EmbeddedService{
 		Store:      this.Store,
 		CloneCache: this.CloneCache,
 		ContextRef: this,

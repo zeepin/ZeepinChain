@@ -44,13 +44,13 @@ import (
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/core/store"
 	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/embed/simulator"
 	"github.com/imZhuFei/zeepin/errors"
 	"github.com/imZhuFei/zeepin/smartcontract/context"
 	"github.com/imZhuFei/zeepin/smartcontract/event"
 	nstates "github.com/imZhuFei/zeepin/smartcontract/service/native/zpt"
 	"github.com/imZhuFei/zeepin/smartcontract/states"
 	"github.com/imZhuFei/zeepin/smartcontract/storage"
-	"github.com/imZhuFei/zeepin/vm/neovm"
 	"github.com/imZhuFei/zeepin/vm/wasmvm/exec"
 	"github.com/imZhuFei/zeepin/vm/wasmvm/util"
 )
@@ -71,7 +71,7 @@ func (this *WasmVmService) Invoke() (interface{}, error) {
 	//register the "CallContract" function
 	//stateMachine.Register("ZPT_CallContract", this.callContract)
 	stateMachine.Register("ZPT_MarshalNativeParams", this.marshalNativeParams)
-	stateMachine.Register("ZPT_MarshalNeoParams", this.marshalNeoParams)
+	stateMachine.Register("ZPT_MarshalEmbededParams", this.marshalEmbeddedParams)
 	//runtime
 	stateMachine.Register("ZPT_Runtime_CheckWitness", this.runtimeCheckWitness)
 	stateMachine.Register("ZPT_Runtime_Notify", this.runtimeNotify)
@@ -129,7 +129,9 @@ func (this *WasmVmService) Invoke() (interface{}, error) {
 	addr := contract.Address
 	dpcode, err := this.GetContractCodeFromAddress(addr)
 	if err != nil {
-		return nil, errors.NewErr("get contract  error")
+		errStr := err.Error()
+		fmt.Printf("err %s %s\n", errStr, addr.ToHexString())
+		return nil, fmt.Errorf("get contract  error: %s", addr.ToHexString())
 	}
 	ccode := dpcode
 
@@ -157,12 +159,12 @@ func (this *WasmVmService) Invoke() (interface{}, error) {
 	return result, nil
 }
 
-func (this *WasmVmService) marshalNeoParams(engine *exec.ExecutionEngine) (bool, error) {
+func (this *WasmVmService) marshalEmbeddedParams(engine *exec.ExecutionEngine) (bool, error) {
 	vm := engine.GetVM()
 	envCall := vm.GetEnvCall()
 	params := envCall.GetParams()
 	if len(params) != 1 {
-		return false, errors.NewErr("[marshalNeoParams]parameter count error while call marshalNativeParams")
+		return false, errors.NewErr("[marshalEmbeddedParams]parameter count error while call marshalNativeParams")
 	}
 	argbytes, err := vm.GetPointerMemory(params[0])
 	if err != nil {
@@ -199,13 +201,13 @@ func (this *WasmVmService) marshalNeoParams(engine *exec.ExecutionEngine) (bool,
 		}
 		icount++
 	}
-	builder := neovm.NewParamsBuilder(bytes.NewBuffer(nil))
-	err = buildNeoVMParamInter(builder, []interface{}{args})
+	builder := simulator.NewParamsBuilder(bytes.NewBuffer(nil))
+	err = buildEmbeddedParamInter(builder, []interface{}{args})
 	if err != nil {
 		return false, err
 	}
-	neoargs := builder.ToArray()
-	idx, err := vm.SetPointerMemory(neoargs)
+	embedargs := builder.ToArray()
+	idx, err := vm.SetPointerMemory(embedargs)
 	if err != nil {
 		return false, err
 	}
@@ -367,8 +369,8 @@ func (this *WasmVmService) marshalNativeParams(engine *exec.ExecutionEngine) (bo
 	vm.RestoreCtx()
 	var res string
 	if envCall.GetReturns() {
-		if contractAddress[0] == byte(vmtypes.NEOVM) {
-			result = sccommon.ConvertNeoVmReturnTypes(result)
+		if contractAddress[0] == byte(vmtypes.Embed) {
+			result = sccommon.ConvertEmbeddedReturnTypes(result)
 			switch result.(type) {
 			case int:
 				res = strconv.Itoa(result.(int))
@@ -457,8 +459,8 @@ func (this *WasmVmService) getContractFromAddr(addr []byte) ([]byte, error) {
 	return vmCode.AddressFromVmCode()
 }*/
 
-//buildNeoVMParamInter build neovm invoke param code
-func buildNeoVMParamInter(builder *neovm.ParamsBuilder, smartContractParams []interface{}) error {
+//buildEmbeddedParamInter build embedded invoke param code
+func buildEmbeddedParamInter(builder *simulator.ParamsBuilder, smartContractParams []interface{}) error {
 	//VM load params in reverse order
 	for i := len(smartContractParams) - 1; i >= 0; i-- {
 		switch v := smartContractParams[i].(type) {
@@ -486,12 +488,12 @@ func buildNeoVMParamInter(builder *neovm.ParamsBuilder, smartContractParams []in
 		case []byte:
 			builder.EmitPushByteArray(v)
 		case []interface{}:
-			err := buildNeoVMParamInter(builder, v)
+			err := buildEmbeddedParamInter(builder, v)
 			if err != nil {
 				return err
 			}
 			builder.EmitPushInteger(big.NewInt(int64(len(v))))
-			builder.Emit(neovm.PACK)
+			builder.Emit(simulator.PACK)
 		default:
 			return fmt.Errorf("unsupported param:%s", v)
 		}

@@ -48,8 +48,8 @@ import (
 	"github.com/imZhuFei/zeepin/errors"
 	"github.com/imZhuFei/zeepin/events/message"
 	hComm "github.com/imZhuFei/zeepin/http/base/common"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/embed"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
-	"github.com/imZhuFei/zeepin/smartcontract/service/neovm"
 	tc "github.com/imZhuFei/zeepin/txnpool/common"
 	"github.com/imZhuFei/zeepin/validator/types"
 )
@@ -190,13 +190,13 @@ func (ta *TxActor) handleTransaction(sender tc.SenderType, self *actor.PID,
 			return
 		}
 
-		if txn.TxType == tx.Deploy && txn.GasLimit < neovm.CONTRACT_CREATE_GAS {
+		if txn.TxType == tx.Deploy && txn.GasLimit < embed.CONTRACT_CREATE_GAS {
 			log.Debugf("handleTransaction: deploy tx invalid gasLimit %v, gasPrice %v",
 				txn.GasLimit, txn.GasPrice)
 			if sender == tc.HttpSender && txResultCh != nil {
 				replyTxResult(txResultCh, txn.Hash(), errors.ErrUnknown,
 					fmt.Sprintf("Deploy tx gaslimit should >= %d",
-						neovm.CONTRACT_CREATE_GAS))
+						embed.CONTRACT_CREATE_GAS))
 			}
 			return
 		}

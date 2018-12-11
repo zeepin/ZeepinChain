@@ -464,8 +464,8 @@ How to build the parameter?
     // get sdk instance
     sdk := goSdk.NewZeepinChainSdk()
     rpcClient := sdk.Rpc
-    // generate invoke native contract transaction; if you want to invoke neo vm contrace,
-    // use NewNeoVMSInvokeTransaction
+    // generate invoke native contract transaction; if you want to invoke wasm vm contrace,
+    // use NewWASMVMSInvokeTransaction
     // cversion is contract version, method is contract method name, params is []interface{}type,
     // represent the contract method param
     // For example: 

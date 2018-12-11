@@ -52,14 +52,14 @@ import (
 	"github.com/imZhuFei/zeepin/common/serialization"
 	"github.com/imZhuFei/zeepin/core/payload"
 	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/embed/simulator"
 	ontErrors "github.com/imZhuFei/zeepin/errors"
 	bactor "github.com/imZhuFei/zeepin/http/base/actor"
 	"github.com/imZhuFei/zeepin/smartcontract/event"
+	embed "github.com/imZhuFei/zeepin/smartcontract/service/native/embed"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
-	svrneovm "github.com/imZhuFei/zeepin/smartcontract/service/neovm"
 	"github.com/imZhuFei/zeepin/smartcontract/service/wasmvm"
 	cstates "github.com/imZhuFei/zeepin/smartcontract/states"
-	"github.com/imZhuFei/zeepin/vm/neovm"
 	"github.com/imZhuFei/zeepin/vm/wasmvm/exec"
 	"github.com/ontio/ontology-crypto/keypair"
 )
@@ -333,7 +333,7 @@ func GetContractBalance(cVersion byte, contractAddr, accAddr common.Address) (ui
 		return 0, fmt.Errorf("hex.DecodeString error:%s", err)
 	}
 
-	balance := common.BigIntFromNeoBytes(data)
+	balance := common.BigIntFromEmbeddedBytes(data)
 	return balance.Uint64(), nil
 }
 
@@ -365,7 +365,7 @@ func GetContractAllowance(cVersion byte, contractAddr, fromAddr, toAddr common.A
 	if err != nil {
 		return 0, fmt.Errorf("hex.DecodeString error:%s", err)
 	}
-	allowance := common.BigIntFromNeoBytes(data)
+	allowance := common.BigIntFromEmbeddedBytes(data)
 	return allowance.Uint64(), nil
 }
 
@@ -425,8 +425,8 @@ func NewNativeInvokeTransaction(gasPirce, gasLimit uint64, contractAddress commo
 	return NewSmartContractTransaction(gasPirce, gasLimit, invokeCode, 0)
 }
 
-func NewNeovmInvokeTransaction(gasPrice, gasLimit uint64, contractAddress common.Address, params []interface{}) (*types.MutableTransaction, error) {
-	invokeCode, err := BuildNeoVMInvokeCode(contractAddress, params)
+func NewEmbeddedInvokeTransaction(gasPrice, gasLimit uint64, contractAddress common.Address, params []interface{}) (*types.MutableTransaction, error) {
+	invokeCode, err := BuildEmbeddedInvokeCode(contractAddress, params)
 	if err != nil {
 		return nil, err
 	}
@@ -459,23 +459,23 @@ func NewSmartContractTransaction(gasPrice, gasLimit uint64, invokeCode []byte, a
 }
 
 func BuildNativeInvokeCode(contractAddress common.Address, version byte, method string, params []interface{}) ([]byte, error) {
-	builder := neovm.NewParamsBuilder(new(bytes.Buffer))
-	err := BuildNeoVMParam(builder, params)
+	builder := simulator.NewParamsBuilder(new(bytes.Buffer))
+	err := BuildEmbeddedParam(builder, params)
 	if err != nil {
 		return nil, err
 	}
 	builder.EmitPushByteArray([]byte(method))
 	builder.EmitPushByteArray(contractAddress[:])
 	builder.EmitPushInteger(new(big.Int).SetInt64(int64(version)))
-	builder.Emit(neovm.SYSCALL)
-	builder.EmitPushByteArray([]byte(svrneovm.NATIVE_INVOKE_NAME))
+	builder.Emit(simulator.SYSCALL)
+	builder.EmitPushByteArray([]byte(embed.NATIVE_INVOKE_NAME))
 	return builder.ToArray(), nil
 }
 
-//BuildNeoVMInvokeCode build NeoVM Invoke code for params
-func BuildNeoVMInvokeCode(smartContractAddress common.Address, params []interface{}) ([]byte, error) {
-	builder := neovm.NewParamsBuilder(new(bytes.Buffer))
-	err := BuildNeoVMParam(builder, params)
+//BuildEmbeddedInvokeCode build Embed Invoke code for params
+func BuildEmbeddedInvokeCode(smartContractAddress common.Address, params []interface{}) ([]byte, error) {
+	builder := simulator.NewParamsBuilder(new(bytes.Buffer))
+	err := BuildEmbeddedParam(builder, params)
 	if err != nil {
 		return nil, err
 	}
@@ -484,8 +484,8 @@ func BuildNeoVMInvokeCode(smartContractAddress common.Address, params []interfac
 	return args, nil
 }
 
-//buildNeoVMParamInter build neovm invoke param code
-func BuildNeoVMParam(builder *neovm.ParamsBuilder, smartContractParams []interface{}) error {
+//buildEmbeddedParamInter build embed invoke param code
+func BuildEmbeddedParam(builder *simulator.ParamsBuilder, smartContractParams []interface{}) error {
 	//VM load params in reverse order
 	for i := len(smartContractParams) - 1; i >= 0; i-- {
 		switch v := smartContractParams[i].(type) {
@@ -519,12 +519,12 @@ func BuildNeoVMParam(builder *neovm.ParamsBuilder, smartContractParams []interfa
 		case common.Uint256:
 			builder.EmitPushByteArray(v.ToArray())
 		case []interface{}:
-			err := BuildNeoVMParam(builder, v)
+			err := BuildEmbeddedParam(builder, v)
 			if err != nil {
 				return err
 			}
 			builder.EmitPushInteger(big.NewInt(int64(len(v))))
-			builder.Emit(neovm.PACK)
+			builder.Emit(simulator.PACK)
 		default:
 			object := reflect.ValueOf(v)
 			kind := object.Kind().String()
@@ -538,25 +538,25 @@ func BuildNeoVMParam(builder *neovm.ParamsBuilder, smartContractParams []interfa
 				for i := 0; i < object.Len(); i++ {
 					ps = append(ps, object.Index(i).Interface())
 				}
-				err := BuildNeoVMParam(builder, []interface{}{ps})
+				err := BuildEmbeddedParam(builder, []interface{}{ps})
 				if err != nil {
 					return err
 				}
 			case "struct":
 				builder.EmitPushInteger(big.NewInt(0))
-				builder.Emit(neovm.NEWSTRUCT)
-				builder.Emit(neovm.TOALTSTACK)
+				builder.Emit(simulator.NEWSTRUCT)
+				builder.Emit(simulator.TOALTSTACK)
 				for i := 0; i < object.NumField(); i++ {
 					field := object.Field(i)
-					err := BuildNeoVMParam(builder, []interface{}{field.Interface()})
+					err := BuildEmbeddedParam(builder, []interface{}{field.Interface()})
 					if err != nil {
 						return err
 					}
-					builder.Emit(neovm.DUPFROMALTSTACK)
-					builder.Emit(neovm.SWAP)
-					builder.Emit(neovm.APPEND)
+					builder.Emit(simulator.DUPFROMALTSTACK)
+					builder.Emit(simulator.SWAP)
+					builder.Emit(simulator.APPEND)
 				}
-				builder.Emit(neovm.FROMALTSTACK)
+				builder.Emit(simulator.FROMALTSTACK)
 			default:
 				return fmt.Errorf("unsupported param:%s", v)
 			}

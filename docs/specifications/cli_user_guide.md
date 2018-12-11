@@ -677,11 +677,11 @@ Among them, State represents the execution result of the transaction. The value 
 
 ## 5. Smart Contract
 
-Smart contract operations support the deployment of NeoVM smart contract, and the pre-execution and execution of NeoVM smart contract.
+Smart contract operations support the deployment of WASMVM smart contract, and the pre-execution and execution of WASMVM smart contract.
 
 ### 5.1 Smart Contract Deployment
 
-Before smart deployment, you need to compile the NeoVM contract compiler such as [SmartX] (http://smartx.zeepin.io) and save the compiled code in a local text file.
+Before smart deployment, you need to compile the WASMVM contract compiler such as [Fiddle] (https://wasdk.github.io/WasmFiddle/) and save the compiled code in a local text file.
 
 #### 5.1.1 Smart Contract Deployment Parameters
 
@@ -755,7 +755,7 @@ Transaction states:
 
 ### 5.2 Smart Contract Execution
 
-The NeoVM smart contract supports array, bytearray, string, int, and bool parameter types. Array represents an array of objects, which can nest any number and any type of parameters that NeoVM supports; bytearray represents a byte array, and the input needs to be hexadecimal encoded into a string, such as []byte("HelloWorld"). : 48656c6c6f576f726c64; string represents a string literal; int represents an integer, because the NeoVM virtual machine does not support floating-point values, so it is necessary to convert the floating-point number into an integer; bool represents a Boolean variable, with true, false.
+The WASMVM smart contract supports array, bytearray, string, int, and bool parameter types. Array represents an array of objects, which can nest any number and any type of parameters that WASMVM supports; bytearray represents a byte array, and the input needs to be hexadecimal encoded into a string, such as []byte("HelloWorld"). : 48656c6c6f576f726c64; string represents a string literal; int represents an integer, because the WASMVM virtual machine does not support floating-point values, so it is necessary to convert the floating-point number into an integer; bool represents a Boolean variable, with true, false.
 
 In ZeepinChain CLI, prefix method is used to construct the input parameters. The type of the parameter will be declared before the parameter, such as string input parameters represented as string: hello; integer parameters as int: 10; Boolean parameters represented as bool: true and so on. Multiple parameters are separated by ",". The object numerical array type uses "[ ]" to indicate the array element range, such as [int:10,string:hello,bool:true].
 

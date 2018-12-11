@@ -43,8 +43,8 @@ import (
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/core/payload"
 	"github.com/imZhuFei/zeepin/core/types"
-	neovm "github.com/imZhuFei/zeepin/smartcontract/service/neovm"
-	vm "github.com/imZhuFei/zeepin/vm/neovm"
+	vm "github.com/imZhuFei/zeepin/embed/simulator"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/embed"
 )
 
 // NewDeployTransaction returns a deploy Transaction
@@ -87,7 +87,7 @@ func BuildNativeTransaction(addr common.Address, initMethod string, args []byte)
 	builder.EmitPushByteArray(addr[:])
 	builder.EmitPushInteger(big.NewInt(0))
 	builder.Emit(vm.SYSCALL)
-	builder.EmitPushByteArray([]byte(neovm.NATIVE_INVOKE_NAME))
+	builder.EmitPushByteArray([]byte(embed.NATIVE_INVOKE_NAME))
 
 	tx := NewInvokeTransaction(builder.ToArray())
 	tx.GasLimit = math.MaxUint64

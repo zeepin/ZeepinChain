@@ -515,14 +515,14 @@ func InvokeWasmVMContract(
 	return InvokeSmartContract(siger, tx)
 }
 
-//Invoke neo vm smart contract. if isPreExec is true, the invoke will not really execute
-func InvokeNeoVMContract(
+//Invoke embed smart contract. if isPreExec is true, the invoke will not really execute
+func InvokeEmbeddedContract(
 	gasPrice,
 	gasLimit uint64,
 	signer *account.Account,
 	smartcodeAddress common.Address,
 	params []interface{}) (string, error) {
-	tx, err := httpcom.NewNeovmInvokeTransaction(gasPrice, gasLimit, smartcodeAddress, params)
+	tx, err := httpcom.NewEmbeddedInvokeTransaction(gasPrice, gasLimit, smartcodeAddress, params)
 	if err != nil {
 		return "", err
 	}
@@ -546,11 +546,11 @@ func InvokeSmartContract(signer *account.Account, tx *types.MutableTransaction) 
 	return txHash, nil
 }
 
-func PrepareInvokeNeoVMContract(
+func PrepareInvokeEmbeddedContract(
 	contractAddress common.Address,
 	params []interface{},
 ) (*cstates.PreExecResult, error) {
-	mutable, err := httpcom.NewNeovmInvokeTransaction(0, 0, contractAddress, params)
+	mutable, err := httpcom.NewEmbeddedInvokeTransaction(0, 0, contractAddress, params)
 	if err != nil {
 		return nil, err
 	}
@@ -576,7 +576,7 @@ func PrepareInvokeNeoVMContract(
 	return preResult, nil
 }
 
-func PrepareInvokeCodeNeoVMContract(code []byte) (*cstates.PreExecResult, error) {
+func PrepareInvokeCodeEmbeddedContract(code []byte) (*cstates.PreExecResult, error) {
 	mutable, err := httpcom.NewSmartContractTransaction(0, 0, code, 0)
 	if err != nil {
 		return nil, err
@@ -821,27 +821,27 @@ func NewDeployCodeTransaction(gasPrice, gasLimit uint64, code []byte, needStorag
 // 	return bf.Bytes(), nil
 // }
 
-//ParseNeoVMContractReturnTypeBool return bool value of smart contract execute code.
-func ParseNeoVMContractReturnTypeBool(hexStr string) (bool, error) {
+//ParseEmbeddedContractReturnTypeBool return bool value of smart contract execute code.
+func ParseEmbeddedContractReturnTypeBool(hexStr string) (bool, error) {
 	return hexStr == "01", nil
 }
 
-//ParseNeoVMContractReturnTypeInteger return integer value of smart contract execute code.
-func ParseNeoVMContractReturnTypeInteger(hexStr string) (int64, error) {
+//ParseEmbededContractReturnTypeInteger return integer value of smart contract execute code.
+func ParseEmbededContractReturnTypeInteger(hexStr string) (int64, error) {
 	data, err := hex.DecodeString(hexStr)
 	if err != nil {
 		return 0, fmt.Errorf("hex.DecodeString error:%s", err)
 	}
-	return common.BigIntFromNeoBytes(data).Int64(), nil
+	return common.BigIntFromEmbeddedBytes(data).Int64(), nil
 }
 
-//ParseNeoVMContractReturnTypeByteArray return []byte value of smart contract execute code.
-func ParseNeoVMContractReturnTypeByteArray(hexStr string) (string, error) {
+//ParseEmbeddedContractReturnTypeByteArray return []byte value of smart contract execute code.
+func ParseEmbeddedContractReturnTypeByteArray(hexStr string) (string, error) {
 	return hexStr, nil
 }
 
-//ParseNeoVMContractReturnTypeString return string value of smart contract execute code.
-func ParseNeoVMContractReturnTypeString(hexStr string) (string, error) {
+//ParseEmbeddedContractReturnTypeString return string value of smart contract execute code.
+func ParseEmbeddedContractReturnTypeString(hexStr string) (string, error) {
 	data, err := hex.DecodeString(hexStr)
 	if err != nil {
 		return "", fmt.Errorf("hex.DecodeString:%s error:%s", hexStr, err)

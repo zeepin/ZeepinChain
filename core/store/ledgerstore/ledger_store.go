@@ -63,9 +63,9 @@ import (
 	scommon "github.com/imZhuFei/zeepin/smartcontract/common"
 	"github.com/imZhuFei/zeepin/smartcontract/context"
 	"github.com/imZhuFei/zeepin/smartcontract/event"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/embed"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/global_params"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
-	"github.com/imZhuFei/zeepin/smartcontract/service/neovm"
 	sstate "github.com/imZhuFei/zeepin/smartcontract/states"
 	"github.com/imZhuFei/zeepin/smartcontract/storage"
 	"github.com/ontio/ontology-crypto/keypair"
@@ -863,7 +863,7 @@ func (this *LedgerStoreImp) GetEventNotifyByBlock(height uint32) ([]*event.Execu
 func (this *LedgerStoreImp) PreExecuteContract(tx *types.Transaction) (*sstate.PreExecResult, error) {
 	header, err := this.GetHeaderByHeight(this.GetCurrentBlockHeight())
 	if err != nil {
-		return &sstate.PreExecResult{State: event.CONTRACT_STATE_FAIL, Gas: neovm.MIN_TRANSACTION_GAS, Result: nil}, err
+		return &sstate.PreExecResult{State: event.CONTRACT_STATE_FAIL, Gas: embed.MIN_TRANSACTION_GAS, Result: nil}, err
 	}
 
 	config := &smartcontract.Config{
@@ -875,7 +875,7 @@ func (this *LedgerStoreImp) PreExecuteContract(tx *types.Transaction) (*sstate.P
 	cache := storage.NewCloneCache(this.stateStore.NewStateBatch())
 	preGas, err := this.getPreGas(config, cache)
 	if err != nil {
-		return &sstate.PreExecResult{State: event.CONTRACT_STATE_FAIL, Gas: neovm.MIN_TRANSACTION_GAS, Result: nil}, err
+		return &sstate.PreExecResult{State: event.CONTRACT_STATE_FAIL, Gas: embed.MIN_TRANSACTION_GAS, Result: nil}, err
 	}
 
 	if tx.TxType == types.Invoke {
@@ -885,7 +885,7 @@ func (this *LedgerStoreImp) PreExecuteContract(tx *types.Transaction) (*sstate.P
 			Config:     config,
 			Store:      this,
 			CloneCache: cache,
-			Gas:        math.MaxUint64 - calcGasByCodeLen(len(invoke.Code), preGas[neovm.UINT_INVOKE_CODE_LEN_NAME]),
+			Gas:        math.MaxUint64 - calcGasByCodeLen(len(invoke.Code), preGas[embed.UINT_INVOKE_CODE_LEN_NAME]),
 		}
 
 		//start the smart contract executive function
@@ -897,15 +897,15 @@ func (this *LedgerStoreImp) PreExecuteContract(tx *types.Transaction) (*sstate.P
 		}
 		result, err := engine.Invoke()
 		if err != nil {
-			return &sstate.PreExecResult{State: event.CONTRACT_STATE_FAIL, Gas: neovm.MIN_TRANSACTION_GAS, Result: nil}, err
+			return &sstate.PreExecResult{State: event.CONTRACT_STATE_FAIL, Gas: embed.MIN_TRANSACTION_GAS, Result: nil}, err
 		}
 		gasCost := math.MaxUint64 - sc.Gas
-		mixGas := neovm.MIN_TRANSACTION_GAS
+		mixGas := embed.MIN_TRANSACTION_GAS
 		if gasCost < mixGas {
 			gasCost = mixGas
 		}
 		if tx.Attributes == 0 {
-			result = scommon.ConvertNeoVmTypeHexString(result)
+			result = scommon.ConvertEmbededTypeHexString(result)
 		} else {
 			if v, ok := result.([]byte); ok {
 				result = common.ToHexString(v)
@@ -914,15 +914,15 @@ func (this *LedgerStoreImp) PreExecuteContract(tx *types.Transaction) (*sstate.P
 		return &sstate.PreExecResult{State: event.CONTRACT_STATE_SUCCESS, Gas: gasCost, Result: result}, nil
 	} else if tx.TxType == types.Deploy {
 		deploy := tx.Payload.(*payload.DeployCode)
-		return &sstate.PreExecResult{State: event.CONTRACT_STATE_SUCCESS, Gas: preGas[neovm.CONTRACT_CREATE_NAME] + calcGasByCodeLen(len(deploy.Code), preGas[neovm.UINT_DEPLOY_CODE_LEN_NAME]), Result: nil}, nil
+		return &sstate.PreExecResult{State: event.CONTRACT_STATE_SUCCESS, Gas: preGas[embed.CONTRACT_CREATE_NAME] + calcGasByCodeLen(len(deploy.Code), preGas[embed.UINT_DEPLOY_CODE_LEN_NAME]), Result: nil}, nil
 	} else {
-		return &sstate.PreExecResult{State: event.CONTRACT_STATE_FAIL, Gas: neovm.MIN_TRANSACTION_GAS, Result: nil}, errors.NewErr("transaction type error")
+		return &sstate.PreExecResult{State: event.CONTRACT_STATE_FAIL, Gas: embed.MIN_TRANSACTION_GAS, Result: nil}, errors.NewErr("transaction type error")
 	}
 }
 
 func (this *LedgerStoreImp) getPreGas(config *smartcontract.Config, cache *storage.CloneCache) (map[string]uint64, error) {
 	bf := new(bytes.Buffer)
-	names := []string{neovm.CONTRACT_CREATE_NAME, neovm.UINT_INVOKE_CODE_LEN_NAME, neovm.UINT_DEPLOY_CODE_LEN_NAME}
+	names := []string{embed.CONTRACT_CREATE_NAME, embed.UINT_INVOKE_CODE_LEN_NAME, embed.UINT_DEPLOY_CODE_LEN_NAME}
 	if err := utils.WriteVarUint(bf, uint64(len(names))); err != nil {
 		return nil, fmt.Errorf("write gas_table_keys length error:%s", err)
 	}

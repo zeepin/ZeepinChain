@@ -40,7 +40,7 @@ import (
 
 	"github.com/imZhuFei/zeepin/common/config"
 	"github.com/imZhuFei/zeepin/common/constants"
-	"github.com/imZhuFei/zeepin/smartcontract/service/neovm"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/embed"
 	"github.com/urfave/cli"
 )
 
@@ -101,7 +101,7 @@ var (
 	GasLimitFlag = cli.Uint64Flag{
 		Name:  "gaslimit",
 		Usage: "Using to set the gaslimit of the current node transaction pool to accept transactions. Transactions below this gaslimit will be discarded",
-		Value: neovm.MIN_TRANSACTION_GAS,
+		Value: embed.MIN_TRANSACTION_GAS,
 	}
 	GasPriceFlag = cli.Uint64Flag{
 		Name:  "gasprice",
@@ -328,7 +328,7 @@ var (
 	}
 	ContractAttrFlag = cli.Int64Flag{
 		Name:  "attr,t",
-		Usage: "Invoke contract attribute, 0: neo, 1: wasm",
+		Usage: "Invoke contract attribute, 0: embed, 1: wasm",
 		Value: 1,
 	}
 	ContractMethodFlag = cli.StringFlag{
@@ -393,7 +393,7 @@ var (
 	TransactionGasLimitFlag = cli.Uint64Flag{
 		Name:  "gaslimit",
 		Usage: "Using to specifies the gas limit of the transaction. The gas limit of the transaction cannot be less than the minimum gas limit set by the node's transaction pool, otherwise the transaction will be rejected. Gasprice * gaslimit is actual GALA costs.",
-		Value: neovm.MIN_TRANSACTION_GAS,
+		Value: embed.MIN_TRANSACTION_GAS,
 	}
 
 	//Asset setting

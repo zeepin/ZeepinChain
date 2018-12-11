@@ -57,7 +57,7 @@ var (
 		Action:      cli.ShowSubcommandHelp,
 		Usage:       "Deploy or invoke smart contract",
 		ArgsUsage:   " ",
-		Description: `Smart contract operations support the deployment of NeoVM smart contract, and the pre-execution and execution of NeoVM smart contract.`,
+		Description: `Smart contract operations support the deployment of WASMVM smart contract, and the pre-execution and execution of WASMVM smart contract.`,
 		Subcommands: []cli.Command{
 			{
 				Action:    deployContract,
@@ -223,14 +223,14 @@ func invokeCodeContract(ctx *cli.Context) error {
 		var preResult *cstates.PreExecResult
 		var err error
 		if cattr == 0 {
-			preResult, err = utils.PrepareInvokeCodeNeoVMContract(c)
+			preResult, err = utils.PrepareInvokeCodeEmbeddedContract(c)
 		} else {
 			//cmethod := ctx.String(utils.GetFlagName(utils.ContractMethodFlag))
 			//paramType := ctx.Uint64(utils.GetFlagName(utils.ContractParamTypeFlag))
 			//preResult, err = utils.PrepareInvokeWASMVMContract(contractAddr, cmethod, wasmvm.ParamType(paramType), 1, params)
 		}
 		if err != nil {
-			return fmt.Errorf("PrepareInvokeCodeNeoVMContract error:%s", err)
+			return fmt.Errorf("PrepareInvokeCodeEmbeddedContract error:%s", err)
 		}
 		if preResult.State == 0 {
 			return fmt.Errorf("Contract pre-invoke failed\n")
@@ -324,14 +324,18 @@ func invokeContract(ctx *cli.Context) error {
 		var preResult *cstates.PreExecResult
 		var err error
 		if attr == 0 {
-			preResult, err = utils.PrepareInvokeNeoVMContract(contractAddr, params)
+			preResult, err = utils.PrepareInvokeEmbeddedContract(contractAddr, params)
 		} else {
 			cmethod := ctx.String(utils.GetFlagName(utils.ContractMethodFlag))
 			paramType := ctx.Uint64(utils.GetFlagName(utils.ContractParamTypeFlag))
 			preResult, err = utils.PrepareInvokeWASMVMContract(contractAddr, cmethod, wasmvm.ParamType(paramType), 1, params, byte(attr))
 		}
 		if err != nil {
-			return fmt.Errorf("PrepareInvokeNeoVMSmartContact error:%s", err)
+			if attr == 0 {
+				return fmt.Errorf("PrepareInvokeEmbeddedSmartContact error:%s", err)
+			} else {
+				return fmt.Errorf("PrepareInvokeWASMVMSmartContact error:%s", err)
+			}
 		}
 		if preResult.State == 0 {
 			return fmt.Errorf("Contract invoke failed\n")
@@ -373,14 +377,14 @@ func invokeContract(ctx *cli.Context) error {
 	}
 	var txHash string
 	if attr == 0 {
-		txHash, err = utils.InvokeNeoVMContract(gasPrice, gasLimit, signer, contractAddr, params)
+		txHash, err = utils.InvokeEmbeddedContract(gasPrice, gasLimit, signer, contractAddr, params)
 	} else {
 		cmethod := ctx.String(utils.GetFlagName(utils.ContractMethodFlag))
 		paramType := ctx.Uint64(utils.GetFlagName(utils.ContractParamTypeFlag))
 		txHash, err = utils.InvokeWasmVMContract(gasPrice, gasLimit, signer, 1, contractAddr, cmethod, wasmvm.ParamType(paramType), params)
 	}
 	if err != nil {
-		return fmt.Errorf("Invoke NeoVM contract error:%s", err)
+		return fmt.Errorf("Invoke Embedded contract error:%s", err)
 	}
 
 	fmt.Printf("  TxHash:%s\n", txHash)

@@ -45,7 +45,7 @@ import (
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/core/types"
 	"github.com/imZhuFei/zeepin/errors"
-	"github.com/imZhuFei/zeepin/vm/neovm/interfaces"
+	"github.com/imZhuFei/zeepin/embed/simulator/interfaces"
 	"github.com/imZhuFei/zeepin/vm/wasmvm/memory"
 	"github.com/imZhuFei/zeepin/vm/wasmvm/util"
 	"github.com/imZhuFei/zeepin/vm/wasmvm/validate"
