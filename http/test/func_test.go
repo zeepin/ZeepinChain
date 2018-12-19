@@ -42,9 +42,10 @@ import (
 
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/embed/simulator"
 	"github.com/imZhuFei/zeepin/merkle"
-	"github.com/imZhuFei/zeepin/vm/neovm"
 	"github.com/ontio/ontology-crypto/keypair"
+	"github.com/ontio/ontology/embed/simulator"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -115,7 +116,7 @@ func TestMultiPubKeysAddress(t *testing.T) {
 	assert.Nil(t, err)
 }
 
-func BuildSmartContractParamInter(builder *neovm.ParamsBuilder, smartContractParams []interface{}) error {
+func BuildSmartContractParamInter(builder *simulator.ParamsBuilder, smartContractParams []interface{}) error {
 	for i := len(smartContractParams) - 1; i >= 0; i-- {
 		switch v := smartContractParams[i].(type) {
 		case bool:
@@ -147,7 +148,7 @@ func BuildSmartContractParamInter(builder *neovm.ParamsBuilder, smartContractPar
 				return err
 			}
 			builder.EmitPushInteger(big.NewInt(int64(len(v))))
-			builder.Emit(neovm.PACK)
+			builder.Emit(simulator.PACK)
 		default:
 			return fmt.Errorf("unsupported param:%s", v)
 		}

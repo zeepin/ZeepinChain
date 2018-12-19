@@ -54,7 +54,7 @@ type MutableTransaction struct {
 	Payer    common.Address
 	Payload  Payload
 	//Attributes []*TxAttribute
-	attributes byte //this must be 0 now, Attribute Array length use VarUint encoding, so byte is enough for extension
+	Attributes byte //this must be 0 now, Attribute Array length use VarUint encoding, so byte is enough for extension
 	Sigs       []Sig
 }
 
@@ -135,7 +135,7 @@ func (tx *MutableTransaction) serializeUnsigned(sink *common.ZeroCopySink) error
 	default:
 		return errors.New("wrong transaction payload type")
 	}
-	sink.WriteVarUint(uint64(tx.attributes))
+	sink.WriteVarUint(uint64(tx.Attributes))
 	return nil
 }
 func (tx *MutableTransaction) DeserializeUnsigned(r io.Reader) error {
@@ -184,6 +184,6 @@ func (tx *MutableTransaction) DeserializeUnsigned(r io.Reader) error {
 	if length != 0 {
 		return fmt.Errorf("transaction attribute must be 0, got %d", length)
 	}
-	tx.attributes = 0
+	tx.Attributes = byte(length)
 	return nil
 }

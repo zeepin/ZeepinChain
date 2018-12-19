@@ -669,11 +669,11 @@ gaslimit参数指定转账交易的gas limit。交易的gas limit不能小于接
 
 ## 5、智能合约
 
-智能合约操作支持NeoVM智能合约的部署，以及NeoVM智能合约的预执行和执行。
+智能合约操作支持WASMVM智能合约的部署，以及WASMVM智能合约的预执行和执行。
 
 ### 5.1 智能合约部署
 
-智能部署前需要把在NeoVM合约编译器如：[SmartX](http://smartx.zeepin.io) 上编译好的Code，保存在本地的一个文本文件中。
+智能部署前需要把在WASMVM合约编译器如：[Fiddle](https://wasdk.github.io/WasmFiddle/) 上编译好的Code，保存在本地的一个文本文件中。
 
 #### 5.1.1 智能合约部署参数
 
@@ -747,7 +747,7 @@ Contract Address为根据合约Code生成的合约地址。
 
 ### 5.2 智能合约执行
 
-NeoVM智能合约参数类型支持array、bytearray、string、int以及bool类型。其中array表示对象数组，数组元素可以是NeoVM支持的任意数量、任意类型的值；bytearray表示字节数组，输入时需要将byte数组用十六进制编码成字符串，如 []byte("HelloWorld") 编码成：48656c6c6f576f726c64；string表示字符串字面值；int表示整数，由于NeoVM虚拟机不支持浮点数值，因此需要将浮点数转换成整数；bool表示布尔型变量，用true，false表示。
+WASMVM智能合约参数类型支持array、bytearray、string、int以及bool类型。其中array表示对象数组，数组元素可以是WASMVM支持的任意数量、任意类型的值；bytearray表示字节数组，输入时需要将byte数组用十六进制编码成字符串，如 []byte("HelloWorld") 编码成：48656c6c6f576f726c64；string表示字符串字面值；int表示整数，由于WASMVM虚拟机不支持浮点数值，因此需要将浮点数转换成整数；bool表示布尔型变量，用true，false表示。
 
 在zeepin cli中，使用前缀法构造输入参数，参数前使用类型标识标注类型，如字符串参数表示为 string:hello; 整数参数表示为 int:10; 布尔类型参数表示为 bool:true等。多个参数使用","分隔。对象数组array类型用"[ ]"表示数组元素范围，如 [int:10,string:hello,bool:true]。
 
@@ -805,7 +805,7 @@ Return:0
 
 ### 5.3 直接执行智能合约字节码
 
-智能合约部署后，cli支持直接执行NeoVM Code。
+智能合约部署后，cli支持直接执行WASMVM Code。
 
 #### 5.3.1 直接执行智能合约字节码参数
 

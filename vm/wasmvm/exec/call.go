@@ -81,7 +81,7 @@ func (vm *VM) doCall(compiled compiledFunction, index int64) {
 		if ok {
 			rtn, err := v(vm.Engine)
 			if err != nil || !rtn {
-				log.Errorf("call method :%s failed\n", compiled.name)
+				log.Errorf("call method :%s failed: %s\n", compiled.name, err)
 			}
 		} else {
 			vm.ctx = prevCtxt
