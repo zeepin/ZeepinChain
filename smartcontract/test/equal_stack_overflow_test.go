@@ -40,8 +40,8 @@ import (
 
 	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/embed/simulator"
 	. "github.com/imZhuFei/zeepin/smartcontract"
-	"github.com/imZhuFei/zeepin/vm/neovm"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -52,15 +52,15 @@ func TestEqualStackOverflow(t *testing.T) {
 	}()
 
 	code := []byte{
-		byte(neovm.PUSH1),    // {1}
-		byte(neovm.NEWARRAY), // {[]}
-		byte(neovm.DUP),      // {[],[]}
-		byte(neovm.DUP),      // {[],[],[]}
-		byte(neovm.PUSH0),    // {[],[],[],0}
-		byte(neovm.ROT),      // {[],[],0,[]}
-		byte(neovm.SETITEM),  // {[[]]}
-		byte(neovm.DUP),      // {[[]],[[]]}
-		byte(neovm.EQUAL),
+		byte(simulator.PUSH1),    // {1}
+		byte(simulator.NEWARRAY), // {[]}
+		byte(simulator.DUP),      // {[],[]}
+		byte(simulator.DUP),      // {[],[],[]}
+		byte(simulator.PUSH0),    // {[],[],[],0}
+		byte(simulator.ROT),      // {[],[],0,[]}
+		byte(simulator.SETITEM),  // {[[]]}
+		byte(simulator.DUP),      // {[[]],[[]]}
+		byte(simulator.EQUAL),
 	}
 
 	config := &Config{

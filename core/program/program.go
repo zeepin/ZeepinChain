@@ -44,7 +44,7 @@ import (
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/constants"
 	"github.com/imZhuFei/zeepin/common/serialization"
-	"github.com/imZhuFei/zeepin/vm/neovm"
+	"github.com/imZhuFei/zeepin/embed/simulator"
 	"github.com/ontio/ontology-crypto/keypair"
 )
 
@@ -52,7 +52,7 @@ type ProgramBuilder struct {
 	buffer bytes.Buffer
 }
 
-func (self *ProgramBuilder) PushOpCode(op neovm.OpCode) *ProgramBuilder {
+func (self *ProgramBuilder) PushOpCode(op simulator.OpCode) *ProgramBuilder {
 	self.buffer.WriteByte(byte(op))
 	return self
 }
@@ -64,13 +64,13 @@ func (self *ProgramBuilder) PushPubKey(pubkey keypair.PublicKey) *ProgramBuilder
 
 func (self *ProgramBuilder) PushNum(num uint16) *ProgramBuilder {
 	if num == 0 {
-		return self.PushOpCode(neovm.PUSH0)
+		return self.PushOpCode(simulator.PUSH0)
 	} else if num <= 16 {
-		return self.PushOpCode(neovm.OpCode(uint8(num) - 1 + uint8(neovm.PUSH1)))
+		return self.PushOpCode(simulator.OpCode(uint8(num) - 1 + uint8(simulator.PUSH1)))
 	}
 
 	bint := big.NewInt(int64(num))
-	return self.PushBytes(common.BigIntToNeoBytes(bint))
+	return self.PushBytes(common.BigIntToEmbededBytes(bint))
 }
 
 func (self *ProgramBuilder) PushBytes(data []byte) *ProgramBuilder {
@@ -78,16 +78,16 @@ func (self *ProgramBuilder) PushBytes(data []byte) *ProgramBuilder {
 		panic("push data error: data is nil")
 	}
 
-	if len(data) <= int(neovm.PUSHBYTES75)+1-int(neovm.PUSHBYTES1) {
-		self.buffer.WriteByte(byte(len(data)) + byte(neovm.PUSHBYTES1) - 1)
+	if len(data) <= int(simulator.PUSHBYTES75)+1-int(simulator.PUSHBYTES1) {
+		self.buffer.WriteByte(byte(len(data)) + byte(simulator.PUSHBYTES1) - 1)
 	} else if len(data) < 0x100 {
-		self.buffer.WriteByte(byte(neovm.PUSHDATA1))
+		self.buffer.WriteByte(byte(simulator.PUSHDATA1))
 		serialization.WriteUint8(&self.buffer, uint8(len(data)))
 	} else if len(data) < 0x10000 {
-		self.buffer.WriteByte(byte(neovm.PUSHDATA2))
+		self.buffer.WriteByte(byte(simulator.PUSHDATA2))
 		serialization.WriteUint16(&self.buffer, uint16(len(data)))
 	} else {
-		self.buffer.WriteByte(byte(neovm.PUSHDATA4))
+		self.buffer.WriteByte(byte(simulator.PUSHDATA4))
 		serialization.WriteUint32(&self.buffer, uint32(len(data)))
 	}
 	self.buffer.Write(data)
@@ -101,7 +101,7 @@ func (self *ProgramBuilder) Finish() []byte {
 
 func ProgramFromPubKey(pubkey keypair.PublicKey) []byte {
 	builder := ProgramBuilder{}
-	return builder.PushPubKey(pubkey).PushOpCode(neovm.CHECKSIG).Finish()
+	return builder.PushPubKey(pubkey).PushOpCode(simulator.CHECKSIG).Finish()
 }
 
 func ProgramFromMultiPubKey(pubkeys []keypair.PublicKey, m int) ([]byte, error) {
@@ -120,7 +120,7 @@ func ProgramFromMultiPubKey(pubkeys []keypair.PublicKey, m int) ([]byte, error) 
 	}
 
 	builder.PushNum(uint16(len(pubkeys)))
-	builder.PushOpCode(neovm.CHECKMULTISIG)
+	builder.PushOpCode(simulator.CHECKMULTISIG)
 	return builder.Finish(), nil
 }
 
@@ -146,12 +146,12 @@ func newProgramParser(prog []byte) *programParser {
 	return &programParser{buffer: bytes.NewBuffer(prog)}
 }
 
-func (self *programParser) ReadOpCode() (neovm.OpCode, error) {
+func (self *programParser) ReadOpCode() (simulator.OpCode, error) {
 	code, err := self.buffer.ReadByte()
-	return neovm.OpCode(code), err
+	return simulator.OpCode(code), err
 }
 
-func (self *programParser) PeekOpCode() (neovm.OpCode, error) {
+func (self *programParser) PeekOpCode() (simulator.OpCode, error) {
 	code, err := self.ReadOpCode()
 	if err == nil {
 		self.buffer.UnreadByte()
@@ -176,10 +176,10 @@ func (self *programParser) ReadNum() (uint16, error) {
 		return 0, err
 	}
 
-	if code == neovm.PUSH0 {
+	if code == simulator.PUSH0 {
 		self.ReadOpCode()
 		return 0, nil
-	} else if num := int(code) - int(neovm.PUSH1) + 1; 1 <= num && num <= 16 {
+	} else if num := int(code) - int(simulator.PUSH1) + 1; 1 <= num && num <= 16 {
 		self.ReadOpCode()
 		return uint16(num), nil
 	}
@@ -188,7 +188,7 @@ func (self *programParser) ReadNum() (uint16, error) {
 	if err != nil {
 		return 0, err
 	}
-	bint := common.BigIntFromNeoBytes(buff)
+	bint := common.BigIntFromEmbeddedBytes(buff)
 	num := bint.Int64()
 	if num > math.MaxUint16 || num <= 16 {
 		return 0, fmt.Errorf("num not in range (16, MaxUint16]: %d", num)
@@ -204,20 +204,20 @@ func (self *programParser) ReadBytes() ([]byte, error) {
 	}
 
 	var keylen uint64
-	if code == neovm.PUSHDATA4 {
+	if code == simulator.PUSHDATA4 {
 		var temp uint32
 		temp, err = serialization.ReadUint32(self.buffer)
 		keylen = uint64(temp)
-	} else if code == neovm.PUSHDATA2 {
+	} else if code == simulator.PUSHDATA2 {
 		var temp uint16
 		temp, err = serialization.ReadUint16(self.buffer)
 		keylen = uint64(temp)
-	} else if code == neovm.PUSHDATA1 {
+	} else if code == simulator.PUSHDATA1 {
 		var temp uint8
 		temp, err = serialization.ReadUint8(self.buffer)
 		keylen = uint64(temp)
-	} else if byte(code) <= byte(neovm.PUSHBYTES75) && byte(code) >= byte(neovm.PUSHBYTES1) {
-		keylen = uint64(code) - uint64(neovm.PUSHBYTES1) + 1
+	} else if byte(code) <= byte(simulator.PUSHBYTES75) && byte(code) >= byte(simulator.PUSHBYTES1) {
+		keylen = uint64(code) - uint64(simulator.PUSHBYTES1) + 1
 	} else {
 		err = fmt.Errorf("unexpected opcode: %d", byte(code))
 	}
@@ -251,7 +251,7 @@ func GetProgramInfo(program []byte) (ProgramInfo, error) {
 	}
 
 	end := program[len(program)-1]
-	if end == byte(neovm.CHECKSIG) {
+	if end == byte(simulator.CHECKSIG) {
 		parser := programParser{buffer: bytes.NewBuffer(program[:len(program)-1])}
 		pubkey, err := parser.ReadPubKey()
 		if err != nil {
@@ -265,7 +265,7 @@ func GetProgramInfo(program []byte) (ProgramInfo, error) {
 		info.M = 1
 
 		return info, nil
-	} else if end == byte(neovm.CHECKMULTISIG) {
+	} else if end == byte(simulator.CHECKMULTISIG) {
 		parser := programParser{buffer: bytes.NewBuffer(program)}
 		m, err := parser.ReadNum()
 		if err != nil {
@@ -285,17 +285,17 @@ func GetProgramInfo(program []byte) (ProgramInfo, error) {
 				return info, err
 			}
 
-			if code == neovm.CHECKMULTISIG {
+			if code == simulator.CHECKMULTISIG {
 				parser.ReadOpCode()
 				break
-			} else if code == neovm.PUSH0 {
+			} else if code == simulator.PUSH0 {
 				parser.ReadOpCode()
 				bint := big.NewInt(0)
-				buffers = append(buffers, common.BigIntToNeoBytes(bint))
-			} else if num := int(code) - int(neovm.PUSH1) + 1; 1 <= num && num <= 16 {
+				buffers = append(buffers, common.BigIntToEmbededBytes(bint))
+			} else if num := int(code) - int(simulator.PUSH1) + 1; 1 <= num && num <= 16 {
 				parser.ReadOpCode()
 				bint := big.NewInt(int64(num))
-				buffers = append(buffers, common.BigIntToNeoBytes(bint))
+				buffers = append(buffers, common.BigIntToEmbededBytes(bint))
 			} else {
 				buff, err := parser.ReadBytes()
 				if err != nil {

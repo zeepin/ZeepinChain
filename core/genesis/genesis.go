@@ -48,11 +48,11 @@ import (
 	"github.com/imZhuFei/zeepin/consensus/vbft/config"
 	"github.com/imZhuFei/zeepin/core/types"
 	"github.com/imZhuFei/zeepin/core/utils"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/embed"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/global_params"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/governance"
 	nutils "github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/zpt"
-	"github.com/imZhuFei/zeepin/smartcontract/service/neovm"
 	"github.com/ontio/ontology-crypto/keypair"
 )
 
@@ -250,7 +250,7 @@ func newParamInit() *types.Transaction {
 		s = append(s, k)
 	}
 
-	neovm.GAS_TABLE.Range(func(key, value interface{}) bool {
+	embed.GAS_TABLE.Range(func(key, value interface{}) bool {
 		INIT_PARAM[key.(string)] = strconv.FormatUint(value.(uint64), 10)
 		s = append(s, key.(string))
 		return true

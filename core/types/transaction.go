@@ -60,7 +60,7 @@ type Transaction struct {
 	Payer    common.Address
 	Payload  Payload
 	//Attributes []*TxAttribute
-	attributes byte //this must be 0 now, Attribute Array length use VarUint encoding, so byte is enough for extension
+	Attributes byte //this must be 0 now, Attribute Array length use VarUint encoding, so byte is enough for extension
 	Sigs       []*Sig
 
 	Raw []byte // raw transaction data
@@ -190,7 +190,8 @@ func (tx *Transaction) deserializationUnsigned(source *common.ZeroCopySource) er
 	}
 
 	var length uint64
-	length, _, irregular, eof = source.NextVarUint()
+	var attr uint64
+	attr, length, irregular, eof = source.NextVarUint()
 	if irregular {
 		return common.ErrIrregularData
 	}
@@ -198,11 +199,10 @@ func (tx *Transaction) deserializationUnsigned(source *common.ZeroCopySource) er
 		return io.ErrUnexpectedEOF
 	}
 
-	if length != 0 {
+	if length != 1 {
 		return fmt.Errorf("transaction attribute must be 0, got %d", length)
 	}
-	tx.attributes = 0
-
+	tx.Attributes = byte(attr)
 	return nil
 }
 
@@ -445,8 +445,8 @@ func (tx *Transaction) SerializeUnsigned(w io.Writer) error {
 	if err := tx.Payload.Serialize(w); err != nil {
 		return fmt.Errorf("[SerializeUnsigned], Transaction payload failed. %v", err)
 	}
-
-	err := serialization.WriteVarUint(w, uint64(tx.attributes))
+	//err := serialization.WriteByte(w, tx.Attributes)
+	err := serialization.WriteVarUint(w, uint64(tx.Attributes))
 	if err != nil {
 		return fmt.Errorf("[SerializeUnsigned], Transaction item txAttribute length serialization failed. %v", err)
 	}
@@ -526,14 +526,14 @@ func (tx *Transaction) DeserializeUnsigned(r io.Reader) error {
 	}
 
 	//attributes
-	length, err := serialization.ReadVarUint(r, 0)
+	attr, err := serialization.ReadVarUint(r, 0)
 	if err != nil {
 		return err
 	}
-	if length != 0 {
+	/*if length != 0 {
 		return fmt.Errorf("transaction attribute must be 0, got %d", length)
-	}
-	tx.attributes = 0
+	}*/
+	tx.Attributes = byte(attr)
 
 	return nil
 }

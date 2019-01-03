@@ -39,26 +39,26 @@ import (
 	"testing"
 
 	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/embed/simulator"
 	"github.com/imZhuFei/zeepin/smartcontract"
-	"github.com/imZhuFei/zeepin/vm/neovm"
 )
 
 func TestPackCrash(t *testing.T) {
 	// define a leaf
-	byteCode := []byte{byte(neovm.PUSH0)}
+	byteCode := []byte{byte(simulator.PUSH0)}
 
 	// build tree using array packing
 	for i := 0; i < 10000; i++ {
 		byteCode = append(byteCode, []byte{
-			byte(neovm.DUP),
-			byte(neovm.PUSH2),
-			byte(neovm.PACK),
+			byte(simulator.DUP),
+			byte(simulator.PUSH2),
+			byte(simulator.PACK),
 		}...)
 	}
 	// compare trees
 	byteCode = append(byteCode, []byte{
-		byte(neovm.DUP),
-		byte(neovm.EQUAL),
+		byte(simulator.DUP),
+		byte(simulator.EQUAL),
 	}...)
 	// setup VM
 	dbFile := "test"

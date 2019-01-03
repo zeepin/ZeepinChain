@@ -41,7 +41,7 @@ import (
 
 	"github.com/imZhuFei/zeepin/cmd/abi"
 	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/vm/neovm"
+	"github.com/imZhuFei/zeepin/embed/simulator"
 )
 
 func TestParseNativeParam(t *testing.T) {
@@ -113,7 +113,7 @@ func TestParseNativeParam(t *testing.T) {
 		[]interface{}{"1", "2", "3", "4", "5", "6"},
 		[]interface{}{"bar", "10"},
 	}
-	builder := neovm.NewParamsBuilder(new(bytes.Buffer))
+	builder := simulator.NewParamsBuilder(new(bytes.Buffer))
 	err := ParseNativeFuncParam(builder, "", params, paramAbi)
 	if err != nil {
 		t.Errorf("ParseNativeParam error:%s", err)

@@ -37,6 +37,7 @@ import (
 	"bytes"
 	"testing"
 
+	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/core/types"
 )
 
@@ -58,4 +59,22 @@ func TestContract_Serialize_Deserialize(t *testing.T) {
 	if err := v.Deserialize(bf); err != nil {
 		t.Fatalf("Contract deserialize error: %v", err)
 	}
+}
+
+func TestDeserialize(t *testing.T) {
+	addr, err := common.AddressFromHexString("204495bc64f8e78bdf590a6b93a8996e66345f3f")
+	if err != nil {
+		t.Errorf("%s", err)
+	}
+	c := &Contract{
+		Version: '1',
+		Address: addr,
+		Method:  "addStorage",
+		Args:    []byte(`{"Params":[{"type":"string","value":"haha"},{"type":"string","value":"eee"}]}`),
+	}
+	bf := new(bytes.Buffer)
+	if err := c.Serialize(bf); err != nil {
+		t.Fatalf("Contract serialize error: %v", err)
+	}
+	t.Errorf("len%d, %+v", len(bf.Bytes()), bf.Bytes())
 }

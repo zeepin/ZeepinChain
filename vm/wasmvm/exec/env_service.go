@@ -41,6 +41,7 @@ import (
 	"encoding/binary"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"strconv"
 	"strings"
 
@@ -525,7 +526,7 @@ func jsonUnmashal(engine *ExecutionEngine) (bool, error) {
 
 	bytes := buff.Bytes()
 	if len(bytes) != size {
-		return false, errors.New("JsonUnmasal input error!")
+		return false, fmt.Errorf("JsonUnmasal input %+v error! len of bytes: %d, input len: %d", arg.Params, len(bytes), size)
 	}
 
 	copy(engine.vm.memory.Memory[int(addr):int(addr)+len(bytes)], bytes)

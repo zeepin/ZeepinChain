@@ -49,6 +49,7 @@ const (
 	PARAM_TYPE_BYTE_ARRAY = "bytearray"
 	PARAM_TYPE_STRING     = "string"
 	PARAM_TYPE_INTEGER    = "int"
+	PARAM_TYPE_INTEGER64  = "int64"
 	PARAM_TYPE_BOOLEAN    = "bool"
 	PARAM_LEFT_BRACKET    = "["
 	PARAM_RIGHT_BRACKET   = "]"
@@ -168,7 +169,16 @@ func parseRawParamValue(pType string, pValue string) (interface{}, error) {
 		return pValue, nil
 	case PARAM_TYPE_INTEGER:
 		if pValue == "" {
-			return nil, fmt.Errorf("invalid integer")
+			return nil, fmt.Errorf("invalid integer32")
+		}
+		value, err := strconv.ParseInt(pValue, 10, 32)
+		if err != nil {
+			return nil, fmt.Errorf("parse integer param:%s error:%s", pValue, err)
+		}
+		return int(value), nil
+	case PARAM_TYPE_INTEGER64:
+		if pValue == "" {
+			return nil, fmt.Errorf("invalid integer64")
 		}
 		value, err := strconv.ParseInt(pValue, 10, 64)
 		if err != nil {
@@ -222,13 +232,13 @@ func parseReturnValueArray(rawValues []interface{}, returnTypes []interface{}) (
 			vType := valueType.(string)
 			switch strings.ToLower(vType) {
 			case PARAM_TYPE_BYTE_ARRAY:
-				value, err = ParseNeoVMContractReturnTypeByteArray(v)
+				value, err = ParseEmbeddedContractReturnTypeByteArray(v)
 			case PARAM_TYPE_STRING:
-				value, err = ParseNeoVMContractReturnTypeString(v)
+				value, err = ParseEmbeddedContractReturnTypeString(v)
 			case PARAM_TYPE_INTEGER:
-				value, err = ParseNeoVMContractReturnTypeInteger(v)
+				value, err = ParseEmbededContractReturnTypeInteger(v)
 			case PARAM_TYPE_BOOLEAN:
-				value, err = ParseNeoVMContractReturnTypeBool(v)
+				value, err = ParseEmbeddedContractReturnTypeBool(v)
 			default:
 				return nil, fmt.Errorf("unknown return type:%s", v)
 			}
@@ -252,37 +262,37 @@ func parseReturnValueArray(rawValues []interface{}, returnTypes []interface{}) (
 	return values, nil
 }
 
-//NeoVMInvokeParam use to express the param to invoke neovm contract.
+//EmbeddedInvokeParam use to express the param to invoke embedded contract.
 //Type can be of array, bytearray, string, int and bool
 //If type is one of bytearray, string, int and bool, value must be a string
-//If Type is array, value must be []*NeoVMInvokeParam
+//If Type is array, value must be []*EmbeddedInvokeParam
 //Example:
 //[]interface{}{
-//	&NeoVMInvokeParam{
+//	&EmbeddedInvokeParam{
 //		Type:  "string",
 //		Value: "foo",
 //	},
-//	&NeoVMInvokeParam{
+//	&EmbeddedInvokeParam{
 //		Type: "array",
 //		Value: []interface{}{
-//			&NeoVMInvokeParam{
+//			&EmbeddedInvokeParam{
 //				Type:  "int",
 //				Value: "0",
 //			},
-//			&NeoVMInvokeParam{
+//			&EmbeddedInvokeParam{
 //				Type:  "bool",
 //				Value: "true",
 //			},
 //		},
 //	},
 //}
-type NeoVMInvokeParam struct {
+type EmbeddedInvokeParam struct {
 	Type  string
-	Value interface{} //string or []*NeoVMInvokeParam
+	Value interface{} //string or []*EmbeddedInvokeParam
 }
 
-//ParseNeoVMInvokeParams parse params to []interface, rawParams is array of NeoVMInvokeParam
-func ParseNeoVMInvokeParams(rawParams []interface{}) ([]interface{}, error) {
+//ParseEmbeddedInvokeParams parse params to []interface, rawParams is array of EmbeddedInvokeParam
+func ParseEmbeddedInvokeParams(rawParams []interface{}) ([]interface{}, error) {
 	if len(rawParams) == 0 {
 		return nil, nil
 	}
@@ -316,7 +326,7 @@ func ParseNeoVMInvokeParams(rawParams []interface{}) ([]interface{}, error) {
 			}
 			params = append(params, param)
 		case []interface{}:
-			ps, err := ParseNeoVMInvokeParams(pv)
+			ps, err := ParseEmbeddedInvokeParams(pv)
 			if err != nil {
 				return nil, err
 			}
