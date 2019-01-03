@@ -41,15 +41,15 @@ import (
 
 	"github.com/imZhuFei/zeepin/common"
 	invoke "github.com/imZhuFei/zeepin/core/utils"
+	vm "github.com/imZhuFei/zeepin/embed/simulator"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/auth"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/embed"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/gala"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/gid"
 	params "github.com/imZhuFei/zeepin/smartcontract/service/native/global_params"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/governance"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/zpt"
-	"github.com/imZhuFei/zeepin/smartcontract/service/neovm"
-	vm "github.com/imZhuFei/zeepin/vm/neovm"
 )
 
 var (
@@ -73,7 +73,7 @@ func InitBytes(addr common.Address, method string) []byte {
 	builder.EmitPushByteArray(addr[:])
 	builder.EmitPushInteger(big.NewInt(0))
 	builder.Emit(vm.SYSCALL)
-	builder.EmitPushByteArray([]byte(neovm.NATIVE_INVOKE_NAME))
+	builder.EmitPushByteArray([]byte(embed.NATIVE_INVOKE_NAME))
 
 	tx := invoke.NewInvokeTransaction(builder.ToArray())
 	tx.GasLimit = math.MaxUint64

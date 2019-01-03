@@ -37,13 +37,13 @@ package common
 import (
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/log"
-	"github.com/imZhuFei/zeepin/vm/neovm/types"
+	"github.com/imZhuFei/zeepin/embed/simulator/types"
 )
 
-// ConvertReturnTypes return neovm stack element value
+// ConvertReturnTypes return embeded stack element value
 // According item types convert to hex string value
-// Now neovm support type contain: ByteArray/Integer/Boolean/Array/Struct/Interop/StackItems
-func ConvertNeoVmTypeHexString(item interface{}) interface{} {
+// Now embeded support type contain: ByteArray/Integer/Boolean/Array/Struct/Interop/StackItems
+func ConvertEmbededTypeHexString(item interface{}) interface{} {
 	if item == nil {
 		return nil
 	}
@@ -56,7 +56,7 @@ func ConvertNeoVmTypeHexString(item interface{}) interface{} {
 		if i.Sign() == 0 {
 			return common.ToHexString([]byte{0})
 		} else {
-			return common.ToHexString(common.BigIntToNeoBytes(i))
+			return common.ToHexString(common.BigIntToEmbededBytes(i))
 		}
 	case *types.Boolean:
 		b, _ := v.GetBoolean()
@@ -69,14 +69,14 @@ func ConvertNeoVmTypeHexString(item interface{}) interface{} {
 		var arr []interface{}
 		ar, _ := v.GetArray()
 		for _, val := range ar {
-			arr = append(arr, ConvertNeoVmTypeHexString(val))
+			arr = append(arr, ConvertEmbededTypeHexString(val))
 		}
 		return arr
 	case *types.Struct:
 		var arr []interface{}
 		ar, _ := v.GetStruct()
 		for _, val := range ar {
-			arr = append(arr, ConvertNeoVmTypeHexString(val))
+			arr = append(arr, ConvertEmbededTypeHexString(val))
 		}
 		return arr
 	case *types.Interop:

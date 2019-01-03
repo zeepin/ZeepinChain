@@ -44,9 +44,9 @@ import (
 	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/imZhuFei/zeepin/common/serialization"
 	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/embed/simulator"
 	. "github.com/imZhuFei/zeepin/smartcontract"
-	neovm2 "github.com/imZhuFei/zeepin/smartcontract/service/neovm"
-	"github.com/imZhuFei/zeepin/vm/neovm"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/embed"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -99,7 +99,7 @@ func TestOpCodeDUP(t *testing.T) {
 		Tx:     &types.Transaction{},
 	}
 
-	var code = []byte{byte(neovm.DUP)}
+	var code = []byte{byte(simulator.DUP)}
 
 	sc := SmartContract{
 		Config:     config,
@@ -125,10 +125,10 @@ func TestOpReadMemAttack(t *testing.T) {
 	}
 
 	bf := new(bytes.Buffer)
-	builder := neovm.NewParamsBuilder(bf)
-	builder.Emit(neovm.SYSCALL)
+	builder := simulator.NewParamsBuilder(bf)
+	builder.Emit(simulator.SYSCALL)
 	bs := bytes.NewBuffer(builder.ToArray())
-	builder.EmitPushByteArray([]byte(neovm2.NATIVE_INVOKE_NAME))
+	builder.EmitPushByteArray([]byte(embed.NATIVE_INVOKE_NAME))
 	l := 0X7fffffc7 - 1
 	serialization.WriteVarUint(bs, uint64(l))
 	b := make([]byte, 4)

@@ -49,7 +49,7 @@ import (
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/auth"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/zpt"
-	"github.com/imZhuFei/zeepin/vm/neovm/types"
+	"github.com/imZhuFei/zeepin/embed/simulator/types"
 	"github.com/ontio/ontology-crypto/vrf"
 )
 

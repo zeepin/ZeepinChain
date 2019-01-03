@@ -41,7 +41,7 @@ import (
 
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/serialization"
-	"github.com/imZhuFei/zeepin/vm/neovm/types"
+	"github.com/imZhuFei/zeepin/embed/simulator/types"
 )
 
 func WriteVarUint(w io.Writer, value uint64) error {

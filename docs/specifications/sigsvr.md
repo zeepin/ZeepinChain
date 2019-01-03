@@ -15,8 +15,6 @@ zeepin Signature Server - sigsvr is a rpc server for signing transactions. The s
 		* [2.4 Multiple Signature for Raw Transactions](#24-multiple-signature-for-raw-transactions)
 		* [2.5 Signature of Transfer Transaction](#25-signature-of-transfer-transaction)
 		* [2.6 Native Contract Invokes Signature](#26-native-contract-invokes-signature)
-		* [2.7 NeoVM Contract Invokes Signature](#27-neovm-contract-invokes-signature)
-		* [2.8 NeoVM Contract Invokes By ABI Signature](#28-neovm-contract-invokes-by-abi-signature)
 
 ## 1. Signature Service Startup
 
@@ -45,7 +43,7 @@ abi parameter specifies the abi file path when sigsvr starts. The default value 
 
 ## 2. Signature Service Method
 
-The signature service currently supports signature for data, single signature and multi-signatures for raw transactions, constructing ZPT/GALA transfer transactions and signing, constructing transactions that Native contracts can invoke and signing, and constructing transactions that NeoVM contracts can invoke and signing, and so on.
+The signature service currently supports signature for data, single signature and multi-signatures for raw transactions, constructing ZPT/GALA transfer transactions and signing, constructing transactions that Native contracts can invoke and signing, and constructing transactions that WASMVM contracts can invoke and signing, and so on.
 
 ### 2.1  Signature Service Calling Method
 
@@ -361,164 +359,6 @@ Response:
     "method": "signativeinvoketx",
     "result": {
         "signed_tx": "00d161b7315b000000000000000050c3000000000000084c8f4060607444fc95033bd0a9046976d3a9f57300c66b147ce25d11becca9aa8f157e24e2a14fe100db73466a7cc814fc8a60f9a7ab04241a983817b04de95a8b2d4fb86a7cc802e8036a7cc86c51c1087472616e736665721400000000000000000000000000000000000000010068164f6e746f6c6f67792e4e61746976652e496e766f6b6500014140c4142d9e066fea8a68303acd7193cb315662131da3bab25bc1c6f8118746f955855896cfb433208148fddc0bed5a99dfde519fe063bbf1ff5e730f7ae6616ee02321035f363567ff82be6f70ece8e16378871128788d5a067267e1ec119eedc408ea58ac"
-    },
-    "error_code": 0,
-    "error_info": ""
-}
-```
-
-### 2.7 NeoVM Contract Invokes Signature
-
-The NeoVM parameter contract supports array, bytearray, string, int, and bool types. When constructing parameters, it is necessary to provide parameter types and parameter values. The parameter values ​​use string types. Array is an array of objects and supports all types and quantities of NeoVM supported parameters.
-
-Method Name: signeovminvoketx
-
-Request parameters:
-```
-{
-    "gas_price":XXX,    //gasprice
-    "gas_limit":XXX,    //gaslimit
-    "address":"XXX",    //The address that invokes NeoVM contract
-    "params":[
-        //The parameters of the Native contract. All values ​​are string type.
-    ]
-}
-```
-Response result:
-```
-{
-    "signed_tx":XXX     //Signed Transaction
-}
-```
-
-Examples:
-Request:
-
-```
-{
-	"qid": "t",
-	"method": "signeovminvoketx",
-	"params": {
-		"gas_price": 0,
-		"gas_limit": 50000,
-		"address": "8074775331499ebc81ff785e299d406f55224a4c",
-		"version": 0,
-		"params": [
-			{
-				"type": "string",
-				"value": "Time"
-			},
-			{
-				"type": "array",
-				"value": [
-					{
-						"type": "string",
-						"value": ""
-					}
-				]
-			}
-		]
-	}
-}
-```
-Response:
-
-```
-{
-    "qid": "t",
-    "method": "signeovminvoketx",
-    "result": {
-        "signed_tx": "00d18f5e175b000000000000000050c3000000000000011e68f7bf0aaba1f18213639591f932556eb67480216700008074775331499ebc81ff785e299d406f55224a4c00080051c10454696d65000101231202026940ba3dba0a385c44e4a187af75a34e281b96200430db2cbc688a907e5fb54501014101b93bef619b4d7900b57f91e1810b268f9e10eb39fd563f23ce01323cde6273518000dc77d2d2231bc39428f1fa35d294990676015dbf6b4dfd2e6c9856034cc1"
-    },
-    "error_code": 0,
-    "error_info": ""
-}
-```
-
-### 2.8 NeoVM Contract Invokes By ABI Signature
-
-NeoVM contract invoke by abi transaction is constructed and signed according to the ABI, need the ABI of contract and invoke parameters.
-Note that all value of parameters are string type.
-
-Method Name: signativeinvoketx
-
-Request parameters: signeovminvokeabitx
-
-```
-{
-    "gas_price":XXX,    //gasprice
-    "gas_limit":XXX,    //gaslimit
-    "address":"XXX",    //The NeoVM contract address
-    "params":[XXX],     //The parameters of the NeoVM contract are constructed according to the ABI of calling method. All values ​​are string type.
-    "contract_abi":XXX, //The ABI of contract
-}
-```
-Response result:
-```
-{
-    "signed_tx":XXX     //Signed Transaction
-}
-```
-
-Examples:
-Request:
-
-```
-{
-  "qid": "t",
-  "method": "signeovminvokeabitx",
-  "params": {
-    "gas_price": 0,
-    "gas_limit": 50000,
-    "address": "80b82b5e31ad8b7b750207ad80579b5296bf27e8",
-    "method": "add",
-    "params": ["10","10"],
-    "contract_abi": {
-      "hash": "0xe827bf96529b5780ad0702757b8bad315e2bb8ce",
-      "entrypoint": "Main",
-      "functions": [
-        {
-          "name": "Main",
-          "parameters": [
-            {
-              "name": "operation",
-              "type": "String"
-            },
-            {
-              "name": "args",
-              "type": "Array"
-            }
-          ],
-          "returntype": "Any"
-        },
-        {
-          "name": "Add",
-          "parameters": [
-            {
-              "name": "a",
-              "type": "Integer"
-            },
-            {
-              "name": "b",
-              "type": "Integer"
-            }
-          ],
-          "returntype": "Integer"
-        }
-      ],
-      "events": []
-    }
-  }
-}
-```
-
-Response:
-```
-{
-    "qid": "t",
-    "method": "signeovminvokeabitx",
-    "result": {
-        "signed_tx": "00d16acd295b000000000000000050c3000000000000691871639356419d911f2e0df2f5e015ef5672041d5a5a52c10361646467e827bf96529b5780ad0702757b8bad315e2bb88000014140fb04a7792ffac8d8c777dbf7bce6c016f8d8e732338dbe117bec03d7f6dd1ddf1b508a387aff93c1cf075467c1d0e04b00eb9f3d08976e02758081cc8937f38f232102fb608eb6d1067c2a0186221fab7669a7e99aa374b94a72f3fc000e5f1f5c335eac"
     },
     "error_code": 0,
     "error_info": ""

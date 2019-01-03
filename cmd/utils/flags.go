@@ -40,7 +40,7 @@ import (
 
 	"github.com/imZhuFei/zeepin/common/config"
 	"github.com/imZhuFei/zeepin/common/constants"
-	"github.com/imZhuFei/zeepin/smartcontract/service/neovm"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/embed"
 	"github.com/urfave/cli"
 )
 
@@ -101,7 +101,7 @@ var (
 	GasLimitFlag = cli.Uint64Flag{
 		Name:  "gaslimit",
 		Usage: "Using to set the gaslimit of the current node transaction pool to accept transactions. Transactions below this gaslimit will be discarded",
-		Value: neovm.MIN_TRANSACTION_GAS,
+		Value: embed.MIN_TRANSACTION_GAS,
 	}
 	GasPriceFlag = cli.Uint64Flag{
 		Name:  "gasprice",
@@ -326,6 +326,20 @@ var (
 		Name:  "params",
 		Usage: "Invoke contract parameters list. use comma ',' to split params, and must add type prefix to params. Param type support bytearray(hexstring), string, integer, boolean,For example: string:foo,int:0,bool:true; If parameter is an object array, enclose array with '[]'. For example:  string:foo,[int:0,bool:true]",
 	}
+	ContractAttrFlag = cli.Int64Flag{
+		Name:  "attr,t",
+		Usage: "Invoke contract attribute, 0: embed, 1: wasm",
+		Value: 1,
+	}
+	ContractMethodFlag = cli.StringFlag{
+		Name:  "method,m",
+		Usage: "Contract method to be called",
+	}
+	ContractParamTypeFlag = cli.Int64Flag{
+		Name:  "paramtype",
+		Usage: "method param type: 0: json, 1: raw, default: 0",
+		Value: 0,
+	}
 	ContractPrepareDeployFlag = cli.BoolFlag{
 		Name:  "prepare,p",
 		Usage: "Prepare deploy contract without commit to ledger",
@@ -379,7 +393,7 @@ var (
 	TransactionGasLimitFlag = cli.Uint64Flag{
 		Name:  "gaslimit",
 		Usage: "Using to specifies the gas limit of the transaction. The gas limit of the transaction cannot be less than the minimum gas limit set by the node's transaction pool, otherwise the transaction will be rejected. Gasprice * gaslimit is actual GALA costs.",
-		Value: neovm.MIN_TRANSACTION_GAS,
+		Value: embed.MIN_TRANSACTION_GAS,
 	}
 
 	//Asset setting
