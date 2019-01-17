@@ -87,6 +87,7 @@ func NewInteropService() *InteropService {
 
 	//utility apis
 	service.Register("strcmp", stringcmp)
+	service.Register("fromcstring", fromCString)
 	service.Register("strconcat", stringconcat)
 	service.Register("Atoi", strToInt)
 	service.Register("Atoi64", strToInt64)
@@ -611,6 +612,31 @@ func jsonMashal(engine *ExecutionEngine) (bool, error) {
 		engine.vm.pushUint64(uint64(offset))
 	}
 
+	return true, nil
+}
+
+func fromCString(engine *ExecutionEngine) (bool, error) {
+	envCall := engine.vm.envCall
+	params := envCall.envParams
+	if len(params) != 1 {
+		return false, errors.New("parameter count error while call strcmp")
+	}
+
+	str1, err := engine.vm.GetPointerMemory(params[0])
+	if err != nil {
+		return false, err
+	}
+
+	newString := util.TrimBuffToString(str1)
+
+	idx, err := engine.vm.SetPointerMemory(newString)
+	if err != nil {
+		return false, err
+	}
+	engine.vm.RestoreCtx()
+	if envCall.envReturns {
+		engine.vm.pushUint64(uint64(idx))
+	}
 	return true, nil
 }
 
