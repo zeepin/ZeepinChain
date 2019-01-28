@@ -41,6 +41,7 @@ import (
 
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/constants"
+	"github.com/imZhuFei/zeepin/common/log"
 	cstates "github.com/imZhuFei/zeepin/core/states"
 	scommon "github.com/imZhuFei/zeepin/core/store/common"
 	"github.com/imZhuFei/zeepin/errors"
@@ -116,6 +117,7 @@ func registerCandidate(native *native.NativeService, flag string) error {
 		PeerPubkey: params.PeerPubkey,
 		Address:    params.Address,
 		InitPos:    uint64(params.InitPos),
+		TotalPos:   0,
 		Status:     RegisterCandidateStatus,
 	}
 	peerPoolMap.PeerPoolMap[params.PeerPubkey] = peerPoolItem
@@ -123,7 +125,7 @@ func registerCandidate(native *native.NativeService, flag string) error {
 	if err != nil {
 		return errors.NewDetailErr(err, errors.ErrNoCode, "putPeerPoolMap, put peerPoolMap error!")
 	}
-
+	log.Infof("registNode: TotalPos: %d : peerPubkey: %s", peerPoolItem.TotalPos, peerPoolItem.PeerPubkey)
 	switch flag {
 	case "transfer":
 		//zpt transfer
@@ -214,6 +216,7 @@ func voteForPeer(native *native.NativeService, flag string) error {
 		voteInfo.NewPos = voteInfo.NewPos + uint64(pos)
 		total = total + uint64(pos)
 		peerPoolItem.TotalPos = peerPoolItem.TotalPos + uint64(pos)
+		log.Infof("voteForPeer: TotalPos: %d : peerPubkey: %s", peerPoolItem.TotalPos, peerPubkey)
 		if peerPoolItem.TotalPos > uint64(globalParam.PosLimit)*peerPoolItem.InitPos {
 			//log.Debugf("voteForPeer: TotalPos: %d : poslimit: %d, InitPos: %d", peerPoolItem.TotalPos, globalParam.PosLimit, peerPoolItem.InitPos)
 			return errors.NewErr("voteForPeer, pos of this peer is full!")
@@ -667,7 +670,7 @@ func executeCommitDpos(native *native.NativeService, contract common.Address, co
 	}
 
 	//feeSplit first
-	//log.Debugf("executeCommitDpos executeSplit\n")
+	log.Debugf("executeCommitDpos executeSplit\n")
 	err = executeSplit(native, contract, peerPoolMapSplit)
 	if err != nil {
 		return errors.NewDetailErr(err, errors.ErrNoCode, "executeSplit, executeSplit error!")
@@ -686,6 +689,7 @@ func executeCommitDpos(native *native.NativeService, contract common.Address, co
 			if err != nil {
 				return errors.NewDetailErr(err, errors.ErrNoCode, "normalQuit, normalQuit error!")
 			}
+			log.Infof("delete normalQuit: TotalPos: %d : peerPubkey: %s", peerPoolItem.TotalPos, peerPoolItem.PeerPubkey)
 			delete(peerPoolMap.PeerPoolMap, peerPoolItem.PeerPubkey)
 		}
 		if peerPoolItem.Status == BlackStatus {
@@ -693,6 +697,7 @@ func executeCommitDpos(native *native.NativeService, contract common.Address, co
 			if err != nil {
 				return errors.NewDetailErr(err, errors.ErrNoCode, "blackQuit, blackQuit error!")
 			}
+			log.Infof("delete blackQuit: TotalPos: %d : peerPubkey: %s", peerPoolItem.TotalPos, peerPoolItem.PeerPubkey)
 			delete(peerPoolMap.PeerPoolMap, peerPoolItem.PeerPubkey)
 		}
 		if peerPoolItem.Status == QuitConsensusStatus {
@@ -704,6 +709,7 @@ func executeCommitDpos(native *native.NativeService, contract common.Address, co
 			if err != nil {
 				return errors.NewDetailErr(err, errors.ErrNoCode, "normalQuit, normalQuit error!")
 			}
+			log.Infof("delete QuitCandidateStatus: TotalPos: %d : peerPubkey: %s", peerPoolItem.TotalPos, peerPoolItem.PeerPubkey)
 			delete(peerPoolMap.PeerPoolMap, peerPoolItem.PeerPubkey)
 		}
 
@@ -776,6 +782,9 @@ func executeCommitDpos(native *native.NativeService, contract common.Address, co
 	err = putPeerPoolMap(native, contract, newView, peerPoolMap)
 	if err != nil {
 		return errors.NewDetailErr(err, errors.ErrNoCode, "putPeerPoolMap, put peerPoolMap error!")
+	}
+	for _, peerPoolItem := range peerPoolMap.PeerPoolMap {
+		log.Infof("comitPos: peerPoolItem: %+v", peerPoolItem)
 	}
 	oldView := view - 1
 	oldViewBytes, err := GetUint32Bytes(oldView)

@@ -46,6 +46,7 @@ import (
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/config"
 	"github.com/imZhuFei/zeepin/common/constants"
+	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/imZhuFei/zeepin/common/serialization"
 	cstates "github.com/imZhuFei/zeepin/core/states"
 	scommon "github.com/imZhuFei/zeepin/core/store/common"
@@ -89,6 +90,7 @@ const (
 	TRANSFER_PENALTY                 = "transferPenalty"
 	WITHDRAW_GALA                    = "withdrawGala"
 	GET_PEERPOOL_INFO                = "getPeerPoolInfo"
+	GET_VOTE_INFO                    = "getVoteInfo"
 	//key prefix
 	GLOBAL_PARAM    = "globalParam"
 	VBFT_CONFIG     = "vbftConfig"
@@ -149,6 +151,7 @@ func RegisterGovernanceContract(native *native.NativeService) {
 	native.Register(CALL_SPLIT, CallSplit)
 	native.Register(TRANSFER_PENALTY, TransferPenalty)
 	native.Register(GET_PEERPOOL_INFO, GetPeerpoolInfo)
+	native.Register(GET_VOTE_INFO, GetVoteInfo)
 }
 
 //Init governance contract, include vbft config, global param and Gid admin.
@@ -327,6 +330,23 @@ func GetPeerpoolInfo(native *native.NativeService) ([]byte, error) {
 	return bf.Bytes(), nil
 }
 
+func GetVoteInfo(native *native.NativeService) ([]byte, error) {
+	params := new(GetVoteInfoParam)
+	if err := params.Deserialize(bytes.NewBuffer(native.Input)); err != nil {
+		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "deserialize, contract params deserialize error!")
+	}
+	contract := native.ContextRef.CurrentContext().ContractAddress
+	voteInfo, err := getVoteInfo(native, contract, params.PeerPubkey, params.Address)
+	if err != nil {
+		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "getVoteInfo, get voteInfo error!")
+	}
+	bf := new(bytes.Buffer)
+	if err := voteInfo.Serialize(bf); err != nil {
+		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "serialize, serialize peerPoolMap error!")
+	}
+	return bf.Bytes(), nil
+}
+
 //Register a candidate node, used by users.
 //Users can register a candidate node with a authorized Gid.
 //Candidate node can be voted and become consensus node according to their pos.
@@ -410,6 +430,8 @@ func UnRegisterCandidate(native *native.NativeService) ([]byte, error) {
 
 	peerPoolMap.PeerPoolMap[params.PeerPubkey] = peerPoolItem
 	err = putPeerPoolMap(native, contract, view, peerPoolMap)
+	log.Infof("UnregisterCandidate: TotalPos: %d : peerPubkey: %s", peerPoolItem.TotalPos, peerPoolItem.PeerPubkey)
+
 	if err != nil {
 		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "putPeerPoolMap, put peerPoolMap error!")
 	}
@@ -481,10 +503,10 @@ func ApproveCandidate(native *native.NativeService) ([]byte, error) {
 	if peerPoolItem.Status != RegisterCandidateStatus {
 		return utils.BYTE_FALSE, errors.NewErr("approveCandidate, peer status is not RegisterCandidateStatus!")
 	}
-
+	log.Infof("ApproveCandidate: status: %d : peerPubkey: %s", peerPoolItem.Status, params.PeerPubkey)
 	peerPoolItem.Status = CandidateStatus
-	peerPoolItem.TotalPos = 0
-
+	//peerPoolItem.TotalPos = 0
+	log.Infof("ApproveCandidate: TotalPos: %d : peerPubkey: %s", peerPoolItem.TotalPos, params.PeerPubkey)
 	//check if has index
 	peerPubkeyPrefix, err := hex.DecodeString(peerPoolItem.PeerPubkey)
 	if err != nil {
@@ -588,6 +610,7 @@ func RejectCandidate(native *native.NativeService) ([]byte, error) {
 
 	peerPoolMap.PeerPoolMap[params.PeerPubkey] = peerPoolItem
 	err = putPeerPoolMap(native, contract, view, peerPoolMap)
+	log.Infof("rejectNode: TotalPos: %d : peerPubkey: %s", peerPoolItem.TotalPos, peerPoolItem.PeerPubkey)
 	if err != nil {
 		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "putPeerPoolMap, put peerPoolMap error!")
 	}
@@ -789,6 +812,7 @@ func QuitNode(native *native.NativeService) ([]byte, error) {
 	}
 
 	peerPoolMap.PeerPoolMap[params.PeerPubkey] = peerPoolItem
+	log.Infof("QuitNode: TotalPos: %d : peerPubkey: %s", peerPoolItem.TotalPos, params.PeerPubkey)
 	err = putPeerPoolMap(native, contract, view, peerPoolMap)
 	if err != nil {
 		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "putPeerPoolMap, put peerPoolMap error!")
@@ -905,7 +929,7 @@ func UnVoteForPeer(native *native.NativeService) ([]byte, error) {
 			voteInfo.WithdrawUnfreezePos = voteInfo.WithdrawUnfreezePos + uint64(pos)
 			peerPoolItem.TotalPos = peerPoolItem.TotalPos - uint64(pos)
 		}
-
+		log.Infof("unvoteForPeer: TotalPos: %d : peerPubkey: %s", peerPoolItem.TotalPos, peerPubkey)
 		peerPoolMap.PeerPoolMap[peerPubkey] = peerPoolItem
 		err = putVoteInfo(native, contract, voteInfo)
 		if err != nil {
