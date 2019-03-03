@@ -878,14 +878,14 @@ func executeSplit(native *native.NativeService, contract common.Address, peerPoo
 		nodeAmount := distributedBalance * proportion
 		address := peersCandidate[i].Address
 		err = appCallTransferGala(native, utils.GovernanceContractAddress, address, uint64(nodeAmount))
-		/*log.Debugf("consensus peer split balance: %d, globalParam.A: %d, peersCandidate[i].S:%d, sumS:%d distributedBalance: %f, proportion: %f, nodeAmount: %+v",
-		balance,
-		globalParam.A,
-		peersCandidate[i].S,
-		sumS,
-		distributedBalance,
-		proportion,
-		nodeAmount)*/
+		log.Infof("consensus peer split balance: %d, globalParam.A: %d, peersCandidate[i].S:%d, sumS:%d distributedBalance: %f, proportion: %f, nodeAmount: %+v",
+			balance,
+			globalParam.A,
+			peersCandidate[i].S,
+			sumS,
+			distributedBalance,
+			proportion,
+			nodeAmount)
 		if err != nil {
 			return errors.NewDetailErr(err, errors.ErrNoCode, "executeSplit, gala transfer error!")
 		}
@@ -902,10 +902,18 @@ func executeSplit(native *native.NativeService, contract common.Address, peerPoo
 	}
 	for i := int(config.K); i < len(peersCandidate); i++ {
 		distributedBalance := float64(balance) * float64(globalParam.B) / float64(100)
-		proportion := float64(peersCandidate[i].S) / float64(sumS)
+		proportion := float64(peersCandidate[i].Stake) / float64(sum)
 		nodeAmount := distributedBalance * proportion
 		address := peersCandidate[i].Address
 		err = appCallTransferGala(native, utils.GovernanceContractAddress, address, uint64(nodeAmount))
+		log.Infof("candidate peer split balance: %d, globalParam.B: %d, peersCandidate[i].Stake:%d, sum:%d distributedBalance: %f, proportion: %f, nodeAmount: %+v",
+			balance,
+			globalParam.B,
+			peersCandidate[i].Stake,
+			sum,
+			distributedBalance,
+			proportion,
+			nodeAmount)
 		if err != nil {
 			return errors.NewDetailErr(err, errors.ErrNoCode, "executeSplit, gala transfer error!")
 		}
