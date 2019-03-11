@@ -46,6 +46,8 @@ import (
 	"github.com/imZhuFei/zeepin/common/config"
 	"github.com/imZhuFei/zeepin/core/types"
 	httpcom "github.com/imZhuFei/zeepin/http/base/common"
+	"github.com/imZhuFei/zeepin/smartcontract/service/wasmvm"
+	cstates "github.com/imZhuFei/zeepin/smartcontract/states"
 	"github.com/urfave/cli"
 )
 
@@ -55,7 +57,7 @@ var (
 		Action:      cli.ShowSubcommandHelp,
 		Usage:       "Deploy or invoke smart contract",
 		ArgsUsage:   " ",
-		Description: `Smart contract operations support the deployment of NeoVM smart contract, and the pre-execution and execution of NeoVM smart contract.`,
+		Description: `Smart contract operations support the deployment of WASMVM smart contract, and the pre-execution and execution of WASMVM smart contract.`,
 		Subcommands: []cli.Command{
 			{
 				Action:    deployContract,
@@ -76,6 +78,7 @@ var (
 					utils.ContractPrepareDeployFlag,
 					utils.WalletFileFlag,
 					utils.AccountAddressFlag,
+					utils.ContractAttrFlag,
 				},
 			},
 			{
@@ -89,6 +92,9 @@ var (
 					utils.TransactionGasLimitFlag,
 					utils.ContractAddrFlag,
 					utils.ContractParamsFlag,
+					utils.ContractAttrFlag,
+					utils.ContractMethodFlag,
+					utils.ContractParamTypeFlag,
 					utils.ContractVersionFlag,
 					utils.ContractPrepareInvokeFlag,
 					utils.ContractReturnTypeFlag,
@@ -143,6 +149,7 @@ func deployContract(ctx *cli.Context) error {
 	gasPrice := ctx.Uint64(utils.GetFlagName(utils.TransactionGasPriceFlag))
 	gasLimit := ctx.Uint64(utils.GetFlagName(utils.TransactionGasLimitFlag))
 	networkId, err := utils.GetNetworkId()
+	cattr := ctx.Uint64(utils.GetFlagName(utils.ContractAttrFlag))
 	if err != nil {
 		return err
 	}
@@ -153,7 +160,7 @@ func deployContract(ctx *cli.Context) error {
 	cversion := fmt.Sprintf("%s", version)
 
 	if ctx.IsSet(utils.GetFlagName(utils.ContractPrepareDeployFlag)) {
-		preResult, err := utils.PrepareDeployContract(store, code, name, cversion, author, email, desc)
+		preResult, err := utils.PrepareDeployContract(store, code, name, cversion, author, email, desc, cattr)
 		if err != nil {
 			return fmt.Errorf("PrepareDeployContract error:%s", err)
 		}
@@ -170,11 +177,16 @@ func deployContract(ctx *cli.Context) error {
 		return fmt.Errorf("Get signer account error:%s", err)
 	}
 
-	txHash, err := utils.DeployContract(gasPrice, gasLimit, signer, store, code, name, cversion, author, email, desc)
+	txHash, err := utils.DeployContract(gasPrice, gasLimit, signer, store, code, name, cversion, author, email, desc, cattr)
 	if err != nil {
 		return fmt.Errorf("DeployContract error:%s", err)
 	}
-	c, _ := common.HexToBytes(code)
+	var c []byte
+	if cattr == 0 {
+		c, _ = common.HexToBytes(code)
+	} else {
+		c = []byte(code)
+	}
 	address := types.AddressFromVmCode(c)
 	fmt.Printf("Deploy contract:\n")
 	fmt.Printf("  Contract Address:%s\n", address.ToHexString())
@@ -205,11 +217,20 @@ func invokeCodeContract(ctx *cli.Context) error {
 	if err != nil {
 		return fmt.Errorf("hex to bytes error:%s", err)
 	}
+	cattr := ctx.Uint64(utils.GetFlagName(utils.ContractAttrFlag))
 
 	if ctx.IsSet(utils.GetFlagName(utils.ContractPrepareInvokeFlag)) {
-		preResult, err := utils.PrepareInvokeCodeNeoVMContract(c)
+		var preResult *cstates.PreExecResult
+		var err error
+		if cattr == 0 {
+			preResult, err = utils.PrepareInvokeCodeEmbeddedContract(c)
+		} else {
+			//cmethod := ctx.String(utils.GetFlagName(utils.ContractMethodFlag))
+			//paramType := ctx.Uint64(utils.GetFlagName(utils.ContractParamTypeFlag))
+			//preResult, err = utils.PrepareInvokeWASMVMContract(contractAddr, cmethod, wasmvm.ParamType(paramType), 1, params)
+		}
 		if err != nil {
-			return fmt.Errorf("PrepareInvokeCodeNeoVMContract error:%s", err)
+			return fmt.Errorf("PrepareInvokeCodeEmbeddedContract error:%s", err)
 		}
 		if preResult.State == 0 {
 			return fmt.Errorf("Contract pre-invoke failed\n")
@@ -246,7 +267,7 @@ func invokeCodeContract(ctx *cli.Context) error {
 		gasPrice = 0
 	}
 
-	invokeTx, err := httpcom.NewSmartContractTransaction(gasPrice, gasLimit, c)
+	invokeTx, err := httpcom.NewSmartContractTransaction(gasPrice, gasLimit, c, byte(cattr))
 	if err != nil {
 		return err
 	}
@@ -260,7 +281,11 @@ func invokeCodeContract(ctx *cli.Context) error {
 	if err != nil {
 		return fmt.Errorf("SignTransaction error:%s", err)
 	}
-	txHash, err := utils.SendRawTransaction(invokeTx)
+	tx, err := invokeTx.IntoImmutable()
+	if err != nil {
+		return err
+	}
+	txHash, err := utils.SendRawTransaction(tx)
 	if err != nil {
 		return fmt.Errorf("SendTransaction error:%s", err)
 	}
@@ -293,10 +318,24 @@ func invokeContract(ctx *cli.Context) error {
 	paramData, _ := json.Marshal(params)
 	fmt.Printf("Invoke:%x Params:%s\n", contractAddr[:], paramData)
 
+	attr := ctx.Uint64(utils.GetFlagName(utils.ContractAttrFlag))
+
 	if ctx.IsSet(utils.GetFlagName(utils.ContractPrepareInvokeFlag)) {
-		preResult, err := utils.PrepareInvokeNeoVMContract(contractAddr, params)
+		var preResult *cstates.PreExecResult
+		var err error
+		if attr == 0 {
+			preResult, err = utils.PrepareInvokeEmbeddedContract(contractAddr, params)
+		} else {
+			cmethod := ctx.String(utils.GetFlagName(utils.ContractMethodFlag))
+			paramType := ctx.Uint64(utils.GetFlagName(utils.ContractParamTypeFlag))
+			preResult, err = utils.PrepareInvokeWASMVMContract(contractAddr, cmethod, wasmvm.ParamType(paramType), 1, params, byte(attr))
+		}
 		if err != nil {
-			return fmt.Errorf("PrepareInvokeNeoVMSmartContact error:%s", err)
+			if attr == 0 {
+				return fmt.Errorf("PrepareInvokeEmbeddedSmartContact error:%s", err)
+			} else {
+				return fmt.Errorf("PrepareInvokeWASMVMSmartContact error:%s", err)
+			}
 		}
 		if preResult.State == 0 {
 			return fmt.Errorf("Contract invoke failed\n")
@@ -336,10 +375,16 @@ func invokeContract(ctx *cli.Context) error {
 	if networkId == config.NETWORK_ID_SOLO_NET {
 		gasPrice = 0
 	}
-
-	txHash, err := utils.InvokeNeoVMContract(gasPrice, gasLimit, signer, contractAddr, params)
+	var txHash string
+	if attr == 0 {
+		txHash, err = utils.InvokeEmbeddedContract(gasPrice, gasLimit, signer, contractAddr, params)
+	} else {
+		cmethod := ctx.String(utils.GetFlagName(utils.ContractMethodFlag))
+		paramType := ctx.Uint64(utils.GetFlagName(utils.ContractParamTypeFlag))
+		txHash, err = utils.InvokeWasmVMContract(gasPrice, gasLimit, signer, 1, contractAddr, cmethod, wasmvm.ParamType(paramType), params)
+	}
 	if err != nil {
-		return fmt.Errorf("Invoke NeoVM contract error:%s", err)
+		return fmt.Errorf("Invoke Embedded contract error:%s", err)
 	}
 
 	fmt.Printf("  TxHash:%s\n", txHash)

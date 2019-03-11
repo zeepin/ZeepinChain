@@ -35,19 +35,16 @@
 package ledgerstore
 
 import (
-	"bytes"
 	"crypto/sha256"
 	"fmt"
-	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/imZhuFei/zeepin/account"
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/core/genesis"
-	"github.com/imZhuFei/zeepin/core/payload"
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/imZhuFei/zeepin/smartcontract/service/native/zpt"
-	cstates "github.com/imZhuFei/zeepin/smartcontract/states"
 	"testing"
 	"time"
+
+	"github.com/imZhuFei/zeepin/account"
+	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/core/payload"
+	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/ontio/ontology-crypto/keypair"
 )
 
 func TestVersion(t *testing.T) {
@@ -294,7 +291,7 @@ func TestSaveHeader(t *testing.T) {
 	}
 }
 
-func TestBlock(t *testing.T) {
+/*func TestBlock(t *testing.T) {
 	acc1 := account.NewAccount("")
 	acc2 := account.NewAccount("")
 	bookkeeper, err := types.AddressFromBookkeepers([]keypair.PublicKey{acc1.PublicKey, acc2.PublicKey})
@@ -407,13 +404,11 @@ func invokeSmartContractTx(gasPrice,
 		return nil, fmt.Errorf("Serialize contract error:%s", err)
 	}
 	invokCode := buf.Bytes()
-	if vmType == vmtypes.NEOVM {
-		invokCode = append([]byte{0x67}, invokCode[:]...)
-	}
+	invokCode = append([]byte{0x67}, invokCode[:]...)
 	return newInvokeTransaction(gasPrice, gasLimit, vmType, invokCode), nil
-}
+}*/
 
-func newInvokeTransaction(gasPirce, gasLimit uint64, vmType vmtypes.VmType, code []byte) *types.Transaction {
+/*func newInvokeTransaction(gasPirce, gasLimit uint64, vmType vmtypes.VmType, code []byte) *types.Transaction {
 	invokePayload := &payload.InvokeCode{
 		Code: vmtypes.VmCode{
 			VmType: vmType,
@@ -430,4 +425,4 @@ func newInvokeTransaction(gasPirce, gasLimit uint64, vmType vmtypes.VmType, code
 		Sigs:     make([]*types.Sig, 0, 0),
 	}
 	return tx
-}
+}*/

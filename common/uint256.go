@@ -74,7 +74,7 @@ func (u *Uint256) Deserialize(r io.Reader) error {
 
 func Uint256ParseFromBytes(f []byte) (Uint256, error) {
 	if len(f) != UINT256_SIZE {
-		return Uint256{}, errors.New("[Common]: Uint256ParseFromBytes err, len != 32")
+		return Uint256{}, fmt.Errorf("[Common]: Uint256ParseFromBytes err, len %d != 32", len(f))
 	}
 
 	var hash Uint256

@@ -48,11 +48,11 @@ import (
 	"github.com/imZhuFei/zeepin/consensus/vbft/config"
 	"github.com/imZhuFei/zeepin/core/types"
 	"github.com/imZhuFei/zeepin/core/utils"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/embed"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/global_params"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/governance"
 	nutils "github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/zpt"
-	"github.com/imZhuFei/zeepin/smartcontract/service/neovm"
 	"github.com/ontio/ontology-crypto/keypair"
 )
 
@@ -134,42 +134,49 @@ func BuildGenesisBlock(defaultBookkeeper []keypair.PublicKey, genesisConfig *con
 	genesisBlock.RebuildMerkleRoot()
 	return genesisBlock, nil
 }
+func checkConvert(tx *types.MutableTransaction) *types.Transaction {
+	txn, err := tx.IntoImmutable()
+	if err != nil {
+		panic(err)
+	}
+	return txn
+}
 
 func newGoverningToken() *types.Transaction {
 	tx := utils.NewDeployTransaction(nutils.ZptContractAddress[:], "ZPT", "1.0",
 		"zeepin Team", "contact@zeepin.io", "zeepin Network ZPT Token", true)
-	return tx
+	return checkConvert(tx)
 }
 
 func newUtilityToken() *types.Transaction {
 	tx := utils.NewDeployTransaction(nutils.GalaContractAddress[:], "GALA", "1.0",
 		"zeepin Team", "contact@zeepin.io", "zeepin Network GALA Token", true)
-	return tx
+	return checkConvert(tx)
 }
 
 func newParamContract() *types.Transaction {
 	tx := utils.NewDeployTransaction(nutils.ParamContractAddress[:],
 		"ParamConfig", "1.0", "zeepin Team", "contact@zeepin.io",
 		"Chain Global Environment Variables Manager ", true)
-	return tx
+	return checkConvert(tx)
 }
 
 func newConfig() *types.Transaction {
 	tx := utils.NewDeployTransaction(nutils.GovernanceContractAddress[:], "CONFIG", "1.0",
 		"zeepin Team", "contact@zeepin.io", "zeepin Network Consensus Config", true)
-	return tx
+	return checkConvert(tx)
 }
 
 func deployAuthContract() *types.Transaction {
 	tx := utils.NewDeployTransaction(nutils.AuthContractAddress[:], "AuthContract", "1.0",
 		"zeepin Team", "contact@zeepin.io", "zeepin Network Authorization Contract", true)
-	return tx
+	return checkConvert(tx)
 }
 
 func deployGIDContract() *types.Transaction {
 	tx := utils.NewDeployTransaction(nutils.GIDContractAddress[:], "GID", "1.0",
 		"zeepin Team", "contact@zeepin.io", "zeepin Network GID", true)
-	return tx
+	return checkConvert(tx)
 }
 
 func newGoverningInit() *types.Transaction {
@@ -200,7 +207,8 @@ func newGoverningInit() *types.Transaction {
 		nutils.WriteVarUint(args, part.value)
 	}
 
-	return utils.BuildNativeTransaction(nutils.ZptContractAddress, zpt.INIT_NAME, args.Bytes())
+	tx := utils.BuildNativeTransaction(nutils.ZptContractAddress, zpt.INIT_NAME, args.Bytes())
+	return checkConvert(tx)
 }
 
 func newUtilityInit() *types.Transaction {
@@ -231,7 +239,8 @@ func newUtilityInit() *types.Transaction {
 		nutils.WriteVarUint(args, part.value)
 	}
 
-	return utils.BuildNativeTransaction(nutils.GalaContractAddress, zpt.INIT_NAME, args.Bytes())
+	tx := utils.BuildNativeTransaction(nutils.GalaContractAddress, zpt.INIT_NAME, args.Bytes())
+	return checkConvert(tx)
 }
 
 func newParamInit() *types.Transaction {
@@ -241,7 +250,7 @@ func newParamInit() *types.Transaction {
 		s = append(s, k)
 	}
 
-	neovm.GAS_TABLE.Range(func(key, value interface{}) bool {
+	embed.GAS_TABLE.Range(func(key, value interface{}) bool {
 		INIT_PARAM[key.(string)] = strconv.FormatUint(value.(uint64), 10)
 		s = append(s, key.(string))
 		return true
@@ -269,9 +278,11 @@ func newParamInit() *types.Transaction {
 	}
 	nutils.WriteAddress(bf, addr)
 
-	return utils.BuildNativeTransaction(nutils.ParamContractAddress, global_params.INIT_NAME, bf.Bytes())
+	tx := utils.BuildNativeTransaction(nutils.ParamContractAddress, global_params.INIT_NAME, bf.Bytes())
+	return checkConvert(tx)
 }
 
 func newGoverConfigInit(config []byte) *types.Transaction {
-	return utils.BuildNativeTransaction(nutils.GovernanceContractAddress, governance.INIT_CONFIG, config)
+	tx := utils.BuildNativeTransaction(nutils.GovernanceContractAddress, governance.INIT_CONFIG, config)
+	return checkConvert(tx)
 }

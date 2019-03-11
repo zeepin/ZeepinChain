@@ -48,7 +48,7 @@ import (
 	"github.com/imZhuFei/zeepin/smartcontract/service/native"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/zpt"
-	"github.com/imZhuFei/zeepin/vm/neovm/types"
+	"github.com/imZhuFei/zeepin/embed/simulator/types"
 )
 
 func InitGala() {
@@ -126,8 +126,9 @@ func GalaInit(native *native.NativeService) ([]byte, error) {
 }
 
 func GalaTransfer(native *native.NativeService) ([]byte, error) {
-	transfers := new(zpt.Transfers)
-	if err := transfers.Deserialize(bytes.NewBuffer(native.Input)); err != nil {
+	var transfers zpt.Transfers
+	source := common.NewZeroCopySource(native.Input)
+	if err := transfers.Deserialization(source); err != nil {
 		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "[GalaTransfer] Transfers deserialize error!")
 	}
 	contract := native.ContextRef.CurrentContext().ContractAddress
@@ -138,17 +139,18 @@ func GalaTransfer(native *native.NativeService) ([]byte, error) {
 		if v.Value > constants.GALA_TOTAL_SUPPLY {
 			return utils.BYTE_FALSE, fmt.Errorf("transfer gala amount:%d over totalSupply:%d", v.Value, constants.GALA_TOTAL_SUPPLY)
 		}
-		if _, _, err := zpt.Transfer(native, contract, v); err != nil {
+		if _, _, err := zpt.Transfer(native, contract, &v); err != nil {
 			return utils.BYTE_FALSE, err
 		}
-		zpt.AddNotifications(native, contract, v)
+		zpt.AddNotifications(native, contract, &v)
 	}
 	return utils.BYTE_TRUE, nil
 }
 
 func GalaApprove(native *native.NativeService) ([]byte, error) {
-	state := new(zpt.State)
-	if err := state.Deserialize(bytes.NewBuffer(native.Input)); err != nil {
+	var state zpt.State
+	source := common.NewZeroCopySource(native.Input)
+	if err := state.Deserialization(source); err != nil {
 		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "[GalaApprove] state deserialize error!")
 	}
 	if state.Value == 0 {
@@ -166,8 +168,9 @@ func GalaApprove(native *native.NativeService) ([]byte, error) {
 }
 
 func GalaTransferFrom(native *native.NativeService) ([]byte, error) {
-	state := new(zpt.TransferFrom)
-	if err := state.Deserialize(bytes.NewBuffer(native.Input)); err != nil {
+	var state zpt.TransferFrom
+	source := common.NewZeroCopySource(native.Input)
+	if err := state.Deserialization(source); err != nil {
 		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "[ZptTransferFrom] State deserialize error!")
 	}
 	if state.Value == 0 {
@@ -177,7 +180,7 @@ func GalaTransferFrom(native *native.NativeService) ([]byte, error) {
 		return utils.BYTE_FALSE, fmt.Errorf("approve gala amount:%d over totalSupply:%d", state.Value, constants.GALA_TOTAL_SUPPLY)
 	}
 	contract := native.ContextRef.CurrentContext().ContractAddress
-	if _, _, err := zpt.TransferedFrom(native, contract, state); err != nil {
+	if _, _, err := zpt.TransferedFrom(native, contract, &state); err != nil {
 		return utils.BYTE_FALSE, err
 	}
 	zpt.AddNotifications(native, contract, &zpt.State{From: state.From, To: state.To, Value: state.Value})

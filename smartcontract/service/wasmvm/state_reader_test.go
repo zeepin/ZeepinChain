@@ -52,10 +52,9 @@ func TestNewWasmStateReader(t *testing.T) {
 
 func TestWasmStateReader_Register(t *testing.T) {
 	sr := NewWasmStateReader()
-	name := "TEST_SERVICE"
-	res := sr.Register(name, func(engine *exec.ExecutionEngine) (bool, error) {
-		return true, nil
-	})
+	var wasmvm *WasmVmService
+	name := "ZPT_Runtime_GetTime"
+	res := sr.Register(name, wasmvm.runtimeGetTime)
 
 	if !res {
 		t.Error("TestWasmStateReader_Register failed")

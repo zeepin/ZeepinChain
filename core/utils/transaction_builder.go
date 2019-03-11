@@ -43,12 +43,12 @@ import (
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/core/payload"
 	"github.com/imZhuFei/zeepin/core/types"
-	neovm "github.com/imZhuFei/zeepin/smartcontract/service/neovm"
-	vm "github.com/imZhuFei/zeepin/vm/neovm"
+	vm "github.com/imZhuFei/zeepin/embed/simulator"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/embed"
 )
 
 // NewDeployTransaction returns a deploy Transaction
-func NewDeployTransaction(code []byte, name, version, author, email, desp string, needStorage bool) *types.Transaction {
+func NewDeployTransaction(code []byte, name, version, author, email, desp string, needStorage bool) *types.MutableTransaction {
 	//TODO: check arguments
 	DeployCodePayload := &payload.DeployCode{
 		Code:        code,
@@ -60,26 +60,26 @@ func NewDeployTransaction(code []byte, name, version, author, email, desp string
 		Description: desp,
 	}
 
-	return &types.Transaction{
+	return &types.MutableTransaction{
 		TxType:  types.Deploy,
 		Payload: DeployCodePayload,
 	}
 }
 
 // NewInvokeTransaction returns an invoke Transaction
-func NewInvokeTransaction(code []byte) *types.Transaction {
+func NewInvokeTransaction(code []byte) *types.MutableTransaction {
 	//TODO: check arguments
 	invokeCodePayload := &payload.InvokeCode{
 		Code: code,
 	}
 
-	return &types.Transaction{
+	return &types.MutableTransaction{
 		TxType:  types.Invoke,
 		Payload: invokeCodePayload,
 	}
 }
 
-func BuildNativeTransaction(addr common.Address, initMethod string, args []byte) *types.Transaction {
+func BuildNativeTransaction(addr common.Address, initMethod string, args []byte) *types.MutableTransaction {
 	bf := new(bytes.Buffer)
 	builder := vm.NewParamsBuilder(bf)
 	builder.EmitPushByteArray(args)
@@ -87,7 +87,7 @@ func BuildNativeTransaction(addr common.Address, initMethod string, args []byte)
 	builder.EmitPushByteArray(addr[:])
 	builder.EmitPushInteger(big.NewInt(0))
 	builder.Emit(vm.SYSCALL)
-	builder.EmitPushByteArray([]byte(neovm.NATIVE_INVOKE_NAME))
+	builder.EmitPushByteArray([]byte(embed.NATIVE_INVOKE_NAME))
 
 	tx := NewInvokeTransaction(builder.ToArray())
 	tx.GasLimit = math.MaxUint64

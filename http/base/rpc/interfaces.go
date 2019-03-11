@@ -309,7 +309,7 @@ func SendRawTransaction(params []interface{}) map[string]interface{} {
 		}
 		var txn types.Transaction
 		if err := txn.Deserialize(bytes.NewReader(hex)); err != nil {
-			return responsePack(berr.INVALID_TRANSACTION, "")
+			return responsePack(berr.INVALID_TRANSACTION, err.Error())
 		}
 		hash = txn.Hash()
 		log.Debugf("SendRawTransaction recv %s", hash.ToHexString())
@@ -320,7 +320,7 @@ func SendRawTransaction(params []interface{}) map[string]interface{} {
 					result, err := bactor.PreExecuteContract(&txn)
 					if err != nil {
 						log.Infof("PreExec: ", err)
-						return responsePack(berr.SMARTCODE_ERROR, "")
+						return responsePack(berr.SMARTCODE_ERROR, err.Error())
 					}
 					return responseSuccess(result)
 				}

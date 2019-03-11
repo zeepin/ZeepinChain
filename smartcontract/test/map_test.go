@@ -39,35 +39,35 @@ import (
 	"testing"
 
 	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/imZhuFei/zeepin/embed/simulator"
 	"github.com/imZhuFei/zeepin/smartcontract"
-	"github.com/imZhuFei/zeepin/vm/neovm"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestMap(t *testing.T) {
 	byteCode := []byte{
-		byte(neovm.NEWMAP),
-		byte(neovm.DUP),   // dup map
-		byte(neovm.PUSH0), // key (index)
-		byte(neovm.PUSH0), // key (index)
-		byte(neovm.SETITEM),
+		byte(simulator.NEWMAP),
+		byte(simulator.DUP),   // dup map
+		byte(simulator.PUSH0), // key (index)
+		byte(simulator.PUSH0), // key (index)
+		byte(simulator.SETITEM),
 
-		byte(neovm.DUP),   // dup map
-		byte(neovm.PUSH0), // key (index)
-		byte(neovm.PUSH1), // value (newItem)
-		byte(neovm.SETITEM),
+		byte(simulator.DUP),   // dup map
+		byte(simulator.PUSH0), // key (index)
+		byte(simulator.PUSH1), // value (newItem)
+		byte(simulator.SETITEM),
 	}
 
 	// pick a value out
 	byteCode = append(byteCode,
 		[]byte{ // extract element
-			byte(neovm.DUP),   // dup map (items)
-			byte(neovm.PUSH0), // key (index)
+			byte(simulator.DUP),   // dup map (items)
+			byte(simulator.PUSH0), // key (index)
 
-			byte(neovm.PICKITEM),
-			byte(neovm.JMPIF), // dup map (items)
-			0x04, 0x00,        // skip a drop?
-			byte(neovm.DROP),
+			byte(simulator.PICKITEM),
+			byte(simulator.JMPIF), // dup map (items)
+			0x04, 0x00,            // skip a drop?
+			byte(simulator.DROP),
 		}...)
 
 	// count faults vs successful executions

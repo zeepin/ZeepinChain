@@ -49,16 +49,17 @@ import (
 	scommon "github.com/imZhuFei/zeepin/core/store/common"
 	"github.com/imZhuFei/zeepin/core/store/statestore"
 	"github.com/imZhuFei/zeepin/core/types"
+	ntypes "github.com/imZhuFei/zeepin/embed/simulator/types"
 	"github.com/imZhuFei/zeepin/errors"
 	"github.com/imZhuFei/zeepin/smartcontract"
+	"github.com/imZhuFei/zeepin/smartcontract/context"
 	"github.com/imZhuFei/zeepin/smartcontract/event"
+	"github.com/imZhuFei/zeepin/smartcontract/service/native/embed"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/global_params"
 	ninit "github.com/imZhuFei/zeepin/smartcontract/service/native/init"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/zpt"
-	"github.com/imZhuFei/zeepin/smartcontract/service/neovm"
 	"github.com/imZhuFei/zeepin/smartcontract/storage"
-	ntypes "github.com/imZhuFei/zeepin/vm/neovm/types"
 )
 
 //HandleDeployTransaction deal with smart contract deploy transaction
@@ -80,13 +81,13 @@ func (self *StateStore) HandleDeployTransaction(store store.LedgerStore, stateBa
 			Tx:     tx,
 		}
 		cache := storage.NewCloneCache(stateBatch)
-		createGasPrice, ok := neovm.GAS_TABLE.Load(neovm.CONTRACT_CREATE_NAME)
+		createGasPrice, ok := embed.GAS_TABLE.Load(embed.CONTRACT_CREATE_NAME)
 		if !ok {
 			stateBatch.SetError(errors.NewErr("[HandleDeployTransaction] get CONTRACT_CREATE_NAME gas failed"))
 			return nil
 		}
 
-		uintCodePrice, ok := neovm.GAS_TABLE.Load(neovm.UINT_DEPLOY_CODE_LEN_NAME)
+		uintCodePrice, ok := embed.GAS_TABLE.Load(embed.UINT_DEPLOY_CODE_LEN_NAME)
 		if !ok {
 			stateBatch.SetError(errors.NewErr("[HandleDeployTransaction] get UINT_DEPLOY_CODE_LEN_NAME gas failed"))
 			return nil
@@ -156,7 +157,7 @@ func (self *StateStore) HandleInvokeTransaction(store store.LedgerStore, stateBa
 	cache := storage.NewCloneCache(stateBatch)
 	availableGasLimit = tx.GasLimit
 	if isCharge {
-		uintCodeGasPrice, ok := neovm.GAS_TABLE.Load(neovm.UINT_INVOKE_CODE_LEN_NAME)
+		uintCodeGasPrice, ok := embed.GAS_TABLE.Load(embed.UINT_INVOKE_CODE_LEN_NAME)
 		if !ok {
 			stateBatch.SetError(errors.NewErr("[HandleInvokeTransaction] get UINT_INVOKE_CODE_LEN_NAME gas failed"))
 			return nil
@@ -167,7 +168,7 @@ func (self *StateStore) HandleInvokeTransaction(store store.LedgerStore, stateBa
 			return err
 		}
 
-		minGas = neovm.MIN_TRANSACTION_GAS * tx.GasPrice
+		minGas = embed.MIN_TRANSACTION_GAS * tx.GasPrice
 
 		if oldBalance < minGas {
 			if err := costInvalidGas(tx.Payer, oldBalance, config, stateBatch, store, notify); err != nil {
@@ -207,13 +208,18 @@ func (self *StateStore) HandleInvokeTransaction(store store.LedgerStore, stateBa
 	}
 
 	//start the smart contract executive function
-	engine, _ := sc.NewExecuteEngine(invoke.Code)
+	var engine context.Engine
+	if tx.Attributes == 0 {
+		engine, _ = sc.NewExecuteEngine(invoke.Code)
+	} else {
+		engine, _ = sc.NewWasmExecuteEngine(invoke.Code)
+	}
 
 	_, err = engine.Invoke()
 
 	costGasLimit = availableGasLimit - sc.Gas
-	if costGasLimit < neovm.MIN_TRANSACTION_GAS {
-		costGasLimit = neovm.MIN_TRANSACTION_GAS
+	if costGasLimit < embed.MIN_TRANSACTION_GAS {
+		costGasLimit = embed.MIN_TRANSACTION_GAS
 	}
 
 	costGas = costGasLimit * tx.GasPrice
@@ -265,7 +271,7 @@ func SaveNotify(eventStore scommon.EventStore, txHash common.Uint256, notify *ev
 }
 
 func genNativeTransferCode(from, to common.Address, value uint64) []byte {
-	transfer := zpt.Transfers{States: []*zpt.State{{From: from, To: to, Value: value}}}
+	transfer := zpt.Transfers{States: []zpt.State{{From: from, To: to, Value: value}}}
 	tr := new(bytes.Buffer)
 	transfer.Serialize(tr)
 	return tr.Bytes()
@@ -305,10 +311,10 @@ func chargeCostGas(payer common.Address, gas uint64, config *smartcontract.Confi
 
 func refreshGlobalParam(config *smartcontract.Config, cache *storage.CloneCache, store store.LedgerStore) error {
 	bf := new(bytes.Buffer)
-	if err := utils.WriteVarUint(bf, uint64(len(neovm.GAS_TABLE_KEYS))); err != nil {
+	if err := utils.WriteVarUint(bf, uint64(len(embed.GAS_TABLE_KEYS))); err != nil {
 		return fmt.Errorf("write gas_table_keys length error:%s", err)
 	}
-	for _, value := range neovm.GAS_TABLE_KEYS {
+	for _, value := range embed.GAS_TABLE_KEYS {
 		if err := serialization.WriteString(bf, value); err != nil {
 			return fmt.Errorf("serialize param name error:%s", value)
 		}
@@ -330,14 +336,14 @@ func refreshGlobalParam(config *smartcontract.Config, cache *storage.CloneCache,
 	if err := params.Deserialize(bytes.NewBuffer(result.([]byte))); err != nil {
 		return fmt.Errorf("deserialize global params error:%s", err)
 	}
-	neovm.GAS_TABLE.Range(func(key, value interface{}) bool {
+	embed.GAS_TABLE.Range(func(key, value interface{}) bool {
 		n, ps := params.GetParam(key.(string))
 		if n != -1 && ps.Value != "" {
 			pu, err := strconv.ParseUint(ps.Value, 10, 64)
 			if err != nil {
 				log.Errorf("[refreshGlobalParam] failed to parse uint %v\n", ps.Value)
 			} else {
-				neovm.GAS_TABLE.Store(key, pu)
+				embed.GAS_TABLE.Store(key, pu)
 
 			}
 		}
@@ -380,5 +386,5 @@ func costInvalidGas(address common.Address, gas uint64, config *smartcontract.Co
 }
 
 func calcGasByCodeLen(codeLen int, codeGas uint64) uint64 {
-	return uint64(codeLen/neovm.PER_UNIT_CODE_LEN) * codeGas
+	return uint64(codeLen/embed.PER_UNIT_CODE_LEN) * codeGas
 }

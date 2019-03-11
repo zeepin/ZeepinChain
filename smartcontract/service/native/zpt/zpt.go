@@ -42,12 +42,11 @@ import (
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/constants"
 	"github.com/imZhuFei/zeepin/common/log"
-	"github.com/imZhuFei/zeepin/common/serialization"
 	scommon "github.com/imZhuFei/zeepin/core/store/common"
 	"github.com/imZhuFei/zeepin/errors"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
-	"github.com/imZhuFei/zeepin/vm/neovm/types"
+	"github.com/imZhuFei/zeepin/embed/simulator/types"
 )
 
 const (
@@ -84,23 +83,27 @@ func ZptInit(native *native.NativeService) ([]byte, error) {
 	}
 
 	distribute := make(map[common.Address]uint64)
-	buf, err := serialization.ReadVarBytes(bytes.NewBuffer(native.Input))
-	if err != nil {
+	source := common.NewZeroCopySource(native.Input)
+	buf, _, irregular, eof := source.NextVarBytes()
+	if eof {
 		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "serialization.ReadVarBytes, contract params deserialize error!")
 	}
-	input := bytes.NewBuffer(buf)
-	num, err := utils.ReadVarUint(input)
+	if irregular {
+		return utils.BYTE_FALSE, common.ErrIrregularData
+	}
+	input := common.NewZeroCopySource(buf)
+	num, err := utils.DecodeVarUint(input)
 	if err != nil {
 		return utils.BYTE_FALSE, fmt.Errorf("read number error:%v", err)
 	}
 	sum := uint64(0)
 	overflow := false
 	for i := uint64(0); i < num; i++ {
-		addr, err := utils.ReadAddress(input)
+		addr, err := utils.DecodeAddress(input)
 		if err != nil {
 			return utils.BYTE_FALSE, fmt.Errorf("read address error:%v", err)
 		}
-		value, err := utils.ReadVarUint(input)
+		value, err := utils.DecodeVarUint(input)
 		if err != nil {
 			return utils.BYTE_FALSE, fmt.Errorf("read value error:%v", err)
 		}
@@ -126,8 +129,9 @@ func ZptInit(native *native.NativeService) ([]byte, error) {
 }
 
 func ZptTransfer(native *native.NativeService) ([]byte, error) {
-	transfers := new(Transfers)
-	if err := transfers.Deserialize(bytes.NewBuffer(native.Input)); err != nil {
+	var transfers Transfers
+	source := common.NewZeroCopySource(native.Input)
+	if err := transfers.Deserialization(source); err != nil {
 		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "[Transfer] Transfers deserialize error!")
 	}
 	contract := native.ContextRef.CurrentContext().ContractAddress
@@ -138,7 +142,7 @@ func ZptTransfer(native *native.NativeService) ([]byte, error) {
 		if v.Value > constants.ZPT_TOTAL_SUPPLY {
 			return utils.BYTE_FALSE, fmt.Errorf("transfer zpt amount:%d over totalSupply:%d", v.Value, constants.ZPT_TOTAL_SUPPLY)
 		}
-		fromBalance, toBalance, err := Transfer(native, contract, v)
+		fromBalance, toBalance, err := Transfer(native, contract, &v)
 		if err != nil {
 			return utils.BYTE_FALSE, err
 		}
@@ -151,14 +155,15 @@ func ZptTransfer(native *native.NativeService) ([]byte, error) {
 			return utils.BYTE_FALSE, err
 		}
 
-		AddNotifications(native, contract, v)
+		AddNotifications(native, contract, &v)
 	}
 	return utils.BYTE_TRUE, nil
 }
 
 func ZptTransferFrom(native *native.NativeService) ([]byte, error) {
-	state := new(TransferFrom)
-	if err := state.Deserialize(bytes.NewBuffer(native.Input)); err != nil {
+	var state TransferFrom
+	source := common.NewZeroCopySource(native.Input)
+	if err := state.Deserialization(source); err != nil {
 		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "[ZptTransferFrom] State deserialize error!")
 	}
 	if state.Value == 0 {
@@ -168,7 +173,7 @@ func ZptTransferFrom(native *native.NativeService) ([]byte, error) {
 		return utils.BYTE_FALSE, fmt.Errorf("transferFrom zpt amount:%d over totalSupply:%d", state.Value, constants.ZPT_TOTAL_SUPPLY)
 	}
 	contract := native.ContextRef.CurrentContext().ContractAddress
-	fromBalance, toBalance, err := TransferedFrom(native, contract, state)
+	fromBalance, toBalance, err := TransferedFrom(native, contract, &state)
 	if err != nil {
 		return utils.BYTE_FALSE, err
 	}
@@ -183,8 +188,9 @@ func ZptTransferFrom(native *native.NativeService) ([]byte, error) {
 }
 
 func ZptApprove(native *native.NativeService) ([]byte, error) {
-	state := new(State)
-	if err := state.Deserialize(bytes.NewBuffer(native.Input)); err != nil {
+	var state State
+	source := common.NewZeroCopySource(native.Input)
+	if err := state.Deserialization(source); err != nil {
 		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "[GalaApprove] state deserialize error!")
 	}
 	if state.Value == 0 {
@@ -231,15 +237,15 @@ func ZptAllowance(native *native.NativeService) ([]byte, error) {
 }
 
 func GetBalanceValue(native *native.NativeService, flag byte) ([]byte, error) {
-	var key []byte
-	buf := bytes.NewBuffer(native.Input)
-	from, err := utils.ReadAddress(buf)
+	source := common.NewZeroCopySource(native.Input)
+	from, err := utils.DecodeAddress(source)
 	if err != nil {
 		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "[GetBalanceValue] get from address error!")
 	}
 	contract := native.ContextRef.CurrentContext().ContractAddress
+	var key []byte
 	if flag == APPROVE_FLAG {
-		to, err := utils.ReadAddress(buf)
+		to, err := utils.DecodeAddress(source)
 		if err != nil {
 			return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "[GetBalanceValue] get from address error!")
 		}
@@ -291,7 +297,7 @@ func grantGala(native *native.NativeService, contract, address common.Address, b
 
 func getApproveArgs(native *native.NativeService, contract, galaContract, address common.Address, value uint64) ([]byte, error) {
 	bf := new(bytes.Buffer)
-	approve := &State{
+	approve := State{
 		From:  contract,
 		To:    address,
 		Value: value,

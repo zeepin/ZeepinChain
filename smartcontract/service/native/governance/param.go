@@ -136,6 +136,38 @@ func (this *UnRegisterCandidateParam) Deserialize(r io.Reader) error {
 	return nil
 }
 
+
+
+type GetVoteInfoParam struct {
+	PeerPubkey string
+	Address    common.Address
+}
+
+func (this *GetVoteInfoParam) Serialize(w io.Writer) error {
+	if err := serialization.WriteString(w, this.PeerPubkey); err != nil {
+		return errors.NewDetailErr(err, errors.ErrNoCode, "serialization.WriteString, deserialize peerPubkey error!")
+	}
+	if err := serialization.WriteVarBytes(w, this.Address[:]); err != nil {
+		return errors.NewDetailErr(err, errors.ErrNoCode, "serialization.WriteVarBytes, address address error!")
+	}
+	return nil
+}
+
+func (this *GetVoteInfoParam) Deserialize(r io.Reader) error {
+	peerPubkey, err := serialization.ReadString(r)
+	if err != nil {
+		return errors.NewDetailErr(err, errors.ErrNoCode, "serialization.ReadString, deserialize peerPubkey error!")
+	}
+	address, err := utils.ReadAddress(r)
+	if err != nil {
+		return errors.NewDetailErr(err, errors.ErrNoCode, "utils.ReadAddress, deserialize address error!")
+	}
+	this.PeerPubkey = peerPubkey
+	this.Address = address
+	return nil
+}
+
+
 type QuitNodeParam struct {
 	PeerPubkey string
 	Address    common.Address
