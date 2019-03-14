@@ -505,7 +505,9 @@ func ApproveCandidate(native *native.NativeService) ([]byte, error) {
 	}
 	log.Infof("ApproveCandidate: status: %d : peerPubkey: %s", peerPoolItem.Status, params.PeerPubkey)
 	peerPoolItem.Status = CandidateStatus
-	//peerPoolItem.TotalPos = 0
+	if native.Height < 619000 {
+		peerPoolItem.TotalPos = 0
+	}
 	log.Infof("ApproveCandidate: TotalPos: %d : peerPubkey: %s", peerPoolItem.TotalPos, params.PeerPubkey)
 	//check if has index
 	peerPubkeyPrefix, err := hex.DecodeString(peerPoolItem.PeerPubkey)
