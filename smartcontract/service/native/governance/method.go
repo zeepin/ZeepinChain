@@ -213,6 +213,9 @@ func voteForPeer(native *native.NativeService, flag string) error {
 		if err != nil {
 			return errors.NewDetailErr(err, errors.ErrNoCode, "getVoteInfo, get voteInfo error!")
 		}
+		if pos < 0 {
+			return errors.NewDetailErr(err, errors.ErrNoCode, "vote pos must greater than zero!")
+		}
 		voteInfo.NewPos = voteInfo.NewPos + uint64(pos)
 		total = total + uint64(pos)
 		peerPoolItem.TotalPos = peerPoolItem.TotalPos + uint64(pos)
