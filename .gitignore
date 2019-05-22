@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Log
 Chain
 devel-*
@@ -6,3 +7,23 @@ wallet.dat
 zeepin-linux-*
 zeepin-windows-*
 zeepin-darwin-*
+*.tar.gz
+debug
+*debug
+wallet
+zeepin
+ztest
+ztest-linux-amd64
+ztest
+smartcontract/service/native/.DS_Store
+zeepin
+ztest
+*.log
+ztest
+ztest.go
+ztest
+ztest.go
+.vscode/launch.json
+.DS_Store
+peers.recent
+convertaddress
