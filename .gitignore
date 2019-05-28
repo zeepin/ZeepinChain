@@ -1,6 +1,13 @@
+<<<<<<< HEAD
+Log
+Chain
+devel-*
 vendor
+wallet.dat
+zeepin-linux-*
+zeepin-windows-*
+zeepin-darwin-*
 *.tar.gz
-zeepin-*
 debug
 *debug
 wallet
