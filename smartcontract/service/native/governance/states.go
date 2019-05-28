@@ -41,6 +41,7 @@ import (
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/serialization"
 	"github.com/imZhuFei/zeepin/errors"
+	"github.com/zeepin/ZeepinChain/common/constants"
 )
 
 type Status int
@@ -203,12 +204,11 @@ func (this *PeerPoolItem) Deserialize(r io.Reader) error {
 		return errors.NewDetailErr(err, errors.ErrNoCode, "serialization.ReadUint64, deserialize totalPos error!")
 	}
 	if initPos >= constants.ZPT_TOTAL_SUPPLY {
-        initPos = 0
-    }
-    if totalPos >= constants.ZPT_TOTAL_SUPPLY {
-        totalPos = 0
-    }
-		
+		initPos = 0
+	}
+	if totalPos >= constants.ZPT_TOTAL_SUPPLY {
+		totalPos = 0
+	}
 	this.Index = index
 	this.PeerPubkey = peerPubkey
 	this.Address = *address
