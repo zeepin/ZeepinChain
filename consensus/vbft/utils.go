@@ -286,7 +286,7 @@ func getChainConfig(blkNum uint32) (*vconfig.ChainConfig, error) {
 		return nil, fmt.Errorf("failed to get chainconfig from leveldb: %s", err)
 	}
 
-	peersinfo, err := GetPeersConfig()
+	peersinfo, err := GetPeersConfig(blkNum)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get peersinfo from leveldb: %s", err)
 	}
