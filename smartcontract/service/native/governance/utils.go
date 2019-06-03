@@ -44,12 +44,12 @@ import (
 	vbftconfig "github.com/imZhuFei/zeepin/consensus/vbft/config"
 	cstates "github.com/imZhuFei/zeepin/core/states"
 	scommon "github.com/imZhuFei/zeepin/core/store/common"
+	"github.com/imZhuFei/zeepin/embed/simulator/types"
 	"github.com/imZhuFei/zeepin/errors"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/auth"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/zpt"
-	"github.com/imZhuFei/zeepin/embed/simulator/types"
 	"github.com/ontio/ontology-crypto/vrf"
 )
 
@@ -72,9 +72,16 @@ func GetPeerPoolMap(native *native.NativeService, contract common.Address, view 
 	if !ok {
 		return nil, errors.NewErr("getPeerPoolMap, peerPoolMapBytes is not available!")
 	}
-	if err := peerPoolMap.Deserialize(bytes.NewBuffer(peerPoolMapStore.Value)); err != nil {
-		return nil, errors.NewDetailErr(err, errors.ErrNoCode, "deserialize, deserialize peerPoolMap error!")
+	if native.Height <= 1144097 {
+		if err := peerPoolMap.Deserialize(bytes.NewBuffer(peerPoolMapStore.Value)); err != nil {
+			return nil, errors.NewDetailErr(err, errors.ErrNoCode, "deserialize, deserialize peerPoolMap error!")
+		}
+	} else {
+		if err := peerPoolMap.DeserializeNew(bytes.NewBuffer(peerPoolMapStore.Value)); err != nil {
+			return nil, errors.NewDetailErr(err, errors.ErrNoCode, "deserialize, deserialize peerPoolMap error!")
+		}
 	}
+
 	return peerPoolMap, nil
 }
 
