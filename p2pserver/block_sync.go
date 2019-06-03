@@ -45,7 +45,7 @@ import (
 	"github.com/imZhuFei/zeepin/core/ledger"
 	"github.com/imZhuFei/zeepin/core/types"
 	p2pComm "github.com/imZhuFei/zeepin/p2pserver/common"
-	"github.com/imZhuFei/zeepin/p2pserver/message/msg_pack"
+	msgpack "github.com/imZhuFei/zeepin/p2pserver/message/msg_pack"
 	"github.com/imZhuFei/zeepin/p2pserver/peer"
 )
 
@@ -508,7 +508,7 @@ func (this *BlockSyncMgr) OnHeaderReceive(fromID uint64, headers []*types.Header
 func (this *BlockSyncMgr) OnBlockReceive(fromID uint64, blockSize uint32, block *types.Block) {
 	height := block.Header.Height
 	blockHash := block.Hash()
-	log.Trace("[p2p]OnBlockReceive Height:%d", height)
+	log.Debugf("[p2p]OnBlockReceive Height:%d", height)
 	flightInfo := this.getFlightBlock(blockHash, fromID)
 	if flightInfo != nil {
 		t := (time.Now().UnixNano() - flightInfo.GetStartTime().UnixNano()) / int64(time.Millisecond)

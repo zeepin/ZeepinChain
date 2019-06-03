@@ -44,7 +44,7 @@ import (
 	"github.com/imZhuFei/zeepin/account"
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/config"
-	"github.com/imZhuFei/zeepin/consensus/vbft/config"
+	vconfig "github.com/imZhuFei/zeepin/consensus/vbft/config"
 	"github.com/imZhuFei/zeepin/core/ledger"
 	"github.com/imZhuFei/zeepin/core/signature"
 	"github.com/imZhuFei/zeepin/core/states"
@@ -168,7 +168,7 @@ func GetVbftConfigInfo() (*config.VBFTConfig, error) {
 	return chainconfig, nil
 }
 
-func GetPeersConfig() ([]*config.VBFTPeerStakeInfo, error) {
+func GetPeersConfig(height uint32) ([]*config.VBFTPeerStakeInfo, error) {
 	goveranceview, err := GetGovernanceView()
 	if err != nil {
 		return nil, err
@@ -188,10 +188,57 @@ func GetPeersConfig() ([]*config.VBFTPeerStakeInfo, error) {
 	peerMap := &gov.PeerPoolMap{
 		PeerPoolMap: make(map[string]*gov.PeerPoolItem),
 	}
-	err = peerMap.Deserialize(bytes.NewBuffer(data))
+	if height <= 1144097 {
+		err = peerMap.Deserialize(bytes.NewBuffer(data))
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		err = peerMap.DeserializeNew(bytes.NewBuffer(data))
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	var peerstakes []*config.VBFTPeerStakeInfo
+	for _, id := range peerMap.PeerPoolMap {
+		if id.Status == gov.CandidateStatus || id.Status == gov.ConsensusStatus {
+			config := &config.VBFTPeerStakeInfo{
+				Index:      uint32(id.Index),
+				PeerPubkey: id.PeerPubkey,
+				InitPos:    id.InitPos + id.TotalPos,
+			}
+			peerstakes = append(peerstakes, config)
+		}
+	}
+	return peerstakes, nil
+}
+
+func GetPeersConfigNew() ([]*config.VBFTPeerStakeInfo, error) {
+	goveranceview, err := GetGovernanceView()
 	if err != nil {
 		return nil, err
 	}
+	viewBytes, err := gov.GetUint32Bytes(goveranceview.View)
+	if err != nil {
+		return nil, err
+	}
+	storageKey := &states.StorageKey{
+		ContractAddress: nutils.GovernanceContractAddress,
+		Key:             append([]byte(gov.PEER_POOL), viewBytes...),
+	}
+	data, err := ledger.DefLedger.GetStorageItem(storageKey.ContractAddress, storageKey.Key)
+	if err != nil {
+		return nil, err
+	}
+	peerMap := &gov.PeerPoolMap{
+		PeerPoolMap: make(map[string]*gov.PeerPoolItem),
+	}
+	err = peerMap.DeserializeNew(bytes.NewBuffer(data))
+	if err != nil {
+		return nil, err
+	}
+
 	var peerstakes []*config.VBFTPeerStakeInfo
 	for _, id := range peerMap.PeerPoolMap {
 		if id.Status == gov.CandidateStatus || id.Status == gov.ConsensusStatus {
@@ -239,11 +286,11 @@ func getChainConfig(blkNum uint32) (*vconfig.ChainConfig, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to get chainconfig from leveldb: %s", err)
 	}
-
-	peersinfo, err := GetPeersConfig()
+	peersinfo, err := GetPeersConfig(blkNum)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get peersinfo from leveldb: %s", err)
 	}
+
 	goverview, err := GetGovernanceView()
 	if err != nil {
 		return nil, fmt.Errorf("failed to get governanceview failed:%s", err)
