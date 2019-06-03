@@ -213,15 +213,12 @@ func voteForPeer(native *native.NativeService, flag string) error {
 		if err != nil {
 			return errors.NewDetailErr(err, errors.ErrNoCode, "getVoteInfo, get voteInfo error!")
 		}
-		if pos < 0 {
-			return errors.NewDetailErr(err, errors.ErrNoCode, "vote pos must greater than zero!")
-		}
 		voteInfo.NewPos = voteInfo.NewPos + uint64(pos)
 		total = total + uint64(pos)
 		peerPoolItem.TotalPos = peerPoolItem.TotalPos + uint64(pos)
 		log.Infof("voteForPeer: TotalPos: %d : peerPubkey: %s", peerPoolItem.TotalPos, peerPubkey)
 		if peerPoolItem.TotalPos > uint64(globalParam.PosLimit)*peerPoolItem.InitPos {
-			//log.Debugf("voteForPeer: TotalPos: %d : poslimit: %d, InitPos: %d", peerPoolItem.TotalPos, globalParam.PosLimit, peerPoolItem.InitPos)
+			log.Error("voteForPeer, pos of this peer is full!")
 			return errors.NewErr("voteForPeer, pos of this peer is full!")
 		}
 
@@ -874,7 +871,7 @@ func executeSplit(native *native.NativeService, contract common.Address, peerPoo
 	}
 
 	//fee split of consensus peer
-	//log.Debugf("fee split of consensus peer")
+	log.Debugf("fee split of consensus peer")
 	for i := int(config.K) - 1; i >= 0; i-- {
 		distributedBalance := float64(balance) * float64(globalParam.A) / float64(100)
 		proportion := float64(peersCandidate[i].S) / float64(sumS)

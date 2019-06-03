@@ -39,9 +39,9 @@ import (
 	"sort"
 
 	"github.com/imZhuFei/zeepin/common"
+	"github.com/imZhuFei/zeepin/common/constants"
 	"github.com/imZhuFei/zeepin/common/serialization"
 	"github.com/imZhuFei/zeepin/errors"
-	"github.com/zeepin/ZeepinChain/common/constants"
 )
 
 type Status int
@@ -145,6 +145,23 @@ func (this *PeerPoolMap) Deserialize(r io.Reader) error {
 	return nil
 }
 
+func (this *PeerPoolMap) DeserializeNew(r io.Reader) error {
+	n, err := serialization.ReadUint32(r)
+	if err != nil {
+		return errors.NewDetailErr(err, errors.ErrNoCode, "serialization.ReadUint32, deserialize PeerPoolMap length error!")
+	}
+	peerPoolMap := make(map[string]*PeerPoolItem)
+	for i := 0; uint32(i) < n; i++ {
+		peerPoolItem := new(PeerPoolItem)
+		if err := peerPoolItem.DeserializeNew(r); err != nil {
+			return errors.NewDetailErr(err, errors.ErrNoCode, "deserialize peerPool error!")
+		}
+		peerPoolMap[peerPoolItem.PeerPubkey] = peerPoolItem
+	}
+	this.PeerPoolMap = peerPoolMap
+	return nil
+}
+
 type PeerPoolItem struct {
 	Index      uint32
 	PeerPubkey string
@@ -203,12 +220,50 @@ func (this *PeerPoolItem) Deserialize(r io.Reader) error {
 	if err != nil {
 		return errors.NewDetailErr(err, errors.ErrNoCode, "serialization.ReadUint64, deserialize totalPos error!")
 	}
-	if initPos >= constants.ZPT_TOTAL_SUPPLY {
+
+	this.Index = index
+	this.PeerPubkey = peerPubkey
+	this.Address = *address
+	this.Status = *status
+	this.InitPos = initPos
+	this.TotalPos = totalPos
+	return nil
+}
+
+func (this *PeerPoolItem) DeserializeNew(r io.Reader) error {
+	index, err := serialization.ReadUint32(r)
+	if err != nil {
+		return errors.NewDetailErr(err, errors.ErrNoCode, "serialization.ReadUint32, deserialize index error!")
+	}
+	peerPubkey, err := serialization.ReadString(r)
+	if err != nil {
+		return errors.NewDetailErr(err, errors.ErrNoCode, "serialization.ReadString, deserialize peerPubkey error!")
+	}
+	address := new(common.Address)
+	err = address.Deserialize(r)
+	if err != nil {
+		return errors.NewDetailErr(err, errors.ErrNoCode, "address.Deserialize, deserialize address error!")
+	}
+	status := new(Status)
+	err = status.Deserialize(r)
+	if err != nil {
+		return errors.NewDetailErr(err, errors.ErrNoCode, "status.Deserialize. deserialize status error!")
+	}
+	initPos, err := serialization.ReadUint64(r)
+	if err != nil {
+		return errors.NewDetailErr(err, errors.ErrNoCode, "serialization.ReadUint64, deserialize initPos error!")
+	}
+	totalPos, err := serialization.ReadUint64(r)
+	if err != nil {
+		return errors.NewDetailErr(err, errors.ErrNoCode, "serialization.ReadUint64, deserialize totalPos error!")
+	}
+	if initPos > constants.ZPT_TOTAL_SUPPLY {
 		initPos = 0
 	}
-	if totalPos >= constants.ZPT_TOTAL_SUPPLY {
+	if totalPos > constants.ZPT_TOTAL_SUPPLY {
 		totalPos = 0
 	}
+
 	this.Index = index
 	this.PeerPubkey = peerPubkey
 	this.Address = *address

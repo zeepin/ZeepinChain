@@ -214,45 +214,6 @@ func GetPeersConfig(height uint32) ([]*config.VBFTPeerStakeInfo, error) {
 	return peerstakes, nil
 }
 
-func GetPeersConfigNew() ([]*config.VBFTPeerStakeInfo, error) {
-	goveranceview, err := GetGovernanceView()
-	if err != nil {
-		return nil, err
-	}
-	viewBytes, err := gov.GetUint32Bytes(goveranceview.View)
-	if err != nil {
-		return nil, err
-	}
-	storageKey := &states.StorageKey{
-		ContractAddress: nutils.GovernanceContractAddress,
-		Key:             append([]byte(gov.PEER_POOL), viewBytes...),
-	}
-	data, err := ledger.DefLedger.GetStorageItem(storageKey.ContractAddress, storageKey.Key)
-	if err != nil {
-		return nil, err
-	}
-	peerMap := &gov.PeerPoolMap{
-		PeerPoolMap: make(map[string]*gov.PeerPoolItem),
-	}
-	err = peerMap.DeserializeNew(bytes.NewBuffer(data))
-	if err != nil {
-		return nil, err
-	}
-
-	var peerstakes []*config.VBFTPeerStakeInfo
-	for _, id := range peerMap.PeerPoolMap {
-		if id.Status == gov.CandidateStatus || id.Status == gov.ConsensusStatus {
-			config := &config.VBFTPeerStakeInfo{
-				Index:      uint32(id.Index),
-				PeerPubkey: id.PeerPubkey,
-				InitPos:    id.InitPos + id.TotalPos,
-			}
-			peerstakes = append(peerstakes, config)
-		}
-	}
-	return peerstakes, nil
-}
-
 func isUpdate(view uint32) (bool, error) {
 	goveranceview, err := GetGovernanceView()
 	if err != nil {
