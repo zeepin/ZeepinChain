@@ -91,6 +91,7 @@ const (
 	WITHDRAW_GALA                    = "withdrawGala"
 	GET_PEERPOOL_INFO                = "getPeerPoolInfo"
 	GET_VOTE_INFO                    = "getVoteInfo"
+	CHECK_VOTE_INFO                  = "checkVoteInfo"
 	//key prefix
 	GLOBAL_PARAM    = "globalParam"
 	VBFT_CONFIG     = "vbftConfig"
@@ -152,6 +153,7 @@ func RegisterGovernanceContract(native *native.NativeService) {
 	native.Register(TRANSFER_PENALTY, TransferPenalty)
 	native.Register(GET_PEERPOOL_INFO, GetPeerpoolInfo)
 	native.Register(GET_VOTE_INFO, GetVoteInfo)
+	native.Register(CHECK_VOTE_INFO, CheckVoteInfo)
 }
 
 //Init governance contract, include vbft config, global param and Gid admin.
@@ -505,7 +507,10 @@ func ApproveCandidate(native *native.NativeService) ([]byte, error) {
 	}
 	log.Infof("ApproveCandidate: status: %d : peerPubkey: %s", peerPoolItem.Status, params.PeerPubkey)
 	peerPoolItem.Status = CandidateStatus
-	//peerPoolItem.TotalPos = 0
+	if native.Height < 619000 {
+		peerPoolItem.TotalPos = 0
+	}
+
 	log.Infof("ApproveCandidate: TotalPos: %d : peerPubkey: %s", peerPoolItem.TotalPos, params.PeerPubkey)
 	//check if has index
 	peerPubkeyPrefix, err := hex.DecodeString(peerPoolItem.PeerPubkey)
@@ -929,7 +934,8 @@ func UnVoteForPeer(native *native.NativeService) ([]byte, error) {
 			voteInfo.WithdrawUnfreezePos = voteInfo.WithdrawUnfreezePos + uint64(pos)
 			peerPoolItem.TotalPos = peerPoolItem.TotalPos - uint64(pos)
 		}
-		log.Infof("unvoteForPeer: TotalPos: %d : peerPubkey: %s", peerPoolItem.TotalPos, peerPubkey)
+
+		log.Infof("unvoteForPeer: TotalPos: %d : peerPubkey: %s unvotepos:%d height:%d", peerPoolItem.TotalPos, peerPubkey, uint64(pos), native.Height)
 		peerPoolMap.PeerPoolMap[peerPubkey] = peerPoolItem
 		err = putVoteInfo(native, contract, voteInfo)
 		if err != nil {
@@ -941,6 +947,87 @@ func UnVoteForPeer(native *native.NativeService) ([]byte, error) {
 		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "putPeerPoolMap, put peerPoolMap error!")
 	}
 
+	return utils.BYTE_TRUE, nil
+}
+
+func CheckVoteInfo(native *native.NativeService) ([]byte, error) {
+
+	params := new(CheckVoteInfoParam)
+	if err := params.Deserialize(bytes.NewBuffer(native.Input)); err != nil {
+		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "deserialize, contract params deserialize error!")
+	}
+
+	// get admin from database
+	adminAddress, err := global_params.GetStorageRole(native,
+		global_params.GenerateOperatorKey(utils.ParamContractAddress))
+	if err != nil {
+		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "getAdmin, get admin error!")
+	}
+	//check witness
+	err = utils.ValidateOwner(native, adminAddress)
+	if err != nil {
+		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "CheckVoteInfo, checkWitness error!")
+	}
+	contract := native.ContextRef.CurrentContext().ContractAddress
+
+	//get current view
+	view, err := GetView(native, contract)
+	if err != nil {
+		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "getView, get view error!")
+	}
+	//get globalParam
+	globalParam, err := getGlobalParam(native, contract)
+	if err != nil {
+		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "getGlobalParam, getGlobalParam error!")
+	}
+	//get peerPoolMap
+	peerPoolMap, err := GetPeerPoolMap(native, contract, view)
+	if err != nil {
+		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "getPeerPoolMap, get peerPoolMap error!")
+	}
+	peerPoolItem, ok := peerPoolMap.PeerPoolMap[params.PeerPubkey]
+	if !ok {
+		return utils.BYTE_FALSE, errors.NewErr("CheckVoteInfo, peerPubkey is not in peerPoolMap!")
+	}
+	if peerPoolItem.Status != CandidateStatus && peerPoolItem.Status != ConsensusStatus && peerPoolItem.Status != RegisterCandidateStatus {
+		return utils.BYTE_FALSE, errors.NewErr("CheckVoteInfo, peerPubkey is not candidate and can not be Check!")
+	}
+	peerPubkeyPrefix, err := hex.DecodeString(peerPoolItem.PeerPubkey)
+	if err != nil {
+		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "hex.DecodeString, peerPubkey format error!")
+	}
+	stateValues, err := native.CloneCache.Store.Find(scommon.ST_STORAGE, utils.ConcatKey(contract, []byte(VOTE_INFO_POOL), peerPubkeyPrefix))
+	if err != nil {
+		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "native.CloneCache.Store.Find, get all peerPool error!")
+	}
+	voteInfo := new(VoteInfo)
+	totalPos := uint64(0)
+	for _, v := range stateValues {
+		voteInfoStore, ok := v.Value.(*cstates.StorageItem)
+		if !ok {
+			return utils.BYTE_FALSE, errors.NewErr("voteInfoStore is not available!")
+		}
+		if err := voteInfo.Deserialize(bytes.NewBuffer(voteInfoStore.Value)); err != nil {
+			return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "deserialize, deserialize voteInfo error!")
+		}
+		totalPos += voteInfo.ConsensusPos + voteInfo.FreezePos + voteInfo.NewPos
+		log.Info("address:", voteInfo.Address.ToBase58(), "ConsensusPos:", voteInfo.ConsensusPos, "FreezePos:", voteInfo.FreezePos, "NewPos:", voteInfo.NewPos, "pubKey:", voteInfo.PeerPubkey)
+		log.Info("address:", voteInfo.Address.ToBase58(), voteInfo, voteInfo.PeerPubkey)
+
+	}
+	peerPoolItem.TotalPos = totalPos
+	if peerPoolItem.TotalPos > uint64(globalParam.PosLimit)*peerPoolItem.InitPos {
+		//log.Debugf("voteForPeer: TotalPos: %d : poslimit: %d, InitPos: %d", peerPoolItem.TotalPos, globalParam.PosLimit, peerPoolItem.InitPos)
+		return utils.BYTE_FALSE, errors.NewErr("CheckVoteInfo, pos of this peer is full!")
+	}
+	if peerPoolItem.TotalPos < 0 {
+		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "total pos must greater than zero!")
+	}
+	log.Infof("CheckVoteInfo: TotalPos: %d : peerPubkey: %s", peerPoolItem.TotalPos, peerPoolItem.PeerPubkey)
+	err = putPeerPoolMap(native, contract, view, peerPoolMap)
+	if err != nil {
+		return utils.BYTE_FALSE, errors.NewDetailErr(err, errors.ErrNoCode, "putPeerPoolMap, put peerPoolMap error!")
+	}
 	return utils.BYTE_TRUE, nil
 }
 

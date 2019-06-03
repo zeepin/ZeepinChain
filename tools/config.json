@@ -3,6 +3,6 @@
     "Wallets":  ["/Users/wushenglan/Projects/zeepinchain/node1/wallet.dat", "/Users/wushenglan/Projects/zeepinchain/node2/wallet.dat", "/Users/wushenglan/Projects/zeepinchain/node3/wallet.dat", "/Users/wushenglan/Projects/zeepinchain/node4/wallet.dat", "/Users/wushenglan/Projects/zeepinchain/node5/wallet.dat", "/Users/wushenglan/Projects/zeepinchain/node6/wallet.dat", "/Users/wushenglan/Projects/zeepinchain/node7/wallet.dat", "/Users/wushenglan/Projects/zeepinchain/node8/wallet.dat", "/Users/wushenglan/Projects/zeepinchain/node9/wallet.dat"],
     "Passwords": ["123456", "123456", "123456", "123456", "123456", "123456", "123456", "123456", "123456"],
     "RpcUrl": "http://127.0.0.1:20336",
-    "GIds": ["gid:zpt:ZP3zpRPrt2utDxzGHj8fTJT6AbdwwqyHnd"]
+    "GIds": ["gid:zpt:"]
   }
 }

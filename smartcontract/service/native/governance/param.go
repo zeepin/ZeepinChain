@@ -136,8 +136,6 @@ func (this *UnRegisterCandidateParam) Deserialize(r io.Reader) error {
 	return nil
 }
 
-
-
 type GetVoteInfoParam struct {
 	PeerPubkey string
 	Address    common.Address
@@ -166,7 +164,6 @@ func (this *GetVoteInfoParam) Deserialize(r io.Reader) error {
 	this.Address = address
 	return nil
 }
-
 
 type QuitNodeParam struct {
 	PeerPubkey string
@@ -229,6 +226,26 @@ func (this *RejectCandidateParam) Serialize(w io.Writer) error {
 }
 
 func (this *RejectCandidateParam) Deserialize(r io.Reader) error {
+	peerPubkey, err := serialization.ReadString(r)
+	if err != nil {
+		return errors.NewDetailErr(err, errors.ErrNoCode, "serialization.ReadString, deserialize peerPubkey error!")
+	}
+	this.PeerPubkey = peerPubkey
+	return nil
+}
+
+type CheckVoteInfoParam struct {
+	PeerPubkey string
+}
+
+func (this *CheckVoteInfoParam) Serialize(w io.Writer) error {
+	if err := serialization.WriteString(w, this.PeerPubkey); err != nil {
+		return errors.NewDetailErr(err, errors.ErrNoCode, "serialization.WriteString, serialize peerPubkey error!")
+	}
+	return nil
+}
+
+func (this *CheckVoteInfoParam) Deserialize(r io.Reader) error {
 	peerPubkey, err := serialization.ReadString(r)
 	if err != nil {
 		return errors.NewDetailErr(err, errors.ErrNoCode, "serialization.ReadString, deserialize peerPubkey error!")

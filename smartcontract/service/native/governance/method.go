@@ -213,6 +213,9 @@ func voteForPeer(native *native.NativeService, flag string) error {
 		if err != nil {
 			return errors.NewDetailErr(err, errors.ErrNoCode, "getVoteInfo, get voteInfo error!")
 		}
+		if pos < 0 {
+			return errors.NewDetailErr(err, errors.ErrNoCode, "vote pos must greater than zero!")
+		}
 		voteInfo.NewPos = voteInfo.NewPos + uint64(pos)
 		total = total + uint64(pos)
 		peerPoolItem.TotalPos = peerPoolItem.TotalPos + uint64(pos)
@@ -878,14 +881,14 @@ func executeSplit(native *native.NativeService, contract common.Address, peerPoo
 		nodeAmount := distributedBalance * proportion
 		address := peersCandidate[i].Address
 		err = appCallTransferGala(native, utils.GovernanceContractAddress, address, uint64(nodeAmount))
-		/*log.Debugf("consensus peer split balance: %d, globalParam.A: %d, peersCandidate[i].S:%d, sumS:%d distributedBalance: %f, proportion: %f, nodeAmount: %+v",
-		balance,
-		globalParam.A,
-		peersCandidate[i].S,
-		sumS,
-		distributedBalance,
-		proportion,
-		nodeAmount)*/
+		log.Infof("consensus peer split balance: %d, globalParam.A: %d, peersCandidate[i].S:%d, sumS:%d distributedBalance: %f, proportion: %f, nodeAmount: %+v",
+			balance,
+			globalParam.A,
+			peersCandidate[i].S,
+			sumS,
+			distributedBalance,
+			proportion,
+			nodeAmount)
 		if err != nil {
 			return errors.NewDetailErr(err, errors.ErrNoCode, "executeSplit, gala transfer error!")
 		}
@@ -900,14 +903,43 @@ func executeSplit(native *native.NativeService, contract common.Address, peerPoo
 	if sum == 0 {
 		return nil
 	}
-	for i := int(config.K); i < len(peersCandidate); i++ {
-		distributedBalance := float64(balance) * float64(globalParam.B) / float64(100)
-		proportion := float64(peersCandidate[i].S) / float64(sumS)
-		nodeAmount := distributedBalance * proportion
-		address := peersCandidate[i].Address
-		err = appCallTransferGala(native, utils.GovernanceContractAddress, address, uint64(nodeAmount))
-		if err != nil {
-			return errors.NewDetailErr(err, errors.ErrNoCode, "executeSplit, gala transfer error!")
+	if native.Height >= 720000 {
+		for i := int(config.K); i < len(peersCandidate); i++ {
+			distributedBalance := float64(balance) * float64(globalParam.B) / float64(100)
+			proportion := float64(peersCandidate[i].Stake) / float64(sum)
+			nodeAmount := distributedBalance * proportion
+			address := peersCandidate[i].Address
+			err = appCallTransferGala(native, utils.GovernanceContractAddress, address, uint64(nodeAmount))
+			log.Infof("candidate peer split balance: %d, globalParam.B: %d, peersCandidate[i].Stake:%d, sum:%d distributedBalance: %f, proportion: %f, nodeAmount: %+v",
+				balance,
+				globalParam.B,
+				peersCandidate[i].Stake,
+				sum,
+				distributedBalance,
+				proportion,
+				nodeAmount)
+			if err != nil {
+				return errors.NewDetailErr(err, errors.ErrNoCode, "executeSplit, gala transfer error!")
+			}
+		}
+	} else {
+		for i := int(config.K); i < len(peersCandidate); i++ {
+			distributedBalance := float64(balance) * float64(globalParam.B) / float64(100)
+			proportion := float64(peersCandidate[i].S) / float64(sumS)
+			nodeAmount := distributedBalance * proportion
+			address := peersCandidate[i].Address
+			err = appCallTransferGala(native, utils.GovernanceContractAddress, address, uint64(nodeAmount))
+			log.Infof("candidate peer split balance: %d, globalParam.B: %d, peersCandidate[i].Stake:%d, sum:%d distributedBalance: %f, proportion: %f, nodeAmount: %+v",
+				balance,
+				globalParam.B,
+				peersCandidate[i].Stake,
+				sum,
+				distributedBalance,
+				proportion,
+				nodeAmount)
+			if err != nil {
+				return errors.NewDetailErr(err, errors.ErrNoCode, "executeSplit, gala transfer error!")
+			}
 		}
 	}
 
