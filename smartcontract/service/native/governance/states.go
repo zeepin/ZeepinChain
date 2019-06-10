@@ -220,12 +220,12 @@ func (this *PeerPoolItem) Deserialize(r io.Reader) error {
 	if err != nil {
 		return errors.NewDetailErr(err, errors.ErrNoCode, "serialization.ReadUint64, deserialize totalPos error!")
 	}
-	if initPos >= constants.ZPT_TOTAL_SUPPLY {
+	/* if initPos >= constants.ZPT_TOTAL_SUPPLY {
 		initPos = 0
 	}
 	if totalPos >= constants.ZPT_TOTAL_SUPPLY {
 		totalPos = 0
-	}
+	} */
 	this.Index = index
 	this.PeerPubkey = peerPubkey
 	this.Address = *address
