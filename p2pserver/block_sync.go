@@ -285,8 +285,6 @@ func (this *BlockSyncMgr) checkTimeout() {
 	blockTimeoutFlights := make(map[common.Uint256][]*SyncFlightInfo, 0)
 	this.lock.RLock()
 	for height, flightInfo := range this.flightHeaders {
-		println(now.Sub(flightInfo.startTime).Seconds())
-		println(flightInfo.startTime.Format("2006-01-02 15:04:05"))
 		if int(now.Sub(flightInfo.startTime).Seconds()) >= SYNC_HEADER_REQUEST_TIMEOUT {
 			headerTimeoutFlights[height] = flightInfo
 		}
