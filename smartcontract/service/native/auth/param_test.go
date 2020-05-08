@@ -22,9 +22,8 @@ import (
 	"crypto/rand"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
-
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
+	"github.com/stretchr/testify/assert"
 )
 
 var (
