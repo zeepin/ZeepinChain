@@ -31,8 +31,8 @@ import (
 	"github.com/imZhuFei/zeepin/common/constants"
 	"github.com/imZhuFei/zeepin/common/password"
 	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/ontio/ontology-crypto/signature"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/zeepinchain-crypto/signature"
 	"github.com/urfave/cli"
 )
 

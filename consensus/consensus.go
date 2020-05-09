@@ -24,7 +24,7 @@ import (
 	"github.com/imZhuFei/zeepin/consensus/dbft"
 	"github.com/imZhuFei/zeepin/consensus/solo"
 	"github.com/imZhuFei/zeepin/consensus/vbft"
-	"github.com/ontio/ontology-eventbus/actor"
+	"github.com/zeepin/zeepinchain-eventbus/actor"
 )
 
 type ConsensusService interface {

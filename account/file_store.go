@@ -25,7 +25,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/ontio/ontology-crypto/keypair"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
 	"github.com/imZhuFei/zeepin/common"
 )
 

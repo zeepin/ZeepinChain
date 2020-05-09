@@ -30,7 +30,7 @@ import (
 	"github.com/imZhuFei/zeepin/common/constants"
 	"github.com/imZhuFei/zeepin/common/serialization"
 	"github.com/imZhuFei/zeepin/errors"
-	"github.com/ontio/ontology-crypto/keypair"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
 )
 
 var Version = "" //Set value when build project

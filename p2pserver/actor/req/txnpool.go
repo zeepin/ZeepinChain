@@ -27,7 +27,7 @@ import (
 	"github.com/imZhuFei/zeepin/errors"
 	p2pcommon "github.com/imZhuFei/zeepin/p2pserver/common"
 	tc "github.com/imZhuFei/zeepin/txnpool/common"
-	"github.com/ontio/ontology-eventbus/actor"
+	"github.com/zeepin/zeepinchain-eventbus/actor"
 )
 
 const txnPoolReqTimeout = p2pcommon.ACTOR_TIMEOUT * time.Second

@@ -30,7 +30,7 @@ import (
 	"github.com/imZhuFei/zeepin/common/serialization"
 	"github.com/imZhuFei/zeepin/core/payload"
 	"github.com/imZhuFei/zeepin/core/program"
-	"github.com/ontio/ontology-crypto/keypair"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
 )
 
 const MAX_TX_SIZE = 1024 * 1024 * 2 // The max size of a transaction to prevent DOS attacks

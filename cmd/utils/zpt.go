@@ -36,8 +36,8 @@ import (
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/zpt"
 	"github.com/imZhuFei/zeepin/smartcontract/service/wasmvm"
 	cstates "github.com/imZhuFei/zeepin/smartcontract/states"
-	"github.com/ontio/ontology-crypto/keypair"
-	sig "github.com/ontio/ontology-crypto/signature"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
+	sig "github.com/zeepin/zeepinchain-crypto/signature"
 )
 
 const (

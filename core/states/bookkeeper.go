@@ -23,7 +23,7 @@ import (
 	"io"
 
 	"github.com/imZhuFei/zeepin/common/serialization"
-	"github.com/ontio/ontology-crypto/keypair"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
 )
 
 type BookkeeperState struct {

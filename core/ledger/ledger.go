@@ -30,7 +30,7 @@ import (
 	"github.com/imZhuFei/zeepin/core/types"
 	"github.com/imZhuFei/zeepin/smartcontract/event"
 	cstate "github.com/imZhuFei/zeepin/smartcontract/states"
-	"github.com/ontio/ontology-crypto/keypair"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
 )
 
 var DefLedger *Ledger

@@ -24,7 +24,7 @@ import (
 	"time"
 
 	"github.com/imZhuFei/zeepin/consensus/vbft/config"
-	"github.com/ontio/ontology-crypto/keypair"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
 )
 
 type Peer struct {

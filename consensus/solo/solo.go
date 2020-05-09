@@ -34,8 +34,8 @@ import (
 	"github.com/imZhuFei/zeepin/events"
 	"github.com/imZhuFei/zeepin/events/message"
 	"github.com/imZhuFei/zeepin/validator/increment"
-	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/ontio/ontology-eventbus/actor"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/zeepinchain-eventbus/actor"
 )
 
 /*

@@ -43,7 +43,7 @@ import (
 	"github.com/imZhuFei/zeepin/p2pserver/net/netserver"
 	p2pnet "github.com/imZhuFei/zeepin/p2pserver/net/protocol"
 	"github.com/imZhuFei/zeepin/p2pserver/peer"
-	evtActor "github.com/ontio/ontology-eventbus/actor"
+	evtActor "github.com/zeepin/zeepinchain-eventbus/actor"
 )
 
 //P2PServer control all network activities

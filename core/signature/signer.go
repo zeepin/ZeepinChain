@@ -19,8 +19,8 @@
 package signature
 
 import (
-	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/ontio/ontology-crypto/signature"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/zeepinchain-crypto/signature"
 )
 
 // Signer is the abstract interface of user's information(Keys) for signing data.

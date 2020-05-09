@@ -39,7 +39,7 @@ import (
 	nutils "github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
 	tc "github.com/imZhuFei/zeepin/txnpool/common"
 	"github.com/imZhuFei/zeepin/validator/types"
-	"github.com/ontio/ontology-eventbus/actor"
+	"github.com/zeepin/zeepinchain-eventbus/actor"
 )
 
 type txStats struct {

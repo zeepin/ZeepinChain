@@ -23,7 +23,7 @@ import (
 	msgCommon "github.com/imZhuFei/zeepin/p2pserver/common"
 	"github.com/imZhuFei/zeepin/p2pserver/message/types"
 	"github.com/imZhuFei/zeepin/p2pserver/net/protocol"
-	"github.com/ontio/ontology-eventbus/actor"
+	"github.com/zeepin/zeepinchain-eventbus/actor"
 )
 
 // MessageHandler defines the unified api for each net message

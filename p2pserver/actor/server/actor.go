@@ -24,7 +24,7 @@ import (
 	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/imZhuFei/zeepin/p2pserver"
 	"github.com/imZhuFei/zeepin/p2pserver/common"
-	"github.com/ontio/ontology-eventbus/actor"
+	"github.com/zeepin/zeepinchain-eventbus/actor"
 )
 
 type P2PActor struct {

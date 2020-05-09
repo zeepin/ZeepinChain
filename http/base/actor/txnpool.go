@@ -28,7 +28,7 @@ import (
 	"github.com/imZhuFei/zeepin/core/types"
 	ontErrors "github.com/imZhuFei/zeepin/errors"
 	tcomn "github.com/imZhuFei/zeepin/txnpool/common"
-	"github.com/ontio/ontology-eventbus/actor"
+	"github.com/zeepin/zeepinchain-eventbus/actor"
 )
 
 var txnPid *actor.PID

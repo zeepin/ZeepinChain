@@ -34,7 +34,7 @@ import (
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/auth"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/zpt"
-	"github.com/ontio/ontology-crypto/vrf"
+	"github.com/zeepin/zeepinchain-crypto/vrf"
 )
 
 func GetPeerPoolMap(native *native.NativeService, contract common.Address, view uint32) (*PeerPoolMap, error) {

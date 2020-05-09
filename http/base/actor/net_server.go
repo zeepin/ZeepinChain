@@ -25,7 +25,7 @@ import (
 	"github.com/imZhuFei/zeepin/common/log"
 	ac "github.com/imZhuFei/zeepin/p2pserver/actor/server"
 	"github.com/imZhuFei/zeepin/p2pserver/common"
-	"github.com/ontio/ontology-eventbus/actor"
+	"github.com/zeepin/zeepinchain-eventbus/actor"
 )
 
 var netServerPid *actor.PID

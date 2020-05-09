@@ -27,8 +27,8 @@ import (
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/common/serialization"
 	vconfig "github.com/imZhuFei/zeepin/consensus/vbft/config"
-	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/ontio/ontology-crypto/signature"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/zeepinchain-crypto/signature"
 )
 
 type MsgType uint8

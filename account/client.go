@@ -28,8 +28,8 @@ import (
 
 	"github.com/imZhuFei/zeepin/common"
 	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/ontio/ontology-crypto/keypair"
-	s "github.com/ontio/ontology-crypto/signature"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
+	s "github.com/zeepin/zeepinchain-crypto/signature"
 )
 
 //Client of wallet

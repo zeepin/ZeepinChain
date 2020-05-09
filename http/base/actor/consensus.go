@@ -20,7 +20,7 @@ package actor
 
 import (
 	cactor "github.com/imZhuFei/zeepin/consensus/actor"
-	"github.com/ontio/ontology-eventbus/actor"
+	"github.com/zeepin/zeepinchain-eventbus/actor"
 )
 
 var consensusSrvPid *actor.PID

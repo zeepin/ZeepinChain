@@ -25,8 +25,8 @@ import (
 	msgCommon "github.com/imZhuFei/zeepin/p2pserver/common"
 	"github.com/imZhuFei/zeepin/p2pserver/net/netserver"
 	"github.com/imZhuFei/zeepin/p2pserver/net/protocol"
-	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/ontio/ontology-eventbus/actor"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/zeepinchain-eventbus/actor"
 	"github.com/stretchr/testify/assert"
 )
 

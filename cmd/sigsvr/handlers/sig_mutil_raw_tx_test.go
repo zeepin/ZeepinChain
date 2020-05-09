@@ -21,7 +21,7 @@ import (
 	"bytes"
 	"encoding/hex"
 	"encoding/json"
-	"github.com/ontio/ontology-crypto/keypair"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
 	"github.com/imZhuFei/zeepin/account"
 	clisvrcom "github.com/imZhuFei/zeepin/cmd/sigsvr/common"
 	"github.com/imZhuFei/zeepin/cmd/utils"

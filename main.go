@@ -54,10 +54,10 @@ import (
 	"github.com/imZhuFei/zeepin/txnpool/proc"
 	"github.com/imZhuFei/zeepin/validator/stateful"
 	"github.com/imZhuFei/zeepin/validator/stateless"
-	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/ontio/ontology-eventbus/actor"
-	alog "github.com/ontio/ontology-eventbus/log"
 	"github.com/urfave/cli"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/zeepinchain-eventbus/actor"
+	alog "github.com/zeepin/zeepinchain-eventbus/log"
 )
 
 func setupAPP() *cli.App {

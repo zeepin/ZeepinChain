@@ -34,7 +34,7 @@ import (
 	"github.com/imZhuFei/zeepin/smartcontract/context"
 	"github.com/imZhuFei/zeepin/smartcontract/event"
 	"github.com/imZhuFei/zeepin/smartcontract/storage"
-	"github.com/ontio/ontology-crypto/keypair"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
 )
 
 var (

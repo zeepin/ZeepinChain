@@ -22,8 +22,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/ontio/ontology-crypto/keypair"
-	s "github.com/ontio/ontology-crypto/signature"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
+	s "github.com/zeepin/zeepinchain-crypto/signature"
 	"github.com/stretchr/testify/assert"
 )
 

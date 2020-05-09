@@ -21,8 +21,8 @@ package signature
 import (
 	"errors"
 
-	"github.com/ontio/ontology-crypto/keypair"
-	s "github.com/ontio/ontology-crypto/signature"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
+	s "github.com/zeepin/zeepinchain-crypto/signature"
 )
 
 // Sign returns the signature of data using privKey

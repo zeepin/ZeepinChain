@@ -31,7 +31,7 @@ import (
 	ct "github.com/imZhuFei/zeepin/core/types"
 	"github.com/imZhuFei/zeepin/p2pserver/common"
 	mt "github.com/imZhuFei/zeepin/p2pserver/message/types"
-	"github.com/ontio/ontology-crypto/keypair"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
 	"github.com/stretchr/testify/assert"
 )
 

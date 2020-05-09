@@ -35,7 +35,7 @@ import (
 	tp "github.com/imZhuFei/zeepin/txnpool/proc"
 	"github.com/imZhuFei/zeepin/validator/stateful"
 	"github.com/imZhuFei/zeepin/validator/stateless"
-	"github.com/ontio/ontology-eventbus/actor"
+	"github.com/zeepin/zeepinchain-eventbus/actor"
 )
 
 var (

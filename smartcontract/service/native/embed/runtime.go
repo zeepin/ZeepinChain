@@ -33,7 +33,7 @@ import (
 	"github.com/imZhuFei/zeepin/errors"
 	scommon "github.com/imZhuFei/zeepin/smartcontract/common"
 	"github.com/imZhuFei/zeepin/smartcontract/event"
-	"github.com/ontio/ontology-crypto/keypair"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
 )
 
 // HeaderGetNextConsensus put current block time to vm stack

@@ -26,8 +26,8 @@ import (
 	"github.com/imZhuFei/zeepin/cmd/common"
 	"github.com/imZhuFei/zeepin/cmd/utils"
 	"github.com/imZhuFei/zeepin/common/config"
-	"github.com/ontio/ontology-crypto/keypair"
-	s "github.com/ontio/ontology-crypto/signature"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
+	s "github.com/zeepin/zeepinchain-crypto/signature"
 	"github.com/urfave/cli"
 )
 

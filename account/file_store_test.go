@@ -24,7 +24,7 @@ import (
 	"testing"
 
 	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/ontio/ontology-crypto/keypair"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
 	"github.com/stretchr/testify/assert"
 )
 

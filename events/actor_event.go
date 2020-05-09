@@ -21,8 +21,8 @@ package events
 import (
 	"fmt"
 
-	"github.com/ontio/ontology-eventbus/actor"
-	"github.com/ontio/ontology-eventbus/eventhub"
+	"github.com/zeepin/zeepinchain-eventbus/actor"
+	"github.com/zeepin/zeepinchain-eventbus/eventhub"
 )
 
 var DefEvtHub *eventhub.EventHub

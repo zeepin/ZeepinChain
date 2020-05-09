@@ -38,7 +38,7 @@ import (
 	"github.com/imZhuFei/zeepin/p2pserver/net/netserver"
 	"github.com/imZhuFei/zeepin/p2pserver/net/protocol"
 	"github.com/imZhuFei/zeepin/p2pserver/peer"
-	"github.com/ontio/ontology-crypto/keypair"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
 	"github.com/stretchr/testify/assert"
 )
 

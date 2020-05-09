@@ -45,7 +45,7 @@ import (
 	"github.com/imZhuFei/zeepin/smartcontract/service/wasmvm"
 	cstates "github.com/imZhuFei/zeepin/smartcontract/states"
 	"github.com/imZhuFei/zeepin/vm/wasmvm/exec"
-	"github.com/ontio/ontology-crypto/keypair"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
 )
 
 const MAX_SEARCH_HEIGHT uint32 = 100

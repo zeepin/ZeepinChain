@@ -29,8 +29,8 @@ import (
 	"github.com/imZhuFei/zeepin/core/utils"
 	"github.com/imZhuFei/zeepin/errors"
 	types2 "github.com/imZhuFei/zeepin/validator/types"
-	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/ontio/ontology-eventbus/actor"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/zeepinchain-eventbus/actor"
 	"github.com/stretchr/testify/assert"
 )
 

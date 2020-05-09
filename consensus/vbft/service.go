@@ -42,9 +42,9 @@ import (
 	ninit "github.com/imZhuFei/zeepin/smartcontract/service/native/init"
 	nutils "github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
 	"github.com/imZhuFei/zeepin/validator/increment"
-	"github.com/ontio/ontology-crypto/keypair"
-	"github.com/ontio/ontology-crypto/vrf"
-	"github.com/ontio/ontology-eventbus/actor"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/zeepinchain-crypto/vrf"
+	"github.com/zeepin/zeepinchain-eventbus/actor"
 )
 
 type BftActionType uint8

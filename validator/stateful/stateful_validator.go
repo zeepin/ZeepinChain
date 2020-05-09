@@ -27,7 +27,7 @@ import (
 	"github.com/imZhuFei/zeepin/errors"
 	"github.com/imZhuFei/zeepin/validator/db"
 	vatypes "github.com/imZhuFei/zeepin/validator/types"
-	"github.com/ontio/ontology-eventbus/actor"
+	"github.com/zeepin/zeepinchain-eventbus/actor"
 )
 
 // Validator is an interface for tx validation actor

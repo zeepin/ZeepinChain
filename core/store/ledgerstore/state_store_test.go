@@ -27,7 +27,7 @@ import (
 	scommon "github.com/imZhuFei/zeepin/core/store/common"
 	"github.com/imZhuFei/zeepin/core/store/statestore"
 	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/ontio/ontology-crypto/keypair"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
 )
 
 func TestContractState(t *testing.T) {

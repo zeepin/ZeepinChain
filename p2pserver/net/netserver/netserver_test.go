@@ -29,7 +29,7 @@ import (
 	"github.com/imZhuFei/zeepin/common/log"
 	"github.com/imZhuFei/zeepin/p2pserver/common"
 	"github.com/imZhuFei/zeepin/p2pserver/peer"
-	"github.com/ontio/ontology-crypto/keypair"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
 )
 
 var key keypair.PublicKey

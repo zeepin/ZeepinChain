@@ -38,7 +38,7 @@ import (
 	"github.com/imZhuFei/zeepin/events/message"
 	p2pmsg "github.com/imZhuFei/zeepin/p2pserver/message/types"
 	"github.com/imZhuFei/zeepin/validator/increment"
-	"github.com/ontio/ontology-eventbus/actor"
+	"github.com/zeepin/zeepinchain-eventbus/actor"
 )
 
 type DbftService struct {

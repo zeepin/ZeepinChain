@@ -25,8 +25,8 @@ import (
 
 	"github.com/imZhuFei/zeepin/common/log"
 	ontErrors "github.com/imZhuFei/zeepin/errors"
-	"github.com/ontio/ontology-crypto/keypair"
-	s "github.com/ontio/ontology-crypto/signature"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
+	s "github.com/zeepin/zeepinchain-crypto/signature"
 	"golang.org/x/crypto/ripemd160"
 )
 

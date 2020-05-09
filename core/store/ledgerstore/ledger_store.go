@@ -52,7 +52,7 @@ import (
 	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
 	sstate "github.com/imZhuFei/zeepin/smartcontract/states"
 	"github.com/imZhuFei/zeepin/smartcontract/storage"
-	"github.com/ontio/ontology-crypto/keypair"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
 )
 
 const (

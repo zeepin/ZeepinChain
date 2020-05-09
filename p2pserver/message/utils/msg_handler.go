@@ -37,7 +37,7 @@ import (
 	"github.com/imZhuFei/zeepin/p2pserver/message/msg_pack"
 	msgTypes "github.com/imZhuFei/zeepin/p2pserver/message/types"
 	"github.com/imZhuFei/zeepin/p2pserver/net/protocol"
-	evtActor "github.com/ontio/ontology-eventbus/actor"
+	evtActor "github.com/zeepin/zeepinchain-eventbus/actor"
 )
 
 //respCache cache for some response data

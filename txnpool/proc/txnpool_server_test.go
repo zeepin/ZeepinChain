@@ -32,7 +32,7 @@ import (
 	tc "github.com/imZhuFei/zeepin/txnpool/common"
 	"github.com/imZhuFei/zeepin/validator/stateless"
 	vt "github.com/imZhuFei/zeepin/validator/types"
-	"github.com/ontio/ontology-eventbus/actor"
+	"github.com/zeepin/zeepinchain-eventbus/actor"
 	"github.com/stretchr/testify/assert"
 )
 
