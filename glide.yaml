@@ -1,8 +1,8 @@
-package: github.com/ontio/ontology
+package: github.com/zeepin/ZeepinChain
 import:
-- package: github.com/ontio/zeepin-eventbus
+- package: github.com/zeepin/zeepin-eventbus
   version: v0.9.1
-- package: github.com/ontio/zeepin-crypto
+- package: github.com/zeepin/zeepin-crypto
   version: v1.0.1
 - package: github.com/howeyc/gopass
 - package: github.com/gorilla/websocket

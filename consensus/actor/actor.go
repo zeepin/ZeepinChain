@@ -27,7 +27,7 @@ import (
 	netActor "github.com/imZhuFei/zeepin/p2pserver/actor/server"
 	ptypes "github.com/imZhuFei/zeepin/p2pserver/message/types"
 	txpool "github.com/imZhuFei/zeepin/txnpool/common"
-	"github.com/ontio/ontology-eventbus/actor"
+	"github.com/zeepin/zeepinchain-eventbus/actor"
 )
 
 type TxPoolActor struct {

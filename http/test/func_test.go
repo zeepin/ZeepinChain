@@ -28,9 +28,8 @@ import (
 	"github.com/imZhuFei/zeepin/core/types"
 	"github.com/imZhuFei/zeepin/embed/simulator"
 	"github.com/imZhuFei/zeepin/merkle"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
-	"github.com/ontio/ontology/embed/simulator"
 	"github.com/stretchr/testify/assert"
+	"github.com/zeepin/zeepinchain-crypto/keypair"
 )
 
 func TestMerkleVerifier(t *testing.T) {

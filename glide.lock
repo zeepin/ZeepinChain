@@ -36,7 +36,7 @@ imports:
   version: 4b24a7dfa1bfba3724ffb3598b1c6ded1cff087f
 - name: github.com/mattn/go-isatty
   version: 6ca4dbf54d38eea1a992b3c722a76a5d1c4cb25c
-- name: github.com/ontio/ontology-crypto
+- name: github.com/zeepin/zeepinchain-crypto
   version: b7891a468be08393875e2e089776614d56ad0173
   subpackages:
   - ec
@@ -45,7 +45,7 @@ imports:
   - sm2
   - sm3
   - vrf
-- name: github.com/ontio/ontology-eventbus
+- name: github.com/zeepin/zeepinchain-eventbus
   version: e0541083fef8f5377eb9ad3141da762d529ce37a
   subpackages:
   - actor
