@@ -19,9 +19,9 @@
 package common
 
 import (
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/imZhuFei/zeepin/errors"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain/errors"
 )
 
 const (

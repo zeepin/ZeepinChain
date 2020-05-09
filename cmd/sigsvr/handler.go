@@ -18,7 +18,7 @@
 
 package sigsvr
 
-import "github.com/imZhuFei/zeepin/cmd/sigsvr/handlers"
+import "github.com/zeepin/ZeepinChain/cmd/sigsvr/handlers"
 
 func init() {
 	DefCliRpcSvr.RegHandler("sigdata", handlers.SigData)

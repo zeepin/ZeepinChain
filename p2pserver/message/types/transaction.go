@@ -22,9 +22,9 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/imZhuFei/zeepin/errors"
-	"github.com/imZhuFei/zeepin/p2pserver/common"
+	"github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain/errors"
+	"github.com/zeepin/ZeepinChain/p2pserver/common"
 )
 
 // Transaction message

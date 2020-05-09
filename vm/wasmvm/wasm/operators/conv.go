@@ -25,7 +25,7 @@ package operators
 import (
 	"regexp"
 
-	"github.com/imZhuFei/zeepin/vm/wasmvm/wasm"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/wasm"
 )
 
 var reCvrtOp = regexp.MustCompile(`(.+)\.(?:[a-z]|\_)+\/(.+)`)

@@ -18,8 +18,8 @@
 package gid
 
 import (
-	"github.com/imZhuFei/zeepin/smartcontract/service/native"
-	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
+	"github.com/zeepin/ZeepinChain/smartcontract/service/native"
+	"github.com/zeepin/ZeepinChain/smartcontract/service/native/utils"
 )
 
 func Init() {

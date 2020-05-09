@@ -28,8 +28,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/imZhuFei/zeepin/common/log"
-	berr "github.com/imZhuFei/zeepin/http/base/error"
+	"github.com/zeepin/ZeepinChain/common/log"
+	berr "github.com/zeepin/ZeepinChain/http/base/error"
 )
 
 func init() {

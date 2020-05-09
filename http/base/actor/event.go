@@ -19,9 +19,9 @@
 package actor
 
 import (
-	"github.com/imZhuFei/zeepin/events"
-	"github.com/imZhuFei/zeepin/events/message"
-	"github.com/zeepin/zeepinchain-eventbus/actor"
+	"github.com/zeepin/ZeepinChain/events"
+	"github.com/zeepin/ZeepinChain/events/message"
+	"github.com/zeepin/ZeepinChain-Eventbus/actor"
 )
 
 type EventActor struct {

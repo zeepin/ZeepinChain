@@ -24,8 +24,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/imZhuFei/zeepin/cmd/sigsvr/common"
-	"github.com/imZhuFei/zeepin/common/log"
+	"github.com/zeepin/ZeepinChain/cmd/sigsvr/common"
+	"github.com/zeepin/ZeepinChain/common/log"
 )
 
 var DefCliRpcSvr = NewCliRpcServer()

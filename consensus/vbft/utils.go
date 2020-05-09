@@ -25,17 +25,17 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/imZhuFei/zeepin/account"
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/config"
-	"github.com/imZhuFei/zeepin/consensus/vbft/config"
-	"github.com/imZhuFei/zeepin/core/ledger"
-	"github.com/imZhuFei/zeepin/core/signature"
-	"github.com/imZhuFei/zeepin/core/states"
-	gov "github.com/imZhuFei/zeepin/smartcontract/service/native/governance"
-	nutils "github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
-	"github.com/zeepin/zeepinchain-crypto/vrf"
+	"github.com/zeepin/ZeepinChain/account"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/config"
+	"github.com/zeepin/ZeepinChain/consensus/vbft/config"
+	"github.com/zeepin/ZeepinChain/core/ledger"
+	"github.com/zeepin/ZeepinChain/core/signature"
+	"github.com/zeepin/ZeepinChain/core/states"
+	gov "github.com/zeepin/ZeepinChain/smartcontract/service/native/governance"
+	nutils "github.com/zeepin/ZeepinChain/smartcontract/service/native/utils"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
+	"github.com/zeepin/ZeepinChain-Crypto/vrf"
 )
 
 func SignMsg(account *account.Account, msg ConsensusMsg) ([]byte, error) {

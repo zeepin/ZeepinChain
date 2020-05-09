@@ -25,10 +25,10 @@ import (
 	"os"
 	"testing"
 
-	"github.com/imZhuFei/zeepin/account"
-	clisvrcom "github.com/imZhuFei/zeepin/cmd/sigsvr/common"
-	"github.com/imZhuFei/zeepin/cmd/utils"
-	"github.com/imZhuFei/zeepin/common/log"
+	"github.com/zeepin/ZeepinChain/account"
+	clisvrcom "github.com/zeepin/ZeepinChain/cmd/sigsvr/common"
+	"github.com/zeepin/ZeepinChain/cmd/utils"
+	"github.com/zeepin/ZeepinChain/common/log"
 )
 
 var (

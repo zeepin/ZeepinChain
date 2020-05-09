@@ -29,7 +29,7 @@ import (
 	"io"
 	"math"
 
-	"github.com/imZhuFei/zeepin/vm/wasmvm/wasm/leb128"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/wasm/leb128"
 )
 
 const (

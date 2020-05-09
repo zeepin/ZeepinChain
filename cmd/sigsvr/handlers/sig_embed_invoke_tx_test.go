@@ -22,9 +22,9 @@ import (
 	"encoding/json"
 	"testing"
 
-	clisvrcom "github.com/imZhuFei/zeepin/cmd/sigsvr/common"
-	"github.com/imZhuFei/zeepin/cmd/utils"
-	"github.com/imZhuFei/zeepin/common"
+	clisvrcom "github.com/zeepin/ZeepinChain/cmd/sigsvr/common"
+	"github.com/zeepin/ZeepinChain/cmd/utils"
+	"github.com/zeepin/ZeepinChain/common"
 )
 
 func TestSigEmbededInvokeTx(t *testing.T) {

@@ -22,10 +22,10 @@ import (
 	"os"
 	"testing"
 
-	"github.com/imZhuFei/zeepin/common/log"
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/imZhuFei/zeepin/embed/simulator"
-	. "github.com/imZhuFei/zeepin/smartcontract"
+	"github.com/zeepin/ZeepinChain/common/log"
+	"github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain/embed/simulator"
+	. "github.com/zeepin/ZeepinChain/smartcontract"
 	"github.com/stretchr/testify/assert"
 )
 

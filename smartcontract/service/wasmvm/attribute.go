@@ -20,9 +20,9 @@ package wasmvm
 import (
 	"bytes"
 
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/imZhuFei/zeepin/errors"
-	"github.com/imZhuFei/zeepin/vm/wasmvm/exec"
+	"github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain/errors"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/exec"
 )
 
 func (this *WasmVmService) attributeGetUsage(engine *exec.ExecutionEngine) (bool, error) {

@@ -27,12 +27,12 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/imZhuFei/zeepin/cmd/abi"
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/imZhuFei/zeepin/embed/simulator"
-	httpcom "github.com/imZhuFei/zeepin/http/base/common"
-	"github.com/imZhuFei/zeepin/smartcontract/service/native/embed"
+	"github.com/zeepin/ZeepinChain/cmd/abi"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain/embed/simulator"
+	httpcom "github.com/zeepin/ZeepinChain/http/base/common"
+	"github.com/zeepin/ZeepinChain/smartcontract/service/native/embed"
 )
 
 func NewNativeInvokeTransaction(gasPrice, gasLimit uint64, contractAddr common.Address, version byte, params []interface{}, funcAbi *abi.NativeContractFunctionAbi) (*types.MutableTransaction, error) {

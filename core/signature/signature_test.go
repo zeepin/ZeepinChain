@@ -20,8 +20,8 @@ package signature
 import (
 	"testing"
 
-	"github.com/imZhuFei/zeepin/account"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/ZeepinChain/account"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
 	"github.com/stretchr/testify/assert"
 )
 

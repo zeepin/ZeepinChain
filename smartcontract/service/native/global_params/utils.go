@@ -21,12 +21,12 @@ package global_params
 import (
 	"bytes"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/config"
-	cstates "github.com/imZhuFei/zeepin/core/states"
-	"github.com/imZhuFei/zeepin/smartcontract/event"
-	"github.com/imZhuFei/zeepin/smartcontract/service/native"
-	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/config"
+	cstates "github.com/zeepin/ZeepinChain/core/states"
+	"github.com/zeepin/ZeepinChain/smartcontract/event"
+	"github.com/zeepin/ZeepinChain/smartcontract/service/native"
+	"github.com/zeepin/ZeepinChain/smartcontract/service/native/utils"
 )
 
 const (

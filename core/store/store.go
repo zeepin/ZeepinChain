@@ -19,13 +19,13 @@
 package store
 
 import (
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/core/payload"
-	"github.com/imZhuFei/zeepin/core/states"
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/imZhuFei/zeepin/smartcontract/event"
-	cstates "github.com/imZhuFei/zeepin/smartcontract/states"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/core/payload"
+	"github.com/zeepin/ZeepinChain/core/states"
+	"github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain/smartcontract/event"
+	cstates "github.com/zeepin/ZeepinChain/smartcontract/states"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
 )
 
 // LedgerStore provides func with store package.

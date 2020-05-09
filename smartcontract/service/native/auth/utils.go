@@ -23,11 +23,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/serialization"
-	"github.com/imZhuFei/zeepin/smartcontract/event"
-	"github.com/imZhuFei/zeepin/smartcontract/service/native"
-	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/serialization"
+	"github.com/zeepin/ZeepinChain/smartcontract/event"
+	"github.com/zeepin/ZeepinChain/smartcontract/service/native"
+	"github.com/zeepin/ZeepinChain/smartcontract/service/native/utils"
 )
 
 var (

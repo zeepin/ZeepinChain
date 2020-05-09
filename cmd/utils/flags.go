@@ -22,9 +22,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/imZhuFei/zeepin/common/config"
-	"github.com/imZhuFei/zeepin/common/constants"
-	"github.com/imZhuFei/zeepin/smartcontract/service/native/embed"
+	"github.com/zeepin/ZeepinChain/common/config"
+	"github.com/zeepin/ZeepinChain/common/constants"
+	"github.com/zeepin/ZeepinChain/smartcontract/service/native/embed"
 	"github.com/urfave/cli"
 )
 

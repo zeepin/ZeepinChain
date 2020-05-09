@@ -21,12 +21,12 @@ package utils
 import (
 	"testing"
 
-	"github.com/imZhuFei/zeepin/common/log"
-	msgCommon "github.com/imZhuFei/zeepin/p2pserver/common"
-	"github.com/imZhuFei/zeepin/p2pserver/net/netserver"
-	"github.com/imZhuFei/zeepin/p2pserver/net/protocol"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
-	"github.com/zeepin/zeepinchain-eventbus/actor"
+	"github.com/zeepin/ZeepinChain/common/log"
+	msgCommon "github.com/zeepin/ZeepinChain/p2pserver/common"
+	"github.com/zeepin/ZeepinChain/p2pserver/net/netserver"
+	"github.com/zeepin/ZeepinChain/p2pserver/net/protocol"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
+	"github.com/zeepin/ZeepinChain-Eventbus/actor"
 	"github.com/stretchr/testify/assert"
 )
 

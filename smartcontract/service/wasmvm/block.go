@@ -20,10 +20,10 @@ package wasmvm
 import (
 	"bytes"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/imZhuFei/zeepin/errors"
-	"github.com/imZhuFei/zeepin/vm/wasmvm/exec"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain/errors"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/exec"
 )
 
 func (this *WasmVmService) blockGetCurrentHeaderHash(engine *exec.ExecutionEngine) (bool, error) {

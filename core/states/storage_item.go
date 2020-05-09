@@ -22,8 +22,8 @@ import (
 	"bytes"
 	"io"
 
-	"github.com/imZhuFei/zeepin/common/serialization"
-	"github.com/imZhuFei/zeepin/errors"
+	"github.com/zeepin/ZeepinChain/common/serialization"
+	"github.com/zeepin/ZeepinChain/errors"
 )
 
 type StorageItem struct {

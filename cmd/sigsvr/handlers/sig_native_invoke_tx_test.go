@@ -20,10 +20,10 @@ package handlers
 
 import (
 	"encoding/json"
-	"github.com/imZhuFei/zeepin/cmd/abi"
-	clisvrcom "github.com/imZhuFei/zeepin/cmd/sigsvr/common"
-	"github.com/imZhuFei/zeepin/common"
-	nutils "github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
+	"github.com/zeepin/ZeepinChain/cmd/abi"
+	clisvrcom "github.com/zeepin/ZeepinChain/cmd/sigsvr/common"
+	"github.com/zeepin/ZeepinChain/common"
+	nutils "github.com/zeepin/ZeepinChain/smartcontract/service/native/utils"
 	"testing"
 )
 

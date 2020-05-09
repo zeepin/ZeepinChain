@@ -22,7 +22,7 @@ import (
 	"math/big"
 	"testing"
 
-	vtypes "github.com/imZhuFei/zeepin/embed/simulator/types"
+	vtypes "github.com/zeepin/ZeepinChain/embed/simulator/types"
 )
 
 func TestOpInvert(t *testing.T) {

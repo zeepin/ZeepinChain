@@ -23,11 +23,11 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/imZhuFei/zeepin/common/log"
-	vconfig "github.com/imZhuFei/zeepin/consensus/vbft/config"
-	"github.com/imZhuFei/zeepin/core/signature"
-	msgpack "github.com/imZhuFei/zeepin/p2pserver/message/msg_pack"
-	p2pmsg "github.com/imZhuFei/zeepin/p2pserver/message/types"
+	"github.com/zeepin/ZeepinChain/common/log"
+	vconfig "github.com/zeepin/ZeepinChain/consensus/vbft/config"
+	"github.com/zeepin/ZeepinChain/core/signature"
+	msgpack "github.com/zeepin/ZeepinChain/p2pserver/message/msg_pack"
+	p2pmsg "github.com/zeepin/ZeepinChain/p2pserver/message/types"
 )
 
 func (self *Server) GetCurrentBlockNo() uint32 {

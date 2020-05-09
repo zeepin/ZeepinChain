@@ -29,9 +29,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/imZhuFei/zeepin/common/serialization"
-	"github.com/imZhuFei/zeepin/vm/wasmvm/memory"
-	"github.com/imZhuFei/zeepin/vm/wasmvm/util"
+	"github.com/zeepin/ZeepinChain/common/serialization"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/memory"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/util"
 )
 
 type Args struct {

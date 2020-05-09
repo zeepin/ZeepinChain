@@ -21,8 +21,8 @@ package simulator
 import (
 	"math/big"
 
-	"github.com/imZhuFei/zeepin/embed/simulator/types"
-	"github.com/imZhuFei/zeepin/errors"
+	"github.com/zeepin/ZeepinChain/embed/simulator/types"
+	"github.com/zeepin/ZeepinChain/errors"
 )
 
 func opArraySize(e *ExecutionEngine) (VMState, error) {

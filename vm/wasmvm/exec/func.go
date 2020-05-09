@@ -28,7 +28,7 @@ import (
 
 	"fmt"
 
-	"github.com/imZhuFei/zeepin/vm/wasmvm/exec/internal/compile"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/exec/internal/compile"
 )
 
 type function interface {

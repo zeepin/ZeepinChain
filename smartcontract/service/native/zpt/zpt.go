@@ -23,14 +23,14 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/constants"
-	"github.com/imZhuFei/zeepin/common/log"
-	scommon "github.com/imZhuFei/zeepin/core/store/common"
-	"github.com/imZhuFei/zeepin/errors"
-	"github.com/imZhuFei/zeepin/smartcontract/service/native"
-	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
-	"github.com/imZhuFei/zeepin/embed/simulator/types"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/constants"
+	"github.com/zeepin/ZeepinChain/common/log"
+	scommon "github.com/zeepin/ZeepinChain/core/store/common"
+	"github.com/zeepin/ZeepinChain/errors"
+	"github.com/zeepin/ZeepinChain/smartcontract/service/native"
+	"github.com/zeepin/ZeepinChain/smartcontract/service/native/utils"
+	"github.com/zeepin/ZeepinChain/embed/simulator/types"
 )
 
 const (

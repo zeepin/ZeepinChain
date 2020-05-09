@@ -21,10 +21,10 @@ package server
 import (
 	"reflect"
 
-	"github.com/imZhuFei/zeepin/common/log"
-	"github.com/imZhuFei/zeepin/p2pserver"
-	"github.com/imZhuFei/zeepin/p2pserver/common"
-	"github.com/zeepin/zeepinchain-eventbus/actor"
+	"github.com/zeepin/ZeepinChain/common/log"
+	"github.com/zeepin/ZeepinChain/p2pserver"
+	"github.com/zeepin/ZeepinChain/p2pserver/common"
+	"github.com/zeepin/ZeepinChain-Eventbus/actor"
 )
 
 type P2PActor struct {

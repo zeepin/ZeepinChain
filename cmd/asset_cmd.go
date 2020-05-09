@@ -23,11 +23,11 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/imZhuFei/zeepin/account"
-	cmdcom "github.com/imZhuFei/zeepin/cmd/common"
-	"github.com/imZhuFei/zeepin/cmd/utils"
-	"github.com/imZhuFei/zeepin/common/config"
-	nutils "github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
+	"github.com/zeepin/ZeepinChain/account"
+	cmdcom "github.com/zeepin/ZeepinChain/cmd/common"
+	"github.com/zeepin/ZeepinChain/cmd/utils"
+	"github.com/zeepin/ZeepinChain/common/config"
+	nutils "github.com/zeepin/ZeepinChain/smartcontract/service/native/utils"
 	"github.com/urfave/cli"
 )
 

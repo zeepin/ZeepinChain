@@ -23,8 +23,8 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
 	"github.com/stretchr/testify/assert"
 )
 

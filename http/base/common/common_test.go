@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/imZhuFei/zeepin/common"
-	cstates "github.com/imZhuFei/zeepin/smartcontract/states"
+	"github.com/zeepin/ZeepinChain/common"
+	cstates "github.com/zeepin/ZeepinChain/smartcontract/states"
 )
 
 func TestSerialize(t *testing.T) {

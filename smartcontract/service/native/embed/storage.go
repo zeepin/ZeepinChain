@@ -23,11 +23,11 @@ import (
 
 	"fmt"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/core/states"
-	scommon "github.com/imZhuFei/zeepin/core/store/common"
-	vm "github.com/imZhuFei/zeepin/embed/simulator"
-	"github.com/imZhuFei/zeepin/errors"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/core/states"
+	scommon "github.com/zeepin/ZeepinChain/core/store/common"
+	vm "github.com/zeepin/ZeepinChain/embed/simulator"
+	"github.com/zeepin/ZeepinChain/errors"
 )
 
 // StoragePut put smart contract storage item to cache

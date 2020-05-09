@@ -25,7 +25,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/imZhuFei/zeepin/common/config"
+	"github.com/zeepin/ZeepinChain/common/config"
 )
 
 //JsonRpc version

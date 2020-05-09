@@ -25,17 +25,17 @@ import (
 	"testing"
 	"time"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/config"
-	"github.com/imZhuFei/zeepin/common/log"
-	"github.com/imZhuFei/zeepin/core/genesis"
-	"github.com/imZhuFei/zeepin/core/ledger"
-	"github.com/imZhuFei/zeepin/core/types"
-	tc "github.com/imZhuFei/zeepin/txnpool/common"
-	tp "github.com/imZhuFei/zeepin/txnpool/proc"
-	"github.com/imZhuFei/zeepin/validator/stateful"
-	"github.com/imZhuFei/zeepin/validator/stateless"
-	"github.com/zeepin/zeepinchain-eventbus/actor"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/config"
+	"github.com/zeepin/ZeepinChain/common/log"
+	"github.com/zeepin/ZeepinChain/core/genesis"
+	"github.com/zeepin/ZeepinChain/core/ledger"
+	"github.com/zeepin/ZeepinChain/core/types"
+	tc "github.com/zeepin/ZeepinChain/txnpool/common"
+	tp "github.com/zeepin/ZeepinChain/txnpool/proc"
+	"github.com/zeepin/ZeepinChain/validator/stateful"
+	"github.com/zeepin/ZeepinChain/validator/stateless"
+	"github.com/zeepin/ZeepinChain-Eventbus/actor"
 )
 
 var (

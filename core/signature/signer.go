@@ -19,8 +19,8 @@
 package signature
 
 import (
-	"github.com/zeepin/zeepinchain-crypto/keypair"
-	"github.com/zeepin/zeepinchain-crypto/signature"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
+	"github.com/zeepin/ZeepinChain-Crypto/signature"
 )
 
 // Signer is the abstract interface of user's information(Keys) for signing data.

@@ -22,10 +22,10 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/log"
-	ser "github.com/imZhuFei/zeepin/common/serialization"
-	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/log"
+	ser "github.com/zeepin/ZeepinChain/common/serialization"
+	"github.com/zeepin/ZeepinChain/core/types"
 )
 
 type PrepareRequest struct {

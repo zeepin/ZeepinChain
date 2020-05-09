@@ -22,8 +22,8 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/imZhuFei/zeepin/common/serialization"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/ZeepinChain/common/serialization"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
 )
 
 const BookkeeperPayloadVersion byte = 0x00

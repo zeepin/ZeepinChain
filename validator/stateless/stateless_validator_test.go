@@ -22,15 +22,15 @@ import (
 
 	"time"
 
-	"github.com/imZhuFei/zeepin/account"
-	"github.com/imZhuFei/zeepin/common/log"
-	"github.com/imZhuFei/zeepin/core/signature"
-	ctypes "github.com/imZhuFei/zeepin/core/types"
-	"github.com/imZhuFei/zeepin/core/utils"
-	"github.com/imZhuFei/zeepin/errors"
-	types2 "github.com/imZhuFei/zeepin/validator/types"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
-	"github.com/zeepin/zeepinchain-eventbus/actor"
+	"github.com/zeepin/ZeepinChain/account"
+	"github.com/zeepin/ZeepinChain/common/log"
+	"github.com/zeepin/ZeepinChain/core/signature"
+	ctypes "github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain/core/utils"
+	"github.com/zeepin/ZeepinChain/errors"
+	types2 "github.com/zeepin/ZeepinChain/validator/types"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
+	"github.com/zeepin/ZeepinChain-Eventbus/actor"
 	"github.com/stretchr/testify/assert"
 )
 

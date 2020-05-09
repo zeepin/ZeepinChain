@@ -25,9 +25,9 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/serialization"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/serialization"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
 )
 
 type Header struct {

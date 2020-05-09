@@ -19,8 +19,8 @@
 package actor
 
 import (
-	cactor "github.com/imZhuFei/zeepin/consensus/actor"
-	"github.com/zeepin/zeepinchain-eventbus/actor"
+	cactor "github.com/zeepin/ZeepinChain/consensus/actor"
+	"github.com/zeepin/ZeepinChain-Eventbus/actor"
 )
 
 var consensusSrvPid *actor.PID

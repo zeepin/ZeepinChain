@@ -23,8 +23,8 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/serialization"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/serialization"
 )
 
 // DeployCode is an implementation of transaction payload for deploy smartcontract

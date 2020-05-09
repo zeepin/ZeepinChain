@@ -23,7 +23,7 @@ import (
 	"encoding/binary"
 	"math/big"
 
-	"github.com/imZhuFei/zeepin/common"
+	"github.com/zeepin/ZeepinChain/common"
 )
 
 type ParamsBuilder struct {

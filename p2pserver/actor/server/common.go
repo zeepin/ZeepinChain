@@ -19,8 +19,8 @@
 package server
 
 import (
-	types "github.com/imZhuFei/zeepin/p2pserver/common"
-	ptypes "github.com/imZhuFei/zeepin/p2pserver/message/types"
+	types "github.com/zeepin/ZeepinChain/p2pserver/common"
+	ptypes "github.com/zeepin/ZeepinChain/p2pserver/message/types"
 )
 
 //stop net server

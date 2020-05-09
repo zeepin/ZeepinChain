@@ -24,10 +24,10 @@ import (
 
 	"strings"
 
-	"github.com/imZhuFei/zeepin/core/payload"
-	"github.com/imZhuFei/zeepin/core/states"
-	"github.com/imZhuFei/zeepin/core/store/common"
-	"github.com/imZhuFei/zeepin/errors"
+	"github.com/zeepin/ZeepinChain/core/payload"
+	"github.com/zeepin/ZeepinChain/core/states"
+	"github.com/zeepin/ZeepinChain/core/store/common"
+	"github.com/zeepin/ZeepinChain/errors"
 )
 
 type StateBatch struct {

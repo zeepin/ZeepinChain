@@ -24,9 +24,9 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/serialization"
-	"github.com/imZhuFei/zeepin/core/payload"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/serialization"
+	"github.com/zeepin/ZeepinChain/core/payload"
 )
 
 type MutableTransaction struct {

@@ -19,7 +19,7 @@
 package account
 
 import (
-	"github.com/imZhuFei/zeepin/common"
+	"github.com/zeepin/ZeepinChain/common"
 )
 
 type ClientStore interface {

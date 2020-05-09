@@ -20,8 +20,8 @@ package exec
 import (
 	"strconv"
 
-	"github.com/imZhuFei/zeepin/errors"
-	"github.com/imZhuFei/zeepin/vm/wasmvm/util"
+	"github.com/zeepin/ZeepinChain/errors"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/util"
 )
 
 func strToInt(engine *ExecutionEngine) (bool, error) {

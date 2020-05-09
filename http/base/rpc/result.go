@@ -19,7 +19,7 @@
 package rpc
 
 import (
-	Err "github.com/imZhuFei/zeepin/http/base/error"
+	Err "github.com/zeepin/ZeepinChain/http/base/error"
 )
 
 func responseSuccess(result interface{}) map[string]interface{} {

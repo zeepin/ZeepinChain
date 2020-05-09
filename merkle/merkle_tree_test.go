@@ -24,7 +24,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/imZhuFei/zeepin/common"
+	"github.com/zeepin/ZeepinChain/common"
 )
 
 func TestMerkleLeaf3(t *testing.T) {

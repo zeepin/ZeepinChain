@@ -23,7 +23,7 @@ import (
 	"math/big"
 	"reflect"
 
-	"github.com/imZhuFei/zeepin/embed/simulator/interfaces"
+	"github.com/zeepin/ZeepinChain/embed/simulator/interfaces"
 )
 
 const (

@@ -24,7 +24,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/imZhuFei/zeepin/cmd/utils"
+	"github.com/zeepin/ZeepinChain/cmd/utils"
 	"github.com/urfave/cli"
 )
 

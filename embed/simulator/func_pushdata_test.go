@@ -23,7 +23,7 @@ import (
 	"encoding/binary"
 	"testing"
 
-	"github.com/imZhuFei/zeepin/embed/simulator/utils"
+	"github.com/zeepin/ZeepinChain/embed/simulator/utils"
 )
 
 func TestGetPushData(t *testing.T) {

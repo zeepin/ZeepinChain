@@ -22,10 +22,10 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/imZhuFei/zeepin/common/log"
-	bactor "github.com/imZhuFei/zeepin/http/base/actor"
-	"github.com/imZhuFei/zeepin/http/base/common"
-	berr "github.com/imZhuFei/zeepin/http/base/error"
+	"github.com/zeepin/ZeepinChain/common/log"
+	bactor "github.com/zeepin/ZeepinChain/http/base/actor"
+	"github.com/zeepin/ZeepinChain/http/base/common"
+	berr "github.com/zeepin/ZeepinChain/http/base/error"
 )
 
 const (

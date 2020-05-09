@@ -21,8 +21,8 @@ package events
 import (
 	"fmt"
 
-	"github.com/zeepin/zeepinchain-eventbus/actor"
-	"github.com/zeepin/zeepinchain-eventbus/eventhub"
+	"github.com/zeepin/ZeepinChain-Eventbus/actor"
+	"github.com/zeepin/ZeepinChain-Eventbus/eventhub"
 )
 
 var DefEvtHub *eventhub.EventHub

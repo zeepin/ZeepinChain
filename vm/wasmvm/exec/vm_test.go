@@ -21,8 +21,8 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/vm/wasmvm/wasm"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/wasm"
 )
 
 func TestEnvCall_GetParams(t *testing.T) {

@@ -20,7 +20,7 @@ package ledgerstore
 
 import (
 	"github.com/hashicorp/golang-lru"
-	"github.com/imZhuFei/zeepin/core/states"
+	"github.com/zeepin/ZeepinChain/core/states"
 )
 
 const (

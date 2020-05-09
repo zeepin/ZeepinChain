@@ -18,9 +18,9 @@
 package embed
 
 import (
-	"github.com/imZhuFei/zeepin/core/types"
-	vm "github.com/imZhuFei/zeepin/embed/simulator"
-	vmtypes "github.com/imZhuFei/zeepin/embed/simulator/types"
+	"github.com/zeepin/ZeepinChain/core/types"
+	vm "github.com/zeepin/ZeepinChain/embed/simulator"
+	vmtypes "github.com/zeepin/ZeepinChain/embed/simulator/types"
 )
 
 // BlockGetTransactionCount put block's transactions count to vm stack

@@ -19,9 +19,9 @@
 package embed
 
 import (
-	"github.com/imZhuFei/zeepin/core/types"
-	vm "github.com/imZhuFei/zeepin/embed/simulator"
-	"github.com/imZhuFei/zeepin/errors"
+	"github.com/zeepin/ZeepinChain/core/types"
+	vm "github.com/zeepin/ZeepinChain/embed/simulator"
+	"github.com/zeepin/ZeepinChain/errors"
 )
 
 // HeaderGetHash put header's hash to vm stack

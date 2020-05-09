@@ -23,12 +23,12 @@ import (
 	"errors"
 	"time"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/log"
-	"github.com/imZhuFei/zeepin/core/types"
-	ontErrors "github.com/imZhuFei/zeepin/errors"
-	tcomn "github.com/imZhuFei/zeepin/txnpool/common"
-	"github.com/zeepin/zeepinchain-eventbus/actor"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/log"
+	"github.com/zeepin/ZeepinChain/core/types"
+	ontErrors "github.com/zeepin/ZeepinChain/errors"
+	tcomn "github.com/zeepin/ZeepinChain/txnpool/common"
+	"github.com/zeepin/ZeepinChain-Eventbus/actor"
 )
 
 var txnPid *actor.PID

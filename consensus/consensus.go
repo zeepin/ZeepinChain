@@ -19,12 +19,12 @@
 package consensus
 
 import (
-	"github.com/imZhuFei/zeepin/account"
-	"github.com/imZhuFei/zeepin/common/log"
-	"github.com/imZhuFei/zeepin/consensus/dbft"
-	"github.com/imZhuFei/zeepin/consensus/solo"
-	"github.com/imZhuFei/zeepin/consensus/vbft"
-	"github.com/zeepin/zeepinchain-eventbus/actor"
+	"github.com/zeepin/ZeepinChain/account"
+	"github.com/zeepin/ZeepinChain/common/log"
+	"github.com/zeepin/ZeepinChain/consensus/dbft"
+	"github.com/zeepin/ZeepinChain/consensus/solo"
+	"github.com/zeepin/ZeepinChain/consensus/vbft"
+	"github.com/zeepin/ZeepinChain-Eventbus/actor"
 )
 
 type ConsensusService interface {

@@ -24,12 +24,12 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/log"
-	"github.com/imZhuFei/zeepin/common/serialization"
-	scom "github.com/imZhuFei/zeepin/core/store/common"
-	"github.com/imZhuFei/zeepin/core/store/leveldbstore"
-	"github.com/imZhuFei/zeepin/smartcontract/event"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/log"
+	"github.com/zeepin/ZeepinChain/common/serialization"
+	scom "github.com/zeepin/ZeepinChain/core/store/common"
+	"github.com/zeepin/ZeepinChain/core/store/leveldbstore"
+	"github.com/zeepin/ZeepinChain/smartcontract/event"
 )
 
 //Saving event notifies gen by smart contract execution

@@ -27,9 +27,9 @@ import (
 	"encoding/binary"
 	"io"
 
-	"github.com/imZhuFei/zeepin/vm/wasmvm/wasm"
-	"github.com/imZhuFei/zeepin/vm/wasmvm/wasm/leb128"
-	ops "github.com/imZhuFei/zeepin/vm/wasmvm/wasm/operators"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/wasm"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/wasm/leb128"
+	ops "github.com/zeepin/ZeepinChain/vm/wasmvm/wasm/operators"
 )
 
 // mockVM is a minimal implementation of a virtual machine to

@@ -27,9 +27,9 @@ import (
 	"encoding/binary"
 	"fmt"
 
-	comm "github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/errors"
-	"github.com/imZhuFei/zeepin/p2pserver/common"
+	comm "github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/errors"
+	"github.com/zeepin/ZeepinChain/p2pserver/common"
 )
 
 type BlocksReq struct {

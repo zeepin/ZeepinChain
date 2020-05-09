@@ -25,12 +25,12 @@ import (
 
 	"math/big"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/serialization"
-	vm "github.com/imZhuFei/zeepin/embed/simulator"
-	"github.com/imZhuFei/zeepin/embed/simulator/types"
-	"github.com/imZhuFei/zeepin/smartcontract/service/native"
-	"github.com/imZhuFei/zeepin/smartcontract/states"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/serialization"
+	vm "github.com/zeepin/ZeepinChain/embed/simulator"
+	"github.com/zeepin/ZeepinChain/embed/simulator/types"
+	"github.com/zeepin/ZeepinChain/smartcontract/service/native"
+	"github.com/zeepin/ZeepinChain/smartcontract/states"
 )
 
 func NativeInvoke(service *EmbeddedService, engine *vm.ExecutionEngine) error {

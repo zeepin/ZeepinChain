@@ -25,15 +25,15 @@ import (
 	"os"
 	"strings"
 
-	"github.com/imZhuFei/zeepin/account"
-	"github.com/imZhuFei/zeepin/cmd/common"
-	"github.com/imZhuFei/zeepin/cmd/utils"
-	"github.com/imZhuFei/zeepin/common/constants"
-	"github.com/imZhuFei/zeepin/common/password"
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
-	"github.com/zeepin/zeepinchain-crypto/signature"
 	"github.com/urfave/cli"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
+	"github.com/zeepin/ZeepinChain-Crypto/signature"
+	"github.com/zeepin/ZeepinChain/account"
+	"github.com/zeepin/ZeepinChain/cmd/common"
+	"github.com/zeepin/ZeepinChain/cmd/utils"
+	"github.com/zeepin/ZeepinChain/common/constants"
+	"github.com/zeepin/ZeepinChain/common/password"
+	"github.com/zeepin/ZeepinChain/core/types"
 )
 
 var (

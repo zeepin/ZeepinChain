@@ -22,14 +22,14 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/constants"
-	"github.com/imZhuFei/zeepin/common/log"
-	"github.com/imZhuFei/zeepin/core/ledger"
-	"github.com/imZhuFei/zeepin/core/payload"
-	"github.com/imZhuFei/zeepin/core/signature"
-	"github.com/imZhuFei/zeepin/core/types"
-	ontErrors "github.com/imZhuFei/zeepin/errors"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/constants"
+	"github.com/zeepin/ZeepinChain/common/log"
+	"github.com/zeepin/ZeepinChain/core/ledger"
+	"github.com/zeepin/ZeepinChain/core/payload"
+	"github.com/zeepin/ZeepinChain/core/signature"
+	"github.com/zeepin/ZeepinChain/core/types"
+	ontErrors "github.com/zeepin/ZeepinChain/errors"
 )
 
 // VerifyTransaction verifys received single transaction

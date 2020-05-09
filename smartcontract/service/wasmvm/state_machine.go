@@ -21,10 +21,10 @@ package wasmvm
 import (
 	"fmt"
 
-	"github.com/imZhuFei/zeepin/common/log"
-	"github.com/imZhuFei/zeepin/errors"
-	"github.com/imZhuFei/zeepin/vm/wasmvm/exec"
-	"github.com/imZhuFei/zeepin/vm/wasmvm/util"
+	"github.com/zeepin/ZeepinChain/common/log"
+	"github.com/zeepin/ZeepinChain/errors"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/exec"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/util"
 )
 
 type LogLevel byte

@@ -22,7 +22,7 @@ import (
 	"encoding/hex"
 	"testing"
 
-	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
 )
 
 func TestPubkeyID(t *testing.T) {

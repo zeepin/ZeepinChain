@@ -18,10 +18,10 @@
 package common
 
 import (
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/core/payload"
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/core/payload"
+	"github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
 )
 
 type PayloadInfo interface{}

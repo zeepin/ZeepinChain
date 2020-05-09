@@ -22,7 +22,7 @@ import (
 
 	"bytes"
 
-	ser "github.com/imZhuFei/zeepin/common/serialization"
+	ser "github.com/zeepin/ZeepinChain/common/serialization"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -23,9 +23,9 @@ import (
 	"io"
 	"math/big"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/serialization"
-	"github.com/imZhuFei/zeepin/embed/simulator/types"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/serialization"
+	"github.com/zeepin/ZeepinChain/embed/simulator/types"
 )
 
 func WriteVarUint(w io.Writer, value uint64) error {

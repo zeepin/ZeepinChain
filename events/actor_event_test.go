@@ -23,7 +23,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/zeepin/zeepinchain-eventbus/actor"
+	"github.com/zeepin/ZeepinChain-Eventbus/actor"
 )
 
 const testTopic = "test"

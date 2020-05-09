@@ -29,8 +29,8 @@ import (
 	"io"
 	"io/ioutil"
 
-	"github.com/imZhuFei/zeepin/vm/wasmvm/wasm/internal/readpos"
-	"github.com/imZhuFei/zeepin/vm/wasmvm/wasm/leb128"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/wasm/internal/readpos"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/wasm/leb128"
 )
 
 // SectionID is a 1-byte code that encodes the section code of both known and custom sections.

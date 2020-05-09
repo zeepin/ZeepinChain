@@ -23,8 +23,8 @@ import (
 	"encoding/binary"
 	"fmt"
 
-	"github.com/imZhuFei/zeepin/errors"
-	"github.com/imZhuFei/zeepin/p2pserver/common"
+	"github.com/zeepin/ZeepinChain/errors"
+	"github.com/zeepin/ZeepinChain/p2pserver/common"
 )
 
 type VersionPayload struct {

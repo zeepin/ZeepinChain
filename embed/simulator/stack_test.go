@@ -22,7 +22,7 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/imZhuFei/zeepin/embed/simulator/types"
+	"github.com/zeepin/ZeepinChain/embed/simulator/types"
 )
 
 func TestRandomAccessStack_Count(t *testing.T) {

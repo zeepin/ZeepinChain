@@ -21,9 +21,9 @@ package vbft
 import (
 	"testing"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/log"
-	vconfig "github.com/imZhuFei/zeepin/consensus/vbft/config"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/log"
+	vconfig "github.com/zeepin/ZeepinChain/consensus/vbft/config"
 )
 
 func peerPool() *PeerPool {

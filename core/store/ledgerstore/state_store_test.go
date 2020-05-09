@@ -21,13 +21,13 @@ package ledgerstore
 import (
 	"testing"
 
-	"github.com/imZhuFei/zeepin/account"
-	"github.com/imZhuFei/zeepin/core/payload"
-	"github.com/imZhuFei/zeepin/core/states"
-	scommon "github.com/imZhuFei/zeepin/core/store/common"
-	"github.com/imZhuFei/zeepin/core/store/statestore"
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/ZeepinChain/account"
+	"github.com/zeepin/ZeepinChain/core/payload"
+	"github.com/zeepin/ZeepinChain/core/states"
+	scommon "github.com/zeepin/ZeepinChain/core/store/common"
+	"github.com/zeepin/ZeepinChain/core/store/statestore"
+	"github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
 )
 
 func TestContractState(t *testing.T) {

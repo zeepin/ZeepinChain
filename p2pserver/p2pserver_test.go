@@ -25,10 +25,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/imZhuFei/zeepin/account"
-	"github.com/imZhuFei/zeepin/common/log"
-	"github.com/imZhuFei/zeepin/p2pserver/common"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/ZeepinChain/account"
+	"github.com/zeepin/ZeepinChain/common/log"
+	"github.com/zeepin/ZeepinChain/p2pserver/common"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
 )
 
 var key keypair.PublicKey

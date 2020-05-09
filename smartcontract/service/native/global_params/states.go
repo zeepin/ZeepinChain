@@ -23,9 +23,9 @@ import (
 
 	"fmt"
 
-	"github.com/imZhuFei/zeepin/common/serialization"
-	"github.com/imZhuFei/zeepin/errors"
-	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
+	"github.com/zeepin/ZeepinChain/common/serialization"
+	"github.com/zeepin/ZeepinChain/errors"
+	"github.com/zeepin/ZeepinChain/smartcontract/service/native/utils"
 )
 
 type Param struct {

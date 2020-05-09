@@ -31,10 +31,10 @@ import (
 	"sync"
 	"time"
 
-	cfg "github.com/imZhuFei/zeepin/common/config"
-	"github.com/imZhuFei/zeepin/common/log"
-	berr "github.com/imZhuFei/zeepin/http/base/error"
-	"github.com/imZhuFei/zeepin/http/base/rest"
+	cfg "github.com/zeepin/ZeepinChain/common/config"
+	"github.com/zeepin/ZeepinChain/common/log"
+	berr "github.com/zeepin/ZeepinChain/http/base/error"
+	"github.com/zeepin/ZeepinChain/http/base/rest"
 )
 
 type handler func(map[string]interface{}) map[string]interface{}

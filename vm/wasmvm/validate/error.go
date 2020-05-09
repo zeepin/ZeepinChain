@@ -26,8 +26,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/imZhuFei/zeepin/vm/wasmvm/wasm"
-	ops "github.com/imZhuFei/zeepin/vm/wasmvm/wasm/operators"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/wasm"
+	ops "github.com/zeepin/ZeepinChain/vm/wasmvm/wasm/operators"
 )
 
 type Error struct {

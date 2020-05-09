@@ -22,7 +22,7 @@ import (
 	"net"
 	"testing"
 
-	comm "github.com/imZhuFei/zeepin/p2pserver/common"
+	comm "github.com/zeepin/ZeepinChain/p2pserver/common"
 	"github.com/stretchr/testify/assert"
 )
 

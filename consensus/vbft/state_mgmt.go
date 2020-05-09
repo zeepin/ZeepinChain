@@ -21,7 +21,7 @@ package vbft
 import (
 	"time"
 
-	"github.com/imZhuFei/zeepin/common/log"
+	"github.com/zeepin/ZeepinChain/common/log"
 )
 
 const (

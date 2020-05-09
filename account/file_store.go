@@ -25,8 +25,8 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/zeepin/zeepinchain-crypto/keypair"
-	"github.com/imZhuFei/zeepin/common"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
+	"github.com/zeepin/ZeepinChain/common"
 )
 
 /** AccountData - for wallet read and save, no crypto object included **/

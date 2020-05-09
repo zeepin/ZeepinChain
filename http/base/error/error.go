@@ -19,7 +19,7 @@
 // Package error privides error code for http
 package error
 
-import ontErrors "github.com/imZhuFei/zeepin/errors"
+import ontErrors "github.com/zeepin/ZeepinChain/errors"
 
 const (
 	SUCCESS            int64 = 0

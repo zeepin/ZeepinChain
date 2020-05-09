@@ -22,7 +22,7 @@ import (
 	"errors"
 	"io"
 
-	ser "github.com/imZhuFei/zeepin/common/serialization"
+	ser "github.com/zeepin/ZeepinChain/common/serialization"
 )
 
 type BlockSignatures struct {

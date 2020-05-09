@@ -20,7 +20,7 @@ package common
 
 import (
 	"encoding/json"
-	"github.com/imZhuFei/zeepin/account"
+	"github.com/zeepin/ZeepinChain/account"
 )
 
 var DefAccount *account.Account

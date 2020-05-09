@@ -23,10 +23,10 @@ import (
 	"errors"
 	"io"
 
-	"github.com/imZhuFei/zeepin/common/log"
-	ontErrors "github.com/imZhuFei/zeepin/errors"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
-	s "github.com/zeepin/zeepinchain-crypto/signature"
+	"github.com/zeepin/ZeepinChain/common/log"
+	ontErrors "github.com/zeepin/ZeepinChain/errors"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
+	s "github.com/zeepin/ZeepinChain-Crypto/signature"
 	"golang.org/x/crypto/ripemd160"
 )
 

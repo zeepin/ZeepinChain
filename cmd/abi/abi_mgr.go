@@ -24,7 +24,7 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"github.com/imZhuFei/zeepin/common/log"
+	"github.com/zeepin/ZeepinChain/common/log"
 )
 
 var DefAbiMgr = NewAbiMgr()

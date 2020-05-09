@@ -24,12 +24,12 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/imZhuFei/zeepin/embed/simulator"
-	"github.com/imZhuFei/zeepin/merkle"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain/embed/simulator"
+	"github.com/zeepin/ZeepinChain/merkle"
 	"github.com/stretchr/testify/assert"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
 )
 
 func TestMerkleVerifier(t *testing.T) {

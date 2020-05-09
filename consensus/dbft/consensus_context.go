@@ -21,15 +21,15 @@ package dbft
 import (
 	"fmt"
 
-	"github.com/imZhuFei/zeepin/account"
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/log"
-	ser "github.com/imZhuFei/zeepin/common/serialization"
-	"github.com/imZhuFei/zeepin/core/ledger"
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/imZhuFei/zeepin/core/vote"
-	msg "github.com/imZhuFei/zeepin/p2pserver/message/types"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/ZeepinChain/account"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/log"
+	ser "github.com/zeepin/ZeepinChain/common/serialization"
+	"github.com/zeepin/ZeepinChain/core/ledger"
+	"github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain/core/vote"
+	msg "github.com/zeepin/ZeepinChain/p2pserver/message/types"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
 )
 
 const ContextVersion uint32 = 0

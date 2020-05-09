@@ -20,7 +20,7 @@ package wasmvm
 import (
 	"testing"
 
-	"github.com/imZhuFei/zeepin/vm/wasmvm/exec"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/exec"
 )
 
 func TestNewWasmStateReader(t *testing.T) {

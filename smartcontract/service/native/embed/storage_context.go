@@ -21,8 +21,8 @@ package embed
 import (
 	"fmt"
 
-	"github.com/imZhuFei/zeepin/common"
-	vm "github.com/imZhuFei/zeepin/embed/simulator"
+	"github.com/zeepin/ZeepinChain/common"
+	vm "github.com/zeepin/ZeepinChain/embed/simulator"
 )
 
 // StorageContext store smart contract address

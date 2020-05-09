@@ -22,12 +22,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/log"
-	tx "github.com/imZhuFei/zeepin/core/types"
-	"github.com/imZhuFei/zeepin/errors"
-	tc "github.com/imZhuFei/zeepin/txnpool/common"
-	"github.com/imZhuFei/zeepin/validator/types"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/log"
+	tx "github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain/errors"
+	tc "github.com/zeepin/ZeepinChain/txnpool/common"
+	"github.com/zeepin/ZeepinChain/validator/types"
 )
 
 // pendingTx contains the transaction, the time of starting verifying,

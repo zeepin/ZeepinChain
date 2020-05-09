@@ -21,8 +21,8 @@ package ledgerstore
 import (
 	"fmt"
 
-	"github.com/imZhuFei/zeepin/core/payload"
-	scom "github.com/imZhuFei/zeepin/core/store/common"
+	"github.com/zeepin/ZeepinChain/core/payload"
+	scom "github.com/zeepin/ZeepinChain/core/store/common"
 )
 
 type CacheCodeTable struct {

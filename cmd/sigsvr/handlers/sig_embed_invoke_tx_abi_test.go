@@ -21,7 +21,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	clisvrcom "github.com/imZhuFei/zeepin/cmd/sigsvr/common"
+	clisvrcom "github.com/zeepin/ZeepinChain/cmd/sigsvr/common"
 )
 
 var testEmbedAbi = `{

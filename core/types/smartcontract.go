@@ -18,7 +18,7 @@
 
 package types
 
-import "github.com/imZhuFei/zeepin/common"
+import "github.com/zeepin/ZeepinChain/common"
 
 type SmartCodeEvent struct {
 	TxHash common.Uint256

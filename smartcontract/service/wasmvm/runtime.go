@@ -18,12 +18,12 @@
 package wasmvm
 
 import (
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/core/signature"
-	"github.com/imZhuFei/zeepin/errors"
-	"github.com/imZhuFei/zeepin/smartcontract/event"
-	"github.com/imZhuFei/zeepin/vm/wasmvm/exec"
-	"github.com/imZhuFei/zeepin/vm/wasmvm/util"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/core/signature"
+	"github.com/zeepin/ZeepinChain/errors"
+	"github.com/zeepin/ZeepinChain/smartcontract/event"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/exec"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/util"
 )
 
 func (this *WasmVmService) runtimeGetTime(engine *exec.ExecutionEngine) (bool, error) {

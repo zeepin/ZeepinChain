@@ -19,11 +19,11 @@
 package utils
 
 import (
-	"github.com/imZhuFei/zeepin/common/log"
-	msgCommon "github.com/imZhuFei/zeepin/p2pserver/common"
-	"github.com/imZhuFei/zeepin/p2pserver/message/types"
-	"github.com/imZhuFei/zeepin/p2pserver/net/protocol"
-	"github.com/zeepin/zeepinchain-eventbus/actor"
+	"github.com/zeepin/ZeepinChain/common/log"
+	msgCommon "github.com/zeepin/ZeepinChain/p2pserver/common"
+	"github.com/zeepin/ZeepinChain/p2pserver/message/types"
+	"github.com/zeepin/ZeepinChain/p2pserver/net/protocol"
+	"github.com/zeepin/ZeepinChain-Eventbus/actor"
 )
 
 // MessageHandler defines the unified api for each net message

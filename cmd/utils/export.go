@@ -25,7 +25,7 @@ import (
 	"io"
 	"io/ioutil"
 
-	"github.com/imZhuFei/zeepin/common/serialization"
+	"github.com/zeepin/ZeepinChain/common/serialization"
 )
 
 const (

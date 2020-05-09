@@ -22,7 +22,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/zeepin/ZeepinChain/core/types"
 	"github.com/magiconair/properties/assert"
 )
 

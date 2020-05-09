@@ -21,10 +21,10 @@ import (
 	"os"
 	"testing"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/config"
-	"github.com/imZhuFei/zeepin/common/log"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/config"
+	"github.com/zeepin/ZeepinChain/common/log"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
 	"github.com/stretchr/testify/assert"
 )
 

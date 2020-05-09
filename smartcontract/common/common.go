@@ -19,9 +19,9 @@
 package common
 
 import (
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/log"
-	"github.com/imZhuFei/zeepin/embed/simulator/types"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/log"
+	"github.com/zeepin/ZeepinChain/embed/simulator/types"
 )
 
 // ConvertReturnTypes return embeded stack element value

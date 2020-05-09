@@ -23,8 +23,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/imZhuFei/zeepin/common/log"
-	"github.com/imZhuFei/zeepin/core/ledger"
+	"github.com/zeepin/ZeepinChain/common/log"
+	"github.com/zeepin/ZeepinChain/core/ledger"
 )
 
 type SyncCheckReq struct {

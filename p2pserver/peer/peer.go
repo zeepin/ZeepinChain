@@ -27,10 +27,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/imZhuFei/zeepin/common/log"
-	"github.com/imZhuFei/zeepin/p2pserver/common"
-	conn "github.com/imZhuFei/zeepin/p2pserver/link"
-	"github.com/imZhuFei/zeepin/p2pserver/message/types"
+	"github.com/zeepin/ZeepinChain/common/log"
+	"github.com/zeepin/ZeepinChain/p2pserver/common"
+	conn "github.com/zeepin/ZeepinChain/p2pserver/link"
+	"github.com/zeepin/ZeepinChain/p2pserver/message/types"
 )
 
 // PeerCom provides the basic information of a peer

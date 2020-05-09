@@ -22,8 +22,8 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/imZhuFei/zeepin/account"
-	clisvrcom "github.com/imZhuFei/zeepin/cmd/sigsvr/common"
+	"github.com/zeepin/ZeepinChain/account"
+	clisvrcom "github.com/zeepin/ZeepinChain/cmd/sigsvr/common"
 )
 
 func TestSigTransferTransaction(t *testing.T) {

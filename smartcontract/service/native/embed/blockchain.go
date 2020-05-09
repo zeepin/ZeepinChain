@@ -19,11 +19,11 @@
 package embed
 
 import (
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/core/types"
-	vm "github.com/imZhuFei/zeepin/embed/simulator"
-	vmtypes "github.com/imZhuFei/zeepin/embed/simulator/types"
-	"github.com/imZhuFei/zeepin/errors"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/core/types"
+	vm "github.com/zeepin/ZeepinChain/embed/simulator"
+	vmtypes "github.com/zeepin/ZeepinChain/embed/simulator/types"
+	"github.com/zeepin/ZeepinChain/errors"
 )
 
 // BlockChainGetHeight put blockchain's height to vm stack

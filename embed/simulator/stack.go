@@ -19,7 +19,7 @@
 package simulator
 
 import (
-	"github.com/imZhuFei/zeepin/embed/simulator/types"
+	"github.com/zeepin/ZeepinChain/embed/simulator/types"
 )
 
 type RandomAccessStack struct {

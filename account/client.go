@@ -26,10 +26,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
-	s "github.com/zeepin/zeepinchain-crypto/signature"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
+	s "github.com/zeepin/ZeepinChain-Crypto/signature"
 )
 
 //Client of wallet

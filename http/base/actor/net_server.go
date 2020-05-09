@@ -22,10 +22,10 @@ import (
 	"errors"
 	"time"
 
-	"github.com/imZhuFei/zeepin/common/log"
-	ac "github.com/imZhuFei/zeepin/p2pserver/actor/server"
-	"github.com/imZhuFei/zeepin/p2pserver/common"
-	"github.com/zeepin/zeepinchain-eventbus/actor"
+	"github.com/zeepin/ZeepinChain/common/log"
+	ac "github.com/zeepin/ZeepinChain/p2pserver/actor/server"
+	"github.com/zeepin/ZeepinChain/p2pserver/common"
+	"github.com/zeepin/ZeepinChain-Eventbus/actor"
 )
 
 var netServerPid *actor.PID

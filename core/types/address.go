@@ -23,10 +23,10 @@ import (
 	"errors"
 	"math"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/constants"
-	"github.com/imZhuFei/zeepin/core/program"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/constants"
+	"github.com/zeepin/ZeepinChain/core/program"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
 	"golang.org/x/crypto/ripemd160"
 )
 

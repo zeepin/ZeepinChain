@@ -22,7 +22,7 @@ import (
 
 	"bytes"
 
-	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
 	"github.com/stretchr/testify/assert"
 )
 

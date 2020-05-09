@@ -24,7 +24,7 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
-	cfg "github.com/imZhuFei/zeepin/common/config"
+	cfg "github.com/zeepin/ZeepinChain/common/config"
 	"github.com/pborman/uuid"
 )
 

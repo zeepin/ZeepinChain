@@ -22,7 +22,7 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/imZhuFei/zeepin/common"
+	"github.com/zeepin/ZeepinChain/common"
 	"github.com/stretchr/testify/assert"
 )
 

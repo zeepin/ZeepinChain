@@ -22,10 +22,10 @@ import (
 	"encoding/hex"
 	"encoding/json"
 
-	clisvrcom "github.com/imZhuFei/zeepin/cmd/sigsvr/common"
-	cliutil "github.com/imZhuFei/zeepin/cmd/utils"
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/log"
+	clisvrcom "github.com/zeepin/ZeepinChain/cmd/sigsvr/common"
+	cliutil "github.com/zeepin/ZeepinChain/cmd/utils"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/log"
 )
 
 type SigTransferTransactionReq struct {

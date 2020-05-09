@@ -23,8 +23,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/log"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/log"
 )
 
 // const UINT256_SIZE int = 32

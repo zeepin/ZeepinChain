@@ -21,14 +21,14 @@ package native
 import (
 	"fmt"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/imZhuFei/zeepin/errors"
-	"github.com/imZhuFei/zeepin/smartcontract/context"
-	"github.com/imZhuFei/zeepin/smartcontract/event"
-	"github.com/imZhuFei/zeepin/smartcontract/states"
-	sstates "github.com/imZhuFei/zeepin/smartcontract/states"
-	"github.com/imZhuFei/zeepin/smartcontract/storage"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain/errors"
+	"github.com/zeepin/ZeepinChain/smartcontract/context"
+	"github.com/zeepin/ZeepinChain/smartcontract/event"
+	"github.com/zeepin/ZeepinChain/smartcontract/states"
+	sstates "github.com/zeepin/ZeepinChain/smartcontract/states"
+	"github.com/zeepin/ZeepinChain/smartcontract/storage"
 )
 
 type (

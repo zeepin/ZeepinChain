@@ -24,14 +24,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/imZhuFei/zeepin/account"
-	common2 "github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/log"
-	"github.com/imZhuFei/zeepin/core/payload"
-	ct "github.com/imZhuFei/zeepin/core/types"
-	"github.com/imZhuFei/zeepin/p2pserver/common"
-	mt "github.com/imZhuFei/zeepin/p2pserver/message/types"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/ZeepinChain/account"
+	common2 "github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/log"
+	"github.com/zeepin/ZeepinChain/core/payload"
+	ct "github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain/p2pserver/common"
+	mt "github.com/zeepin/ZeepinChain/p2pserver/message/types"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
 	"github.com/stretchr/testify/assert"
 )
 

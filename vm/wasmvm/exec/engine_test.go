@@ -25,8 +25,8 @@ import (
 	"math"
 	"testing"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/vm/wasmvm/util"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/util"
 )
 
 var service = NewInteropService()

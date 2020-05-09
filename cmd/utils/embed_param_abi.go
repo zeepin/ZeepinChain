@@ -24,7 +24,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/imZhuFei/zeepin/cmd/abi"
+	"github.com/zeepin/ZeepinChain/cmd/abi"
 )
 
 func NewEmbedContractAbi(abiData []byte) (*abi.EmbedContractAbi, error) {

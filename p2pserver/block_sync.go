@@ -24,13 +24,13 @@ import (
 	"sync"
 	"time"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/log"
-	"github.com/imZhuFei/zeepin/core/ledger"
-	"github.com/imZhuFei/zeepin/core/types"
-	p2pComm "github.com/imZhuFei/zeepin/p2pserver/common"
-	"github.com/imZhuFei/zeepin/p2pserver/message/msg_pack"
-	"github.com/imZhuFei/zeepin/p2pserver/peer"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/log"
+	"github.com/zeepin/ZeepinChain/core/ledger"
+	"github.com/zeepin/ZeepinChain/core/types"
+	p2pComm "github.com/zeepin/ZeepinChain/p2pserver/common"
+	"github.com/zeepin/ZeepinChain/p2pserver/message/msg_pack"
+	"github.com/zeepin/ZeepinChain/p2pserver/peer"
 )
 
 const (

@@ -19,7 +19,7 @@
 package req
 
 import (
-	"github.com/zeepin/zeepinchain-eventbus/actor"
+	"github.com/zeepin/ZeepinChain-Eventbus/actor"
 )
 
 var ConsensusPid *actor.PID

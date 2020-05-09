@@ -22,9 +22,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/imZhuFei/zeepin/embed/simulator"
-	"github.com/imZhuFei/zeepin/smartcontract"
+	"github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain/embed/simulator"
+	"github.com/zeepin/ZeepinChain/smartcontract"
 )
 
 func TestPackCrash(t *testing.T) {

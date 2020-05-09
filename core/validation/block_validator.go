@@ -22,10 +22,10 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/imZhuFei/zeepin/core/ledger"
-	"github.com/imZhuFei/zeepin/core/signature"
-	"github.com/imZhuFei/zeepin/core/types"
-	ontErrors "github.com/imZhuFei/zeepin/errors"
+	"github.com/zeepin/ZeepinChain/core/ledger"
+	"github.com/zeepin/ZeepinChain/core/signature"
+	"github.com/zeepin/ZeepinChain/core/types"
+	ontErrors "github.com/zeepin/ZeepinChain/errors"
 )
 
 // VerifyBlock checks whether the block is valid

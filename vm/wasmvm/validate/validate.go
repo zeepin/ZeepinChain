@@ -27,8 +27,8 @@ import (
 	"bytes"
 	"io"
 
-	"github.com/imZhuFei/zeepin/vm/wasmvm/wasm"
-	ops "github.com/imZhuFei/zeepin/vm/wasmvm/wasm/operators"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/wasm"
+	ops "github.com/zeepin/ZeepinChain/vm/wasmvm/wasm/operators"
 )
 
 // vibhavp: TODO: We do not verify whether blocks don't access for the parent block, do that.

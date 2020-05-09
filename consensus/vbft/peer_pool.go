@@ -23,8 +23,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/imZhuFei/zeepin/consensus/vbft/config"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/ZeepinChain/consensus/vbft/config"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
 )
 
 type Peer struct {

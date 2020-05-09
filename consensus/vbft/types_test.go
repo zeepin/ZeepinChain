@@ -22,9 +22,9 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/imZhuFei/zeepin/common"
-	vconfig "github.com/imZhuFei/zeepin/consensus/vbft/config"
-	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/zeepin/ZeepinChain/common"
+	vconfig "github.com/zeepin/ZeepinChain/consensus/vbft/config"
+	"github.com/zeepin/ZeepinChain/core/types"
 )
 
 func TestBlock_getProposer(t *testing.T) {

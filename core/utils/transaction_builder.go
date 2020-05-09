@@ -24,11 +24,11 @@ import (
 
 	"math"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/core/payload"
-	"github.com/imZhuFei/zeepin/core/types"
-	vm "github.com/imZhuFei/zeepin/embed/simulator"
-	"github.com/imZhuFei/zeepin/smartcontract/service/native/embed"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/core/payload"
+	"github.com/zeepin/ZeepinChain/core/types"
+	vm "github.com/zeepin/ZeepinChain/embed/simulator"
+	"github.com/zeepin/ZeepinChain/smartcontract/service/native/embed"
 )
 
 // NewDeployTransaction returns a deploy Transaction

@@ -23,11 +23,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/imZhuFei/zeepin/account"
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/consensus/vbft/config"
-	"github.com/imZhuFei/zeepin/core/signature"
-	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/zeepin/ZeepinChain/account"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/consensus/vbft/config"
+	"github.com/zeepin/ZeepinChain/core/signature"
+	"github.com/zeepin/ZeepinChain/core/types"
 )
 
 func constructProposalMsgTest(acc *account.Account) *blockProposalMsg {

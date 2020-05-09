@@ -21,13 +21,13 @@ package stateful
 import (
 	"reflect"
 
-	"github.com/imZhuFei/zeepin/common/log"
-	"github.com/imZhuFei/zeepin/core/ledger"
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/imZhuFei/zeepin/errors"
-	"github.com/imZhuFei/zeepin/validator/db"
-	vatypes "github.com/imZhuFei/zeepin/validator/types"
-	"github.com/zeepin/zeepinchain-eventbus/actor"
+	"github.com/zeepin/ZeepinChain/common/log"
+	"github.com/zeepin/ZeepinChain/core/ledger"
+	"github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain/errors"
+	"github.com/zeepin/ZeepinChain/validator/db"
+	vatypes "github.com/zeepin/ZeepinChain/validator/types"
+	"github.com/zeepin/ZeepinChain-Eventbus/actor"
 )
 
 // Validator is an interface for tx validation actor

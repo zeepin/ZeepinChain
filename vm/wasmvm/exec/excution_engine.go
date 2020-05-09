@@ -26,14 +26,14 @@ import (
 	"os"
 	"reflect"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/imZhuFei/zeepin/errors"
-	"github.com/imZhuFei/zeepin/embed/simulator/interfaces"
-	"github.com/imZhuFei/zeepin/vm/wasmvm/memory"
-	"github.com/imZhuFei/zeepin/vm/wasmvm/util"
-	"github.com/imZhuFei/zeepin/vm/wasmvm/validate"
-	"github.com/imZhuFei/zeepin/vm/wasmvm/wasm"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain/errors"
+	"github.com/zeepin/ZeepinChain/embed/simulator/interfaces"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/memory"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/util"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/validate"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/wasm"
 )
 
 const (

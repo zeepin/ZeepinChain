@@ -21,13 +21,13 @@ package msgpack
 import (
 	"time"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/config"
-	"github.com/imZhuFei/zeepin/common/log"
-	ct "github.com/imZhuFei/zeepin/core/types"
-	msgCommon "github.com/imZhuFei/zeepin/p2pserver/common"
-	mt "github.com/imZhuFei/zeepin/p2pserver/message/types"
-	p2pnet "github.com/imZhuFei/zeepin/p2pserver/net/protocol"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/config"
+	"github.com/zeepin/ZeepinChain/common/log"
+	ct "github.com/zeepin/ZeepinChain/core/types"
+	msgCommon "github.com/zeepin/ZeepinChain/p2pserver/common"
+	mt "github.com/zeepin/ZeepinChain/p2pserver/message/types"
+	p2pnet "github.com/zeepin/ZeepinChain/p2pserver/net/protocol"
 )
 
 //Peer address package

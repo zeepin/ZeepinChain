@@ -21,10 +21,10 @@ package stateless
 import (
 	"reflect"
 
-	"github.com/imZhuFei/zeepin/common/log"
-	"github.com/imZhuFei/zeepin/core/validation"
-	vatypes "github.com/imZhuFei/zeepin/validator/types"
-	"github.com/zeepin/zeepinchain-eventbus/actor"
+	"github.com/zeepin/ZeepinChain/common/log"
+	"github.com/zeepin/ZeepinChain/core/validation"
+	vatypes "github.com/zeepin/ZeepinChain/validator/types"
+	"github.com/zeepin/ZeepinChain-Eventbus/actor"
 )
 
 // Validator wraps validator actor's pid

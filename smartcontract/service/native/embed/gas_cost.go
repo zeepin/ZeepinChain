@@ -19,8 +19,8 @@
 package embed
 
 import (
-	vm "github.com/imZhuFei/zeepin/embed/simulator"
-	"github.com/imZhuFei/zeepin/errors"
+	vm "github.com/zeepin/ZeepinChain/embed/simulator"
+	"github.com/zeepin/ZeepinChain/errors"
 )
 
 func StoreGasCost(engine *vm.ExecutionEngine) (uint64, error) {

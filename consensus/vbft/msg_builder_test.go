@@ -22,7 +22,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/imZhuFei/zeepin/account"
+	"github.com/zeepin/ZeepinChain/account"
 )
 
 func constructMsg() *blockProposalMsg {

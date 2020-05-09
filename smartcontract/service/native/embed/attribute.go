@@ -19,8 +19,8 @@
 package embed
 
 import (
-	"github.com/imZhuFei/zeepin/core/types"
-	vm "github.com/imZhuFei/zeepin/embed/simulator"
+	"github.com/zeepin/ZeepinChain/core/types"
+	vm "github.com/zeepin/ZeepinChain/embed/simulator"
 )
 
 // AttributeGetUsage put attribute's usage to vm stack

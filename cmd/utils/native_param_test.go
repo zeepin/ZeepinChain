@@ -23,9 +23,9 @@ import (
 	"encoding/hex"
 	"testing"
 
-	"github.com/imZhuFei/zeepin/cmd/abi"
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/embed/simulator"
+	"github.com/zeepin/ZeepinChain/cmd/abi"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/embed/simulator"
 )
 
 func TestParseNativeParam(t *testing.T) {

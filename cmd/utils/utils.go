@@ -27,7 +27,7 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/imZhuFei/zeepin/common/constants"
+	"github.com/zeepin/ZeepinChain/common/constants"
 )
 
 const (

@@ -20,8 +20,8 @@ package statestore
 import (
 	"testing"
 
-	"github.com/imZhuFei/zeepin/core/states"
-	com "github.com/imZhuFei/zeepin/core/store/common"
+	"github.com/zeepin/ZeepinChain/core/states"
+	com "github.com/zeepin/ZeepinChain/core/store/common"
 )
 
 func TestMemoryStore(t *testing.T) {

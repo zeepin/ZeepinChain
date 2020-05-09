@@ -20,13 +20,13 @@ package wasmvm
 import (
 	"bytes"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/core/states"
-	scommon "github.com/imZhuFei/zeepin/core/store/common"
-	"github.com/imZhuFei/zeepin/errors"
-	"github.com/imZhuFei/zeepin/vm/wasmvm/exec"
-	"github.com/imZhuFei/zeepin/vm/wasmvm/memory"
-	"github.com/imZhuFei/zeepin/vm/wasmvm/util"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/core/states"
+	scommon "github.com/zeepin/ZeepinChain/core/store/common"
+	"github.com/zeepin/ZeepinChain/errors"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/exec"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/memory"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/util"
 )
 
 //======================store apis here============================================

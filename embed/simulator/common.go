@@ -24,8 +24,8 @@ import (
 	"hash"
 	"math/big"
 
-	"github.com/imZhuFei/zeepin/embed/simulator/interfaces"
-	"github.com/imZhuFei/zeepin/embed/simulator/types"
+	"github.com/zeepin/ZeepinChain/embed/simulator/interfaces"
+	"github.com/zeepin/ZeepinChain/embed/simulator/types"
 )
 
 type BigIntSorter []big.Int

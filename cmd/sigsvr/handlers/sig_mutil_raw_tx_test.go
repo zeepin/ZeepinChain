@@ -21,11 +21,11 @@ import (
 	"bytes"
 	"encoding/hex"
 	"encoding/json"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
-	"github.com/imZhuFei/zeepin/account"
-	clisvrcom "github.com/imZhuFei/zeepin/cmd/sigsvr/common"
-	"github.com/imZhuFei/zeepin/cmd/utils"
-	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
+	"github.com/zeepin/ZeepinChain/account"
+	clisvrcom "github.com/zeepin/ZeepinChain/cmd/sigsvr/common"
+	"github.com/zeepin/ZeepinChain/cmd/utils"
+	"github.com/zeepin/ZeepinChain/core/types"
 	"testing"
 )
 

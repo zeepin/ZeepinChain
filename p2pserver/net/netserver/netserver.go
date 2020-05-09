@@ -27,14 +27,14 @@ import (
 	"sync"
 	"time"
 
-	"github.com/imZhuFei/zeepin/common/config"
-	"github.com/imZhuFei/zeepin/common/log"
-	"github.com/imZhuFei/zeepin/core/ledger"
-	"github.com/imZhuFei/zeepin/p2pserver/common"
-	"github.com/imZhuFei/zeepin/p2pserver/message/msg_pack"
-	"github.com/imZhuFei/zeepin/p2pserver/message/types"
-	"github.com/imZhuFei/zeepin/p2pserver/net/protocol"
-	"github.com/imZhuFei/zeepin/p2pserver/peer"
+	"github.com/zeepin/ZeepinChain/common/config"
+	"github.com/zeepin/ZeepinChain/common/log"
+	"github.com/zeepin/ZeepinChain/core/ledger"
+	"github.com/zeepin/ZeepinChain/p2pserver/common"
+	"github.com/zeepin/ZeepinChain/p2pserver/message/msg_pack"
+	"github.com/zeepin/ZeepinChain/p2pserver/message/types"
+	"github.com/zeepin/ZeepinChain/p2pserver/net/protocol"
+	"github.com/zeepin/ZeepinChain/p2pserver/peer"
 )
 
 //NewNetServer return the net object in p2p

@@ -30,12 +30,12 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
-	"github.com/imZhuFei/zeepin/common"
-	cfg "github.com/imZhuFei/zeepin/common/config"
-	"github.com/imZhuFei/zeepin/common/log"
-	Err "github.com/imZhuFei/zeepin/http/base/error"
-	"github.com/imZhuFei/zeepin/http/base/rest"
-	"github.com/imZhuFei/zeepin/http/websocket/session"
+	"github.com/zeepin/ZeepinChain/common"
+	cfg "github.com/zeepin/ZeepinChain/common/config"
+	"github.com/zeepin/ZeepinChain/common/log"
+	Err "github.com/zeepin/ZeepinChain/http/base/error"
+	"github.com/zeepin/ZeepinChain/http/base/rest"
+	"github.com/zeepin/ZeepinChain/http/websocket/session"
 )
 
 const (

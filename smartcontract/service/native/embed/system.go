@@ -19,8 +19,8 @@
 package embed
 
 import (
-	vm "github.com/imZhuFei/zeepin/embed/simulator"
-	"github.com/imZhuFei/zeepin/errors"
+	vm "github.com/zeepin/ZeepinChain/embed/simulator"
+	"github.com/zeepin/ZeepinChain/errors"
 )
 
 // GetCodeContainer push current transaction to vm stack

@@ -22,7 +22,7 @@ import (
 	"crypto/rand"
 	"testing"
 
-	"github.com/imZhuFei/zeepin/common/serialization"
+	"github.com/zeepin/ZeepinChain/common/serialization"
 )
 
 func BenchmarkZeroCopySource(b *testing.B) {

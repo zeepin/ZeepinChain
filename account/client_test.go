@@ -22,8 +22,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/zeepin/zeepinchain-crypto/keypair"
-	s "github.com/zeepin/zeepinchain-crypto/signature"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
+	s "github.com/zeepin/ZeepinChain-Crypto/signature"
 	"github.com/stretchr/testify/assert"
 )
 

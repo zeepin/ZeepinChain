@@ -21,7 +21,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/zeepin/ZeepinChain/core/types"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -21,9 +21,9 @@ package common
 import (
 	"errors"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/core/states"
-	"github.com/imZhuFei/zeepin/smartcontract/event"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/core/states"
+	"github.com/zeepin/ZeepinChain/smartcontract/event"
 )
 
 var ErrNotFound = errors.New("not found")

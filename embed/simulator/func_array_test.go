@@ -24,7 +24,7 @@ import (
 	"bytes"
 	"math/big"
 
-	vtypes "github.com/imZhuFei/zeepin/embed/simulator/types"
+	vtypes "github.com/zeepin/ZeepinChain/embed/simulator/types"
 )
 
 func TestOpArraySize(t *testing.T) {

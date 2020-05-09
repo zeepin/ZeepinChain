@@ -27,8 +27,8 @@ import (
 	"math/big"
 
 	base58 "github.com/itchyny/base58-go"
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
 	"golang.org/x/crypto/ripemd160"
 )
 

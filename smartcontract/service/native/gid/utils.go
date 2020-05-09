@@ -22,13 +22,13 @@ import (
 	"encoding/hex"
 	"errors"
 
-	com "github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/core/states"
-	"github.com/imZhuFei/zeepin/core/store/common"
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/imZhuFei/zeepin/smartcontract/service/native"
-	"github.com/imZhuFei/zeepin/smartcontract/service/native/utils"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
+	com "github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/core/states"
+	"github.com/zeepin/ZeepinChain/core/store/common"
+	"github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain/smartcontract/service/native"
+	"github.com/zeepin/ZeepinChain/smartcontract/service/native/utils"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
 )
 
 const flag_exist = 0x01

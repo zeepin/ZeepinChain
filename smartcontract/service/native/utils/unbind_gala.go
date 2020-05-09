@@ -21,8 +21,8 @@ package utils
 import (
 	"math"
 
-	"github.com/imZhuFei/zeepin/common/constants"
-	"github.com/imZhuFei/zeepin/common/log"
+	"github.com/zeepin/ZeepinChain/common/constants"
+	"github.com/zeepin/ZeepinChain/common/log"
 )
 
 var (

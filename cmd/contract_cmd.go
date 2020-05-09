@@ -24,14 +24,14 @@ import (
 	"io/ioutil"
 	"strings"
 
-	cmdcom "github.com/imZhuFei/zeepin/cmd/common"
-	"github.com/imZhuFei/zeepin/cmd/utils"
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/config"
-	"github.com/imZhuFei/zeepin/core/types"
-	httpcom "github.com/imZhuFei/zeepin/http/base/common"
-	"github.com/imZhuFei/zeepin/smartcontract/service/wasmvm"
-	cstates "github.com/imZhuFei/zeepin/smartcontract/states"
+	cmdcom "github.com/zeepin/ZeepinChain/cmd/common"
+	"github.com/zeepin/ZeepinChain/cmd/utils"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/config"
+	"github.com/zeepin/ZeepinChain/core/types"
+	httpcom "github.com/zeepin/ZeepinChain/http/base/common"
+	"github.com/zeepin/ZeepinChain/smartcontract/service/wasmvm"
+	cstates "github.com/zeepin/ZeepinChain/smartcontract/states"
 	"github.com/urfave/cli"
 )
 

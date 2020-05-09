@@ -23,7 +23,7 @@
 package validate
 
 import (
-	"github.com/imZhuFei/zeepin/vm/wasmvm/wasm"
+	"github.com/zeepin/ZeepinChain/vm/wasmvm/wasm"
 )
 
 type operand struct {

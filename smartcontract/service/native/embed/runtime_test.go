@@ -21,7 +21,7 @@ package embed
 import (
 	"testing"
 
-	"github.com/imZhuFei/zeepin/embed/simulator/types"
+	"github.com/zeepin/ZeepinChain/embed/simulator/types"
 	"github.com/stretchr/testify/assert"
 )
 

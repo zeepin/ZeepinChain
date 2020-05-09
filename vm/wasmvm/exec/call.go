@@ -25,7 +25,7 @@ package exec
 import (
 	"errors"
 
-	"github.com/imZhuFei/zeepin/common/log"
+	"github.com/zeepin/ZeepinChain/common/log"
 )
 
 func (vm *VM) doCall(compiled compiledFunction, index int64) {

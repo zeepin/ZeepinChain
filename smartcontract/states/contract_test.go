@@ -21,8 +21,8 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/core/types"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/core/types"
 )
 
 func TestContract_Serialize_Deserialize(t *testing.T) {

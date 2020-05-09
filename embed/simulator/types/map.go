@@ -22,7 +22,7 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/imZhuFei/zeepin/embed/simulator/interfaces"
+	"github.com/zeepin/ZeepinChain/embed/simulator/interfaces"
 )
 
 type Map struct {

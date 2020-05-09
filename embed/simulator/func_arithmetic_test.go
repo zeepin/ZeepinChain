@@ -23,7 +23,7 @@ import (
 
 	"math/big"
 
-	"github.com/imZhuFei/zeepin/embed/simulator/types"
+	"github.com/zeepin/ZeepinChain/embed/simulator/types"
 )
 
 func TestOpBigInt(t *testing.T) {

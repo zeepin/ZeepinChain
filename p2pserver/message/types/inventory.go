@@ -23,10 +23,10 @@ import (
 	"encoding/binary"
 	"fmt"
 
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/common/serialization"
-	"github.com/imZhuFei/zeepin/errors"
-	p2pCommon "github.com/imZhuFei/zeepin/p2pserver/common"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/common/serialization"
+	"github.com/zeepin/ZeepinChain/errors"
+	p2pCommon "github.com/zeepin/ZeepinChain/p2pserver/common"
 )
 
 var LastInvHash common.Uint256

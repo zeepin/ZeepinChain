@@ -19,7 +19,7 @@
 package types
 
 import (
-	"github.com/imZhuFei/zeepin/p2pserver/common"
+	"github.com/zeepin/ZeepinChain/p2pserver/common"
 )
 
 type AddrReq struct{}

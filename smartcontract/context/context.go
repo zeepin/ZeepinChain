@@ -19,8 +19,8 @@
 package context
 
 import (
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/smartcontract/event"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/smartcontract/event"
 )
 
 // ContextRef is a interface of smart context

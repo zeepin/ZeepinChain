@@ -19,12 +19,12 @@
 package actor
 
 import (
-	"github.com/imZhuFei/zeepin/common"
-	"github.com/imZhuFei/zeepin/core/ledger"
-	"github.com/imZhuFei/zeepin/core/payload"
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/imZhuFei/zeepin/smartcontract/event"
-	cstate "github.com/imZhuFei/zeepin/smartcontract/states"
+	"github.com/zeepin/ZeepinChain/common"
+	"github.com/zeepin/ZeepinChain/core/ledger"
+	"github.com/zeepin/ZeepinChain/core/payload"
+	"github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain/smartcontract/event"
+	cstate "github.com/zeepin/ZeepinChain/smartcontract/states"
 )
 
 const (

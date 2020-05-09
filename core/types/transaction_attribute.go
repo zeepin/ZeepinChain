@@ -24,7 +24,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/imZhuFei/zeepin/common/serialization"
+	"github.com/zeepin/ZeepinChain/common/serialization"
 )
 
 type TransactionAttributeUsage byte

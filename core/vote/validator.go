@@ -19,9 +19,9 @@
 package vote
 
 import (
-	"github.com/imZhuFei/zeepin/core/genesis"
-	"github.com/imZhuFei/zeepin/core/types"
-	"github.com/zeepin/zeepinchain-crypto/keypair"
+	"github.com/zeepin/ZeepinChain/core/genesis"
+	"github.com/zeepin/ZeepinChain/core/types"
+	"github.com/zeepin/ZeepinChain-Crypto/keypair"
 )
 
 func GetValidators(txs []*types.Transaction) ([]keypair.PublicKey, error) {
